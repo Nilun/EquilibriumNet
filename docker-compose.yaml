@@ -1,0 +1,30 @@
+version: "3.7"
+
+services:
+  app:
+    build: ./EquilibriumCore/
+    networks:
+      - nginx-proxy
+      - default
+    depends_on:
+      - db
+    environment:
+      - VIRTUAL_HOST=equilibrium.jupotter.eu
+      - LETSENCRYPT_EMAIL=webmaster@jupotter.eu
+      - LETSENCRYPT_HOST=equilibrium.jupotter.eu
+      - ASPNETCORE_ENVIRONMENT=Production
+
+  db:
+    image: mariadb
+    environment:
+      - MYSQL_ROOT_PASSWORD=ange19061991
+      - MYSQL_DATABASE=EquilibriumBD
+    volumes:
+      - db:/var/lib/mysql
+
+volumes:
+  db:
+
+networks:
+  nginx-proxy:
+    external: true
