@@ -14,16 +14,17 @@
     @foreach (var item in Model.Item1)
     {
 
-        <a asp-action="MainRules" asp-route-id="@item.ID">@item.Category</a>
+     <a asp-action="MainRules" asp-route-id="@item.ID"><button>@item.Category</button> </a>
+       
 
         //   @Html.Raw(item.Text);
 
     }
 
-  @if (Model.Item2 != null)
-  {
-      @Html.Raw(Model.Item2.Text);
-  }
+    @if (Model.Item2 != null)
+    {
+        @Html.Raw(Model.Item2.Text);
+    }
 
 </div>
 
