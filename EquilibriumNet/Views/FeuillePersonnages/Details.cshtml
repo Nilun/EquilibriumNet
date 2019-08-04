@@ -1,0 +1,384 @@
+﻿@model EquilibriumNet.Models.FeuillePersonnage
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+
+<div>
+    <h2>  @Html.DisplayFor(model => model.Name)</h2>
+    <hr />
+
+
+    <table width="100%">
+        <tr>
+            <td>
+
+
+                </span>
+                <dl class="dl-horizontal" align="center">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Race)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Race)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Level)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Level)
+                    </dd>
+
+                    <dt>
+                        HP/Level
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.HPPerLevel)
+                    </dd>
+                    <dt>
+                        Max HP
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.HPMax)
+                    </dd>
+
+                </dl>
+            </td>
+            <td class="dl-horizontal" align="center">
+                <dl>
+                    <dt>
+                        Skill Point
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.SkillPoint)
+                    </dd>
+                    <dt>
+                        Class Point
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.ClassPoint)
+                    </dd>
+                    <dt>
+                        Memory
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Memory) (with  @Html.DisplayFor(model => model.MemoryBonus) bonus included )
+                    </dd>
+                </dl>
+            </td>
+        </tr>
+    </table>
+
+</div>
+<div>
+    <h3>Focus</h3>
+
+
+    <table align="center" height="150">
+
+        <tr style="text-align:center">
+            <td>Brutality</td>
+        </tr>
+        <tr>
+            <td style="background-image:url('../../Images/diamond.png') ; background-size:contain; background-repeat:no-repeat; background-position:center; width : auto ; height : auto ; text-align:center">
+                <h3> @Html.DisplayFor(model => model.Brutality)</h3>
+
+            </td>
+        </tr>
+    </table>
+
+
+    <table align="center" width="550" height="150">
+
+        <tr style="text-align:center">
+            <td width="50%">Vitality</td>
+            <td>Swiftness</td>
+        </tr>
+        <tr>
+            <td height="50" style="background-image:url('../../Images/diamond.png') ; background-size:contain; background-repeat:no-repeat; background-position:center; width : auto ;  text-align:center">
+                <h3> @Html.DisplayFor(model => model.Vitality)</h3>
+
+            </td>
+            <td height="50" style="background-image:url('../../Images/diamond.png') ; background-size:contain; background-repeat:no-repeat; background-position:center; width : auto ; text-align:center">
+                <h3>  @Html.DisplayFor(model => model.Swiftness)</h3>
+            </td>
+        </tr>
+    </table>
+
+    <table align="center" height="150" width="300">
+
+        <tr style="text-align:center">
+            <td width="50%">Malice</td>
+            <td>Spirit</td>
+        </tr>
+        <tr>
+            <td height="50" style="background-image:url('../../Images/diamond.png') ; background-size:contain; background-repeat:no-repeat; background-position:center; width : auto ;  text-align:center">
+                <h3> @Html.DisplayFor(model => model.Malice)</h3>
+
+            </td>
+            <td height="50" style="background-image:url('../../Images/diamond.png') ; background-size:contain; background-repeat:no-repeat; background-position:center; width : auto ;  text-align:center">
+
+                <h3>  @Html.DisplayFor(model => model.Spirit)</h3>
+            </td>
+        </tr>
+    </table>
+
+
+
+
+
+
+
+
+</div>
+<br />
+<br />
+<br />
+<div>
+    <br />
+    <br />
+    <br />
+    <table align="center" width="100%">
+        <tr>
+            <td>
+
+
+                <h4> War skills</h4>
+
+                <dl class="dl-horizontal">
+                    <dt>
+                        One Hand (Swiftness)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.OneHand)
+                    </dd>
+
+                    <dt>
+                        Light One Hand (Malice)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.LOneHand)
+                    </dd>
+
+                    <dt>
+                        Two Hand (Brutality)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.TwoHand)
+                    </dd>
+
+                    <dt>
+                        Throwing (Malice)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Throw)
+                    </dd>
+
+                    <dt>
+                        Archery (Brutality)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Bow)
+                    </dd>
+
+                    <dt>
+                        Bodybuilding (Vitality)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Body)
+                    </dd>
+
+                    <dt>
+                        Parry (Vitality)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Parry)
+                    </dd>
+                </dl>
+            </td>
+            <td>
+                <h4> Magic skills</h4>
+
+                <dl class="dl-horizontal">
+                    <dt>
+                        Elemental Magic (Spirit)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Elem)
+                    </dd>
+
+                    <dt>
+                        Occult Magic (Malice)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Occult)
+                    </dd>
+
+                    <dt>
+                        Primordial Magic (Brutality)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Primordial)
+                    </dd>
+
+                    <dt>
+                        Metamagic (Swiftness)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Metamagic)
+                    </dd>
+
+                    <dt>
+                        Infusion (Spirit)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Infusion)
+                    </dd>
+
+                    <dt>
+                        Resistance (Vitality)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Resist)
+                    </dd>
+
+                    <dt>
+                        Magic Identification (Spirit)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.MagicIdentif)
+                    </dd>
+                </dl>
+            </td>
+            <td>
+                <h4> Adventuring  skills</h4>
+
+                <dl class="dl-horizontal">
+                    <dt>
+                        Stealth (Malice)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Stealth)
+                    </dd>
+
+                    <dt>
+                        Survival (Swiftness)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Survival)
+                    </dd>
+
+                    <dt>
+                        Perception (Spirit)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Perception)
+                    </dd>
+
+                    <dt>
+                        Speechcraft (Malice)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Speech)
+                    </dd>
+
+                    <dt>
+                        History (Spirit)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.History)
+                    </dd>
+
+                    <dt>
+                        Medic (Spirit)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Medic)
+                    </dd>
+
+                    <dt>
+                        Empath (Swiftness)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Empath)
+                    </dd>
+
+                    <dt>
+                        Athletism (Brutality)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Athletism)
+                    </dd>
+
+                    <dt>
+                        Acrobatics (Vitality)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Acrobatics)
+                    </dd>
+
+                    <dt>
+                        Craft (Brutality)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Craft)
+                    </dd>
+
+                    <dt>
+                        Intimidation (Brutality)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Intimidation)
+                    </dd>
+                </dl>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div >
+    <hr />
+
+    <h3>Passive</h3><br />
+   &nbsp; @Html.DisplayFor(model => model.passive)
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+

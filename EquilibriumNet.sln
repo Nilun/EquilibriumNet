@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2003
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EquilibriumNet", "EquilibriumNet\EquilibriumNet.csproj", "{F654380B-4CE3-439F-95F4-3DEB3C065539}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EquilibriumCore", "EquilibriumCore\EquilibriumCore.csproj", "{FAA139AE-0CBB-41F3-9222-26FFA4C452B0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F654380B-4CE3-439F-95F4-3DEB3C065539}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F654380B-4CE3-439F-95F4-3DEB3C065539}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F654380B-4CE3-439F-95F4-3DEB3C065539}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F654380B-4CE3-439F-95F4-3DEB3C065539}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FAA139AE-0CBB-41F3-9222-26FFA4C452B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAA139AE-0CBB-41F3-9222-26FFA4C452B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAA139AE-0CBB-41F3-9222-26FFA4C452B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAA139AE-0CBB-41F3-9222-26FFA4C452B0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4EF7BA3F-3FED-45D4-AAFD-F558C118224C}
+	EndGlobalSection
+EndGlobal

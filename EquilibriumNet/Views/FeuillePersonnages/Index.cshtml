@@ -1,0 +1,89 @@
+﻿@model IEnumerable<EquilibriumNet.Models.FeuillePersonnage>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Race)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Level)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HPMax)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Memory)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Brutality)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Swiftness)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Spirit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Malice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Vitality)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Race)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Level)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.HPMax)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Memory)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.Brutality)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Swiftness)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Spirit)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Malice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Vitality)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+        </td>
+    </tr>
+}
+
+</table>

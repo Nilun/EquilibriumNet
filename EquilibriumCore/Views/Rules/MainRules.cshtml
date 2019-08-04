@@ -1,0 +1,29 @@
+﻿@model Tuple<List<EquilibriumCore.Models.Rules>, EquilibriumCore.Models.Rules >
+
+
+@{
+    ViewData["Title"] = "MainRules";
+}
+
+<h2>MainRules</h2>
+
+<div style="height:100% ; overflow:auto">
+    <h4>Rules</h4>
+    <hr />
+
+    @foreach (var item in Model.Item1)
+    {
+
+        <a asp-action="MainRules" asp-route-id="@item.ID">@item.Category</a>
+
+        //   @Html.Raw(item.Text);
+
+    }
+
+  @if (Model.Item2 != null)
+  {
+      @Html.Raw(Model.Item2.Text);
+  }
+
+</div>
+
