@@ -43,14 +43,14 @@ namespace EquilibriumCore
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseHttpsRedirection();
             }
             else
             {
+                app.UseDeveloperExceptionPage();
                 app.UseExceptionHandler("/Home/Error");
-                app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
@@ -60,6 +60,12 @@ namespace EquilibriumCore
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+	    using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+	    {
+		var context = serviceScope.ServiceProvider.GetService<DataContext>();
+		context.Database.Migrate();
+	    }
         }
     }
 }

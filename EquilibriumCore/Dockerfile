@@ -1,14 +1,13 @@
 FROM microsoft/dotnet:2.1-aspnetcore-runtime AS base
+EXPOSE 80
 WORKDIR /app
-EXPOSE 52961
-EXPOSE 44310
 
 FROM microsoft/dotnet:2.1-sdk AS build
 WORKDIR /src
-COPY ["EquilibriumCore/EquilibriumCore.csproj", "EquilibriumCore/"]
+COPY ["EquilibriumCore.csproj", "EquilibriumCore/"]
 RUN dotnet restore "EquilibriumCore/EquilibriumCore.csproj"
-COPY . .
 WORKDIR "/src/EquilibriumCore"
+COPY . .
 RUN dotnet build "EquilibriumCore.csproj" -c Release -o /app
 
 FROM build AS publish
