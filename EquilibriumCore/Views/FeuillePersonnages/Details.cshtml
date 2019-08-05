@@ -375,7 +375,9 @@
     <hr />
 
     <h3>Passive</h3><br />
-   &nbsp; @Html.DisplayFor(model => model.passive)
+    <div style="white-space:pre"> 
+      &nbsp; @Html.DisplayFor(model => model.passive)
+    </div>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
