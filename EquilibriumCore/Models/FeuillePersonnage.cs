@@ -18,7 +18,7 @@ namespace EquilibriumCore.Models
         public int HPNow { get; set; } = 0;
         [NotMapped] public int HPMax { get => 10 + Level * HPPerLevel + Body*5;  }
         public int MemoryBonus { get; set; }
-        [NotMapped] public int Memory { get => (int)Math.Truncate((double)(3 + Level / 2)); }
+        [NotMapped] public int Memory { get => (int)Math.Truncate((double)(3 + Level / 2)) + MemoryBonus; }
 
         public int SkillPoint { get => 4 + (int)Math.Truncate((double)((Level - 1) / 2)); }
         public int ClassPoint { get => 2 + (int)Math.Truncate((double)(Level / 2)); }
