@@ -16,7 +16,7 @@ namespace EquilibriumCore.Models
         public int Level { get; set; } = 1;
         public int HPPerLevel { get; set; } = 3;
         public int HPNow { get; set; } = 0;
-        [NotMapped] public int HPMax { get => 10 + Level * HPPerLevel;  }
+        [NotMapped] public int HPMax { get => 10 + Level * HPPerLevel + Body*5;  }
         public int MemoryBonus { get; set; }
         [NotMapped] public int Memory { get => (int)Math.Truncate((double)(3 + Level / 2)); }
 
@@ -53,8 +53,8 @@ namespace EquilibriumCore.Models
 
         public int Brutality { get => TwoHand + Bow + Primordial + Athletism + Craft + Intimidation; }
         public int Swiftness { get => OneHand + Metamagic + MagicIdentif + Survival + Empath; }
-        public int Spirit { get => Elem + Infusion + History + Medic; }
-        public int Malice { get => LOneHand + Occult + Stealth + Speech; }
+        public int Spirit { get => Elem + Infusion+ Perception + History + Medic; }
+        public int Malice { get => LOneHand + Occult + Stealth + Speech + Throw; }
         public int Vitality { get => Parry + Body + Resist + Acrobatics; }
 
         public string passive { get; set; }
