@@ -10,6 +10,8 @@ namespace EquilibriumCore.Models
     public class FeuillePersonnage
     {
        [Key] public int ID { get; set; }
+        public string Creator { get; set; }
+        public bool Shared { get; set; }
 
         public string Name { get; set; }
         public string Race { get; set; }

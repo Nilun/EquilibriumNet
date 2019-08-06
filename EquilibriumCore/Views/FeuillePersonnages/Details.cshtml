@@ -390,7 +390,11 @@
     </div>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @if (User.Identity.Name == Model.Creator)
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ID });
+        @:|
+    }
     @Html.ActionLink("Back to List", "Index")
 </p>
 
