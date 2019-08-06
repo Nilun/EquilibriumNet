@@ -30,6 +30,6 @@ volumes:
 
 networks:
   adminer:
-    external:true
+    external: true
   nginx-proxy:
     external: true
