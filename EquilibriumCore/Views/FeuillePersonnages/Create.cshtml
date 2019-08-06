@@ -64,16 +64,16 @@
 
         @*<tr>
 
-            <td>
-                @Html.LabelFor(model => model.HPNow, htmlAttributes: new { @class = "control-label col-md-2" })
+                <td>
+                    @Html.LabelFor(model => model.HPNow, htmlAttributes: new { @class = "control-label col-md-2" })
 
-            </td>
-            <td>
-                @Html.EditorFor(model => model.HPNow, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.HPNow, "", new { @class = "text-danger" })
-            </td>
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.HPNow, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.HPNow, "", new { @class = "text-danger" })
+                </td>
 
-        </tr>*@
+            </tr>*@
 
         <tr>
 
@@ -88,14 +88,14 @@
         </tr>
 
     </table>
-  
-      
-    
-         
-    
-   
 
-   
+
+
+
+
+
+
+
 
 
 
@@ -309,8 +309,16 @@
 
     </table>
     Passive :
-    <textarea asp-for="passive" class="form-control" ></textarea>
+    <textarea asp-for="passive" class="form-control"></textarea>
     <span asp-validation-for="passive" class="text-danger"></span>
+
+    Stuff :
+    <textarea asp-for="Stuff" class="form-control"></textarea>
+    <span asp-validation-for="Stuff" class="text-danger"></span>
+
+    Technic and Spell :
+    <textarea asp-for="comp" class="form-control"></textarea>
+    <span asp-validation-for="comp" class="text-danger"></span>
 
 
     <div class="form-group">
@@ -318,6 +326,8 @@
             <input type="submit" value="Create" class="btn btn-default" />
         </div>
     </div>
+
+
 </div>
 }
 

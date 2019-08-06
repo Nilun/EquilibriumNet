@@ -58,6 +58,8 @@ namespace EquilibriumCore.Models
         public int Vitality { get => Parry + Body + Resist + Acrobatics; }
 
         public string passive { get; set; }
+        public string Stuff { get; set; }
+        public string comp { get; set; }
         //[NotMapped] public int Memory { get =>(int)Math.Truncate((double)(3+Level/2));  }
         //[NotMapped] public int Brutality { get => skills!=null?skills.Brutality:999; }
         //[NotMapped] public int Swiftness { get => skills != null ? skills.Swiftness:999; }
