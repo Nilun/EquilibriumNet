@@ -16,6 +16,9 @@ services:
 
   db:
     image: mariadb
+    networks:
+      - adminer
+      - default
     environment:
       - MYSQL_ROOT_PASSWORD=ange19061991
       - MYSQL_DATABASE=EquilibriumBD
@@ -26,5 +29,7 @@ volumes:
   db:
 
 networks:
+  adminer:
+    external:true
   nginx-proxy:
     external: true
