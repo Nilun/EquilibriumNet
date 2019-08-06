@@ -17,8 +17,8 @@ namespace EquilibriumCore.Areas.Identity
         {
             builder.ConfigureServices((context, services) => {
                 services.AddDbContext<SecurityContext>(options =>
-                    options.UseSqlServer(
-                        context.Configuration.GetConnectionString("SecurityContextConnection")));
+                    options.UseMySql(
+                        context.Configuration.GetConnectionString("DefaultConnection")));
 
                 services.AddDefaultIdentity<EquilibriumCoreUser>()
                     .AddEntityFrameworkStores<SecurityContext>();

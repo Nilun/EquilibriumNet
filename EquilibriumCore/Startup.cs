@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EquilibriumCore.Data;
+using EquilibriumCore.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -76,6 +77,8 @@ namespace EquilibriumCore
 	    {
 		var context = serviceScope.ServiceProvider.GetService<DataContext>();
 		context.Database.Migrate();
+                var securcontext =    serviceScope.ServiceProvider.GetService<SecurityContext>();
+                securcontext.Database.Migrate();
 	    }
         }
     }
