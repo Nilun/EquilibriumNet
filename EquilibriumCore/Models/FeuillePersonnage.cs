@@ -50,14 +50,19 @@ namespace EquilibriumCore.Models
         public int Empath { get; set; }
         public int Athletism { get; set; }
         public int Acrobatics { get; set; }
-        public int Craft { get; set; }
+
+        public int CraftB { get; set; }
+        public int CraftSW { get; set; }
+        public int CraftS { get; set; }
+        public int CraftM { get; set; }
+
         public int Intimidation { get; set; }
 
-        public int Brutality { get => TwoHand + Bow + Primordial + Athletism + Craft + Intimidation; }
-        public int Swiftness { get => OneHand + Metamagic + MagicIdentif + Survival + Empath; }
-        public int Spirit { get => Elem + Infusion+ Perception + History + Medic; }
-        public int Malice { get => LOneHand + Occult + Stealth + Speech + Throw; }
-        public int Vitality { get => Parry + Body + Resist + Acrobatics; }
+        public int Brutality { get => TwoHand + Bow + Primordial + Athletism + CraftB + Intimidation; }
+        public int Swiftness { get => OneHand + Metamagic + MagicIdentif + Survival + Empath + CraftSW; }
+        public int Spirit { get => Elem + Infusion+ Perception + History + Medic + CraftS; }
+        public int Malice { get => LOneHand + Occult + Stealth + Speech + Throw + CraftM; }
+        public int Vitality { get => Parry + Body + Resist + Acrobatics ; }
 
         public string passive { get; set; }
         public string Stuff { get; set; }

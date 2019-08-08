@@ -293,8 +293,29 @@
         <tr>
             <td>Craft (Brutality) </td>
             <td>
-                @Html.EditorFor(model => model.Craft, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Craft, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.CraftB, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CraftB, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr>
+            <td>Craft (Swiftness) </td>
+            <td>
+                @Html.EditorFor(model => model.CraftSW, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CraftSW, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr>
+            <td>Craft (Spirit) </td>
+            <td>
+                @Html.EditorFor(model => model.CraftS, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CraftS, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr>
+            <td>Craft (Malice) </td>
+            <td>
+                @Html.EditorFor(model => model.CraftM, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CraftM, "", new { @class = "text-danger" })
             </td>
         </tr>
         <tr>
