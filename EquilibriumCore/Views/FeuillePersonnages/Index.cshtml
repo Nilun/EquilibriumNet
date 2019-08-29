@@ -79,11 +79,19 @@
             @Html.DisplayFor(modelItem => item.Vitality)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+
+            @if (User.Identity.Name == item.Creator)
+            {
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID });
+                @:|
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID });
+                @:|
+            }
+
+            @Html.ActionLink("Details", "Details", new { id = item.ID })
+
         </td>
-    </tr>
+        </tr >
 }
 
 </table>

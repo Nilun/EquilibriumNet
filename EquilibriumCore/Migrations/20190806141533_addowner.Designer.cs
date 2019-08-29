@@ -2,14 +2,16 @@
 using EquilibriumCore.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EquilibriumCore.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20190806141533_addowner")]
+    partial class addowner
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,15 +31,9 @@ namespace EquilibriumCore.Migrations
 
                     b.Property<int>("Bow");
 
-                    b.Property<int>("CraftB");
+                    b.Property<int>("Craft");
 
-                    b.Property<int>("CraftM");
-
-                    b.Property<int>("CraftS");
-
-                    b.Property<int>("CraftSW");
-
-                    b.Property<string>("Creator");
+                    b.Property<int>("Creator");
 
                     b.Property<int>("Elem");
 

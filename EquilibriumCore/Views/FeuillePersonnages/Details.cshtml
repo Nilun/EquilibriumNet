@@ -355,7 +355,28 @@
                     </dt>
 
                     <dd>
-                        @Html.DisplayFor(model => model.Craft)
+                        @Html.DisplayFor(model => model.CraftB)
+                    </dd>
+                    <dt>
+                        Craft (Swiftness)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.CraftSW)
+                    </dd>
+                    <dt>
+                        Craft (Spirit)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.CraftS)
+                    </dd>
+                    <dt>
+                        Craft (Malice)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.CraftM)
                     </dd>
 
                     <dt>
@@ -371,16 +392,30 @@
     </table>
 </div>
 
-<div >
+<div>
     <hr />
 
     <h3>Passive</h3><br />
-    <div style="white-space:pre"> 
-@Html.DisplayFor(model => model.passive)
+    <div style="white-space:pre">
+        @Html.DisplayFor(model => model.passive)
+    </div>
+
+    <h3>Stuff</h3><br />
+    <div style="white-space:pre">
+        @Html.DisplayFor(model => model.Stuff)
+    </div>
+
+    <h3>Technic and Spell</h3><br />
+    <div style="white-space:pre">
+        @Html.DisplayFor(model => model.comp)
     </div>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @if (User.Identity.Name == Model.Creator)
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ID });
+        @:|
+    }
     @Html.ActionLink("Back to List", "Index")
 </p>
 

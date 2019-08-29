@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EquilibriumCore.Data;
+using EquilibriumCore.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -33,6 +35,15 @@ namespace EquilibriumCore
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireDigit = true;
+                options.Password.RequiredLength = 5;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+            });
+
             services.AddDbContext<DataContext>(option=> option.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
@@ -50,8 +61,9 @@ namespace EquilibriumCore
                 app.UseDeveloperExceptionPage();
                 app.UseExceptionHandler("/Home/Error");
             }
-
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseAuthentication();
             app.UseCookiePolicy();
 
             app.UseMvc(routes =>
@@ -65,6 +77,8 @@ namespace EquilibriumCore
 	    {
 		var context = serviceScope.ServiceProvider.GetService<DataContext>();
 		context.Database.Migrate();
+                var securcontext =    serviceScope.ServiceProvider.GetService<SecurityContext>();
+                securcontext.Database.Migrate();
 	    }
         }
     }

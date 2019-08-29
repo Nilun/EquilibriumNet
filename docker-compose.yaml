@@ -18,9 +18,13 @@ services:
       - "traefik.enable=true"
       - "traefik.backend=EquilibriumNet"
       - "traefik.frontend.rule=Host:equilibrium.jupotter.eu"
+      - "traefik.port=80"
 
   db:
     image: mariadb
+    networks:
+      - adminer
+      - default
     environment:
       - MYSQL_ROOT_PASSWORD=ange19061991
       - MYSQL_DATABASE=EquilibriumBD
@@ -32,4 +36,6 @@ volumes:
 
 networks:
   web:
+    external: true
+  adminer:
     external: true

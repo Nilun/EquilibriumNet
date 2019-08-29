@@ -10,9 +10,11 @@ using Microsoft.AspNetCore.Mvc;
 using EquilibriumCore.Models;
 using EquilibriumCore.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EquilibriumCore.Controllers
 {
+    [Authorize]
     public class FeuillePersonnagesController : Controller
     {
         private DataContext db;
@@ -25,7 +27,10 @@ namespace EquilibriumCore.Controllers
         // GET: FeuillePersonnages
         public ActionResult Index()
         {
-            return View(db.Feuilles.ToList());
+
+            // User.Identity.Name
+            List<FeuillePersonnage> result = db.Feuilles.ToList().Where(a => a.Shared == true || a.Creator == User.Identity.Name).ToList();
+            return View(result);
         }
 
         // GET: FeuillePersonnages/Details/5
@@ -54,10 +59,11 @@ namespace EquilibriumCore.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind("ID,Name,Race,Level,HPPerLevel,HPNow,MemoryBonus,OneHand,LOneHand,TwoHand,Throw,Bow,Body,Parry,Elem,Occult,Primordial,Metamagic,Infusion,Resist,MagicIdentif,Stealth,Survival,Perception,Speech,History,Medic,Empath,Athletism,Acrobatics,Craft,Intimidation,passive")] FeuillePersonnage feuillePersonnage)
+        public ActionResult Create([Bind("ID,Name,Race,Level,HPPerLevel,HPNow,MemoryBonus,OneHand,LOneHand,TwoHand,Throw,Bow,Body,Parry,Elem,Occult,Primordial,Metamagic,Infusion,Resist,MagicIdentif,Stealth,Survival,Perception,Speech,History,Medic,Empath,Athletism,Acrobatics,CraftB,CraftSW,CraftS,CraftM,Intimidation,passive,Stuff,comp,Shared")] FeuillePersonnage feuillePersonnage)
         {
             if (ModelState.IsValid)
             {
+                feuillePersonnage.Creator = User.Identity.Name;
                 db.Feuilles.Add(feuillePersonnage);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -74,7 +80,11 @@ namespace EquilibriumCore.Controllers
                 return BadRequest();
             }
             FeuillePersonnage feuillePersonnage = db.Feuilles.Find(id);
-            if (feuillePersonnage == null)
+            if (User.Identity.Name != feuillePersonnage.Creator)
+            {
+                return Forbid();
+            }
+            if (feuillePersonnage == null )
             {
                 return NotFound();
             }
@@ -86,11 +96,12 @@ namespace EquilibriumCore.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind( "ID,Name,Race,Level,HPPerLevel,HPNow,MemoryBonus,OneHand,LOneHand,TwoHand,Throw,Bow,Body,Parry,Elem,Occult,Primordial,Metamagic,Infusion,Resist,MagicIdentif,Stealth,Survival,Perception,Speech,History,Medic,Empath,Athletism,Acrobatics,Craft,Intimidation,passive")] FeuillePersonnage feuillePersonnage)
+        public ActionResult Edit([Bind("ID,Name,Race,Level,HPPerLevel,HPNow,MemoryBonus,OneHand,LOneHand,TwoHand,Throw,Bow,Body,Parry,Elem,Occult,Primordial,Metamagic,Infusion,Resist,MagicIdentif,Stealth,Survival,Perception,Speech,History,Medic,Empath,Athletism,Acrobatics,CraftB,CraftSW,CraftS,CraftM,Intimidation,passive,Stuff,comp,Shared")] FeuillePersonnage feuillePersonnage)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(feuillePersonnage).State = EntityState.Modified;
+                feuillePersonnage.Creator = User.Identity.Name;
+                db.Feuilles.Update(feuillePersonnage);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -105,7 +116,11 @@ namespace EquilibriumCore.Controllers
                 return BadRequest();
             }
             FeuillePersonnage feuillePersonnage = db.Feuilles.Find(id);
-            if (feuillePersonnage == null)
+            if (User.Identity.Name != feuillePersonnage.Creator)
+            {
+                return Forbid();
+            }
+            if (feuillePersonnage == null )
             {
                 return NotFound();
             }
