@@ -329,6 +329,22 @@
         </div>
     </div>
 
+    <div class="form-group">
+       Game linked
+        <div class="col-md-10">
+
+            <select asp-for="partie" id="partie" name="partie" type="text" value="@Model.partie" class="form-control">
+
+                @foreach (string partie in Model.partiePossible)
+                {
+                    <option value="@partie">@partie</option>
+                }
+
+            </select>
+
+            @Html.ValidationMessageFor(model => model.partie, "", new { @class = "text-danger" })
+        </div>
+    </div>
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">

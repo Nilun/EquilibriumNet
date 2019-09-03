@@ -2,14 +2,16 @@
 using EquilibriumCore.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EquilibriumCore.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20190809085825_sup dictio 2")]
+    partial class supdictio2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -125,29 +127,11 @@ namespace EquilibriumCore.Migrations
 
                     b.Property<string>("comp");
 
-                    b.Property<string>("partie");
-
                     b.Property<string>("passive");
 
                     b.HasKey("ID");
 
                     b.ToTable("Feuilles");
-                });
-
-            modelBuilder.Entity("EquilibriumCore.Models.Partie", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Joueurs");
-
-                    b.Property<string>("MJ");
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Partie");
                 });
 
             modelBuilder.Entity("EquilibriumCore.Models.Rules", b =>

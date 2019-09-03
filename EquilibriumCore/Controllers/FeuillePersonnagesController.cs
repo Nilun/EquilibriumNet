@@ -29,7 +29,8 @@ namespace EquilibriumCore.Controllers
         {
 
             // User.Identity.Name
-            List<FeuillePersonnage> result = db.Feuilles.ToList().Where(a => a.Shared == true || a.Creator == User.Identity.Name).ToList();
+            List<string> partieMJ = db.Partie.Where(p => p.MJ == User.Identity.Name).Select(p => p.Name).ToList();
+            List<FeuillePersonnage> result = db.Feuilles.ToList().Where(a => a.Shared == true || a.Creator == User.Identity.Name || partieMJ.Contains(a.partie)).ToList();
             return View(result);
         }
 
@@ -48,10 +49,15 @@ namespace EquilibriumCore.Controllers
             return View(feuillePersonnage);
         }
 
+        public List<string> getParties()
+        {
+            List<string> result = db.Partie.Select(a => a.Name).ToList();
+            return result;
+        }
         // GET: FeuillePersonnages/Create
         public ActionResult Create()
         {
-            return   View(new FeuillePersonnage());
+            return   View(new FeuillePersonnage() { partiePossible=getParties() });
         }
 
         // POST: FeuillePersonnages/Create
@@ -59,7 +65,7 @@ namespace EquilibriumCore.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind("ID,Name,Race,Level,HPPerLevel,HPNow,MemoryBonus,OneHand,LOneHand,TwoHand,Throw,Bow,Body,Parry,Elem,Occult,Primordial,Metamagic,Infusion,Resist,MagicIdentif,Stealth,Survival,Perception,Speech,History,Medic,Empath,Athletism,Acrobatics,CraftB,CraftSW,CraftS,CraftM,Intimidation,passive,Stuff,comp,Shared")] FeuillePersonnage feuillePersonnage)
+        public ActionResult Create([Bind("ID,Name,Race,Level,HPPerLevel,HPNow,MemoryBonus,OneHand,LOneHand,TwoHand,Throw,Bow,Body,Parry,Elem,Occult,Primordial,Metamagic,Infusion,Resist,MagicIdentif,Stealth,Survival,Perception,Speech,History,Medic,Empath,Athletism,Acrobatics,CraftB,CraftSW,CraftS,CraftM,Intimidation,passive,Stuff,comp,partie,Shared")] FeuillePersonnage feuillePersonnage)
         {
             if (ModelState.IsValid)
             {
@@ -88,6 +94,7 @@ namespace EquilibriumCore.Controllers
             {
                 return NotFound();
             }
+            feuillePersonnage.partiePossible =  getParties();
             return View(feuillePersonnage);
         }
 
@@ -96,7 +103,7 @@ namespace EquilibriumCore.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind("ID,Name,Race,Level,HPPerLevel,HPNow,MemoryBonus,OneHand,LOneHand,TwoHand,Throw,Bow,Body,Parry,Elem,Occult,Primordial,Metamagic,Infusion,Resist,MagicIdentif,Stealth,Survival,Perception,Speech,History,Medic,Empath,Athletism,Acrobatics,CraftB,CraftSW,CraftS,CraftM,Intimidation,passive,Stuff,comp,Shared")] FeuillePersonnage feuillePersonnage)
+        public ActionResult Edit([Bind("ID,Name,Race,Level,HPPerLevel,HPNow,MemoryBonus,OneHand,LOneHand,TwoHand,Throw,Bow,Body,Parry,Elem,Occult,Primordial,Metamagic,Infusion,Resist,MagicIdentif,Stealth,Survival,Perception,Speech,History,Medic,Empath,Athletism,Acrobatics,CraftB,CraftSW,CraftS,CraftM,Intimidation,passive,Stuff,comp,partie,Shared")] FeuillePersonnage feuillePersonnage)
         {
             if (ModelState.IsValid)
             {

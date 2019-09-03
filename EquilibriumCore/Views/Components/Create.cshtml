@@ -1,0 +1,89 @@
+﻿@model EquilibriumCore.Models.Component
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create</h2>
+
+<h4>Component</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="name" class="control-label"></label>
+                <input asp-for="name" class="form-control" />
+                <span asp-validation-for="name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Element" class="control-label"></label>
+                <select asp-for="Element" class="form-control">
+                    <option value="Fire">Fire</option>
+                    <option value="Wind">Wind</option> 
+                    <option value="Earth">Earth</option>
+                    <option value="Water">Water</option> 
+                    <option value="Order">Order</option> 
+                    <option value="Shadow">Shadow</option> 
+                    <option value="Chaos">Chaos</option> 
+                    <option value="Light">Light</option> 
+                    <option value="Arcana">Arcana</option>
+                    <option value="War">War</option> 
+                    <option value="Metamagic">Metamagic</option> 
+                    <option value="Utility">Utility</option>
+                </select>
+                <span asp-validation-for="Element" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PriceString" class="control-label"></label>
+                <input asp-for="PriceString" class="form-control" />
+                <span asp-validation-for="PriceString" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="IsForm" /> @Html.DisplayNameFor(model => model.IsForm)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Range" class="control-label"></label>
+                <input asp-for="Range" class="form-control" />
+                <span asp-validation-for="Range" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Area" class="control-label"></label>
+                <input asp-for="Area" class="form-control" />
+                <span asp-validation-for="Area" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="text" class="control-label"></label>
+                <input asp-for="text" class="form-control" />
+                <span asp-validation-for="text" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="valuesString" class="control-label"></label>
+                <input asp-for="valuesString" class="form-control" />
+                <span asp-validation-for="valuesString" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="upgradesString" class="control-label"></label>
+                <input asp-for="upgradesString" class="form-control" />
+                <span asp-validation-for="upgradesString" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

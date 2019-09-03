@@ -22,7 +22,7 @@ namespace EquilibriumCore.Models
         public int MemoryBonus { get; set; }
         [NotMapped] public int Memory { get => (int)Math.Truncate((double)(3 + Level / 2)) + MemoryBonus; }
 
-        public int SkillPoint { get => 4 + (int)Math.Truncate((double)((Level - 1) / 2)); }
+        public int SkillPoint { get => 5 + (int)Math.Truncate((double)((Level - 1) / 2)); }
         public int ClassPoint { get => 2 + (int)Math.Truncate((double)(Level / 2)); }
 
         public int OneHand { get; set; }
@@ -58,15 +58,18 @@ namespace EquilibriumCore.Models
 
         public int Intimidation { get; set; }
 
-        public int Brutality { get => TwoHand + Bow + Primordial + Athletism + CraftB + Intimidation; }
-        public int Swiftness { get => OneHand + Metamagic + MagicIdentif + Survival + Empath + CraftSW; }
-        public int Spirit { get => Elem + Infusion+ Perception + History + Medic + CraftS; }
-        public int Malice { get => LOneHand + Occult + Stealth + Speech + Throw + CraftM; }
-        public int Vitality { get => Parry + Body + Resist + Acrobatics ; }
+        public int Brutality { get =>1 + TwoHand + Bow + Primordial + Athletism + CraftB + Intimidation; }
+        public int Swiftness { get => 1 + OneHand + Metamagic + MagicIdentif + Survival + Empath + CraftSW; }
+        public int Spirit { get => 1 + Elem + Infusion+ Perception + History + Medic + CraftS; }
+        public int Malice { get => 1 + LOneHand + Occult + Stealth + Speech + Throw + CraftM; }
+        public int Vitality { get => 1 + Parry + Body + Resist + Acrobatics ; }
 
         public string passive { get; set; }
         public string Stuff { get; set; }
         public string comp { get; set; }
+
+        public string partie { get; set; }
+        [NotMapped] public List<string> partiePossible = new List<string>();
         //[NotMapped] public int Memory { get =>(int)Math.Truncate((double)(3+Level/2));  }
         //[NotMapped] public int Brutality { get => skills!=null?skills.Brutality:999; }
         //[NotMapped] public int Swiftness { get => skills != null ? skills.Swiftness:999; }

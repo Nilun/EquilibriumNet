@@ -2,47 +2,21 @@
 using EquilibriumCore.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EquilibriumCore.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20190809084932_sup dictio")]
+    partial class supdictio
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
-
-            modelBuilder.Entity("EquilibriumCore.Models.Component", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("Area");
-
-                    b.Property<int>("Element");
-
-                    b.Property<bool>("IsForm");
-
-                    b.Property<string>("PriceString");
-
-                    b.Property<int>("Range");
-
-                    b.Property<string>("name");
-
-                    b.Property<string>("text");
-
-                    b.Property<string>("upgradesString");
-
-                    b.Property<string>("valuesString");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Component");
-                });
 
             modelBuilder.Entity("EquilibriumCore.Models.FeuillePersonnage", b =>
                 {
@@ -125,29 +99,11 @@ namespace EquilibriumCore.Migrations
 
                     b.Property<string>("comp");
 
-                    b.Property<string>("partie");
-
                     b.Property<string>("passive");
 
                     b.HasKey("ID");
 
                     b.ToTable("Feuilles");
-                });
-
-            modelBuilder.Entity("EquilibriumCore.Models.Partie", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Joueurs");
-
-                    b.Property<string>("MJ");
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Partie");
                 });
 
             modelBuilder.Entity("EquilibriumCore.Models.Rules", b =>
