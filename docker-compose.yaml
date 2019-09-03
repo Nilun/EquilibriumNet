@@ -4,7 +4,7 @@ services:
   app:
     build: ./EquilibriumCore/
     networks:
-      - nginx-proxy
+      - web
       - default
     depends_on:
       - db
@@ -13,6 +13,12 @@ services:
       - LETSENCRYPT_EMAIL=webmaster@jupotter.eu
       - LETSENCRYPT_HOST=equilibrium.jupotter.eu
       - ASPNETCORE_ENVIRONMENT=Production
+    labels:
+      - "traefik.docker.network=web"
+      - "traefik.enable=true"
+      - "traefik.backend=EquilibriumNet"
+      - "traefik.frontend.rule=Host:equilibrium.jupotter.eu"
+      - "traefik.port=80"
 
   db:
     image: mariadb
@@ -29,7 +35,7 @@ volumes:
   db:
 
 networks:
-  adminer:
+  web:
     external: true
-  nginx-proxy:
+  adminer:
     external: true
