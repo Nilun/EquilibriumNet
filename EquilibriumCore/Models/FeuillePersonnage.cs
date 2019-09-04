@@ -68,8 +68,9 @@ namespace EquilibriumCore.Models
         public string Stuff { get; set; }
         public string comp { get; set; }
 
-        public string partie { get; set; }
-        [NotMapped] public List<string> partiePossible = new List<string>();
+        public int IDPartie { get; set; }
+        [NotMapped] public string partie { get; set; }
+        [NotMapped] public List<Partie> partiePossible = new List<Partie>();
         //[NotMapped] public int Memory { get =>(int)Math.Truncate((double)(3+Level/2));  }
         //[NotMapped] public int Brutality { get => skills!=null?skills.Brutality:999; }
         //[NotMapped] public int Swiftness { get => skills != null ? skills.Swiftness:999; }

@@ -335,7 +335,7 @@
 
             <select asp-for="partie" id="partie" name="partie" type="text" value="@Model.partie" class="form-control">
 
-                @foreach (string partie in Model.partiePossible)
+                @foreach (string partie in Model.partiePossible.Select(a=>a.Name))
                 {
                     <option value="@partie">@partie</option>
                 }

@@ -29,8 +29,8 @@ namespace EquilibriumCore.Controllers
         {
 
             // User.Identity.Name
-            List<string> partieMJ = db.Partie.Where(p => p.MJ == User.Identity.Name).Select(p => p.Name).ToList();
-            List<FeuillePersonnage> result = db.Feuilles.ToList().Where(a => a.Shared == true || a.Creator == User.Identity.Name || partieMJ.Contains(a.partie)).ToList();
+            List<int> partieMJ = db.Partie.Where(p => p.MJ == User.Identity.Name).Select(p => p.ID).ToList();
+            List<FeuillePersonnage> result = db.Feuilles.ToList().Where(a => a.Shared == true || a.Creator == User.Identity.Name || partieMJ.Contains(a.IDPartie)).ToList();
             return View(result);
         }
 
@@ -49,9 +49,9 @@ namespace EquilibriumCore.Controllers
             return View(feuillePersonnage);
         }
 
-        public List<string> getParties()
+        public List<Partie> getParties()
         {
-            List<string> result = db.Partie.Select(a => a.Name).ToList();
+            List<Partie> result = db.Partie.ToList();
             return result;
         }
         // GET: FeuillePersonnages/Create
@@ -69,6 +69,7 @@ namespace EquilibriumCore.Controllers
         {
             if (ModelState.IsValid)
             {
+                feuillePersonnage.IDPartie = db.Partie.Where(a => a.Name == feuillePersonnage.partie).First().ID;
                 feuillePersonnage.Creator = User.Identity.Name;
                 db.Feuilles.Add(feuillePersonnage);
                 db.SaveChanges();
@@ -94,7 +95,8 @@ namespace EquilibriumCore.Controllers
             {
                 return NotFound();
             }
-            feuillePersonnage.partiePossible =  getParties();
+            feuillePersonnage.partiePossible =  getParties();            
+            feuillePersonnage.partie = db.Partie.Where(a => a.ID == feuillePersonnage.IDPartie).FirstOrDefault().Name;
             return View(feuillePersonnage);
         }
 
@@ -107,6 +109,7 @@ namespace EquilibriumCore.Controllers
         {
             if (ModelState.IsValid)
             {
+                feuillePersonnage.IDPartie = db.Partie.Where(a => a.Name == feuillePersonnage.partie).First().ID;
                 feuillePersonnage.Creator = User.Identity.Name;
                 db.Feuilles.Update(feuillePersonnage);
                 db.SaveChanges();
