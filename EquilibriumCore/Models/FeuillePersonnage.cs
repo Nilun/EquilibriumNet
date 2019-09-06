@@ -9,7 +9,7 @@ namespace EquilibriumCore.Models
 {
     public class FeuillePersonnage
     {
-       [Key] public int ID { get; set; }
+        [Key] public int ID { get; set; }
         public string Creator { get; set; }
         public bool Shared { get; set; }
 
@@ -18,7 +18,7 @@ namespace EquilibriumCore.Models
         public int Level { get; set; } = 1;
         public int HPPerLevel { get; set; } = 3;
         public int HPNow { get; set; } = 0;
-        [NotMapped] public int HPMax { get => 10 + Level * HPPerLevel + Body*5;  }
+        [NotMapped] public int HPMax { get => 10 + Level * HPPerLevel + Body * 5; }
         public int MemoryBonus { get; set; }
         [NotMapped] public int Memory { get => (int)Math.Truncate((double)(3 + Level / 2)) + MemoryBonus; }
 
@@ -58,11 +58,11 @@ namespace EquilibriumCore.Models
 
         public int Intimidation { get; set; }
 
-        public int Brutality { get =>1 + TwoHand + Bow + Primordial + Athletism + CraftB + Intimidation; }
+        public int Brutality { get => 1 + TwoHand + Bow + Primordial + Athletism + CraftB + Intimidation; }
         public int Swiftness { get => 1 + OneHand + Metamagic + MagicIdentif + Survival + Empath + CraftSW; }
-        public int Spirit { get => 1 + Elem + Infusion+ Perception + History + Medic + CraftS; }
+        public int Spirit { get => 1 + Elem + Infusion + Perception + History + Medic + CraftS; }
         public int Malice { get => 1 + LOneHand + Occult + Stealth + Speech + Throw + CraftM; }
-        public int Vitality { get => 1 + Parry + Body + Resist + Acrobatics ; }
+        public int Vitality { get => 1 + Parry + Body + Resist + Acrobatics; }
 
         public string passive { get; set; }
         public string Stuff { get; set; }
@@ -71,6 +71,7 @@ namespace EquilibriumCore.Models
         public int IDPartie { get; set; }
         [NotMapped] public string partie { get; set; }
         [NotMapped] public List<Partie> partiePossible = new List<Partie>();
+        [NotMapped] public List<Spell> Spells { get; set; } = new List<Spell>();
         //[NotMapped] public int Memory { get =>(int)Math.Truncate((double)(3+Level/2));  }
         //[NotMapped] public int Brutality { get => skills!=null?skills.Brutality:999; }
         //[NotMapped] public int Swiftness { get => skills != null ? skills.Swiftness:999; }

@@ -2,14 +2,16 @@
 using EquilibriumCore.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EquilibriumCore.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20190904145038_startspells")]
+    partial class startspells
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -173,15 +175,11 @@ namespace EquilibriumCore.Migrations
 
                     b.Property<int>("Element");
 
-                    b.Property<int>("IDCaster");
-
                     b.Property<string>("IDComponents");
 
                     b.Property<int>("IDForm");
 
                     b.Property<string>("listID");
-
-                    b.Property<string>("name");
 
                     b.HasKey("ID");
 

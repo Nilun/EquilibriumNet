@@ -46,6 +46,7 @@ namespace EquilibriumCore.Controllers
             {
                 return NotFound();
             }
+            feuillePersonnage.Spells = db.Spell.Where(s => s.IDCaster == feuillePersonnage.ID).ToList();
             return View(feuillePersonnage);
         }
 

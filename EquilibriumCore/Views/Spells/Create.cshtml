@@ -1,0 +1,161 @@
+﻿@model EquilibriumCore.Models.Spell
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+@foreach (string item in Enum.GetNames(typeof(Element)))
+{
+    <input type="checkbox" id="@item Lore" onclick="Filter('@item')" />@item
+}
+
+<h2>Create</h2>
+
+
+<h4>Spell</h4>
+<hr>
+<ul id="myUL">
+
+    @foreach (Component item in Model.AllComponents.Where(a => a.IsForm == true).OrderBy(a => a.name))
+    {
+        <li class="@item.Element"  id="@item.ID" style="display:none">
+            <h4>@item.name</h4><div id="@item.ID desc">@item.getFusedStringForDescription()</div>
+
+            <button class="btn btn-success" onclick="Add(@item.ID)">+</button>
+            <label id="@item.ID level">0</label>
+            <button class="btn btn-danger" onclick="Remove(@item.ID)">-</button>
+        </li>
+
+
+    }
+
+    <hr>
+
+    @foreach (Component item in Model.AllComponents.Where(a => a.IsForm == false).OrderBy(a => a.name))
+    {
+        <li class="@item.Element" id="@item.ID" style="display:none">
+            <h4>@item.name</h4><div id="@item.ID desc">@item.getFusedStringForDescription()</div>
+
+            <button class="btn btn-success" onclick="Add(@item.ID)">+</button>
+            <label id="@item.ID level">0</label>
+            <button class="btn btn-danger" onclick="Remove(@item.ID)">-</button>
+        </li>
+    }
+
+    </ul>
+
+
+
+
+
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="name" class="control-label"></label>
+                <input type="text" asp-for="name" />
+
+            </div>
+
+
+
+            <div class="form-group">
+
+                <input asp-for="IDComponents" class="form-control" id="compostring" style="display:none" />
+                <span asp-validation-for="IDComponents" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+
+                <input asp-for="IDCaster" class="form-control" id="IDCaster" style="display:none" />
+                <span asp-validation-for="IDCaster" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+
+<script>
+    function Filter(element) {
+        // Declare variables
+        console.log(element);
+        var input, filter, ul, li, a, i, txtValue;
+        ul = document.getElementById("myUL");
+        li = ul.getElementsByClassName(element);
+
+
+        // Loop through all list items, and hide those who don't match the search query
+        for (i = 0; i < li.length; i++) {
+
+            if (li[i].style.display == "none") {
+                li[i].style.display = "";
+            } else {
+                li[i].style.display = "none";
+            }
+        }
+    }
+
+    function Add(compoID) {
+        // Declare variables
+        //console.log(element);
+        var ul, elem, lab;
+        lab = document.getElementById(compoID + " level");
+        elem = document.getElementById("compostring");
+
+        lab.textContent = (Number( lab.textContent)) + 1;
+        if ((Number(lab.textContent)) > 1) {
+            var v = elem.value.replace(";" + compoID + ":" + (Number(lab.textContent) - 1) + ";" , ";"+ compoID + ":" + (Number(lab.textContent)) + ";");          
+            elem.value = v;
+        } else if ((Number(lab.textContent)) > 0) {
+            elem.value = elem.value + ";" + compoID + ":" + (Number(lab.textContent)) + ";";
+        } else { 
+            elem.value = ";" + elem.value.replace(compoID + ":" + (Number(lab.textContent) + 1) + ";", "");
+        }
+
+    }
+    function Remove(compoID) {
+        // Declare variables
+        //console.log(element);
+        var ul, li, lab,elem;
+        lab = document.getElementById(compoID + " level");
+        elem = document.getElementById("compostring");
+
+        if ((Number(lab.textContent)) - 1 < 0) {
+            lab.textContent = 0;
+        } else {
+            lab.textContent = (Number(lab.textContent)) - 1;
+        }
+
+
+        if ((Number(lab.textContent)) >= 1) {
+            elem.value = elem.value.replace(";" + compoID + ":" + (Number(lab.textContent) + 1) + ";", ";"+ compoID + ":" + (Number(lab.textContent)) + ";");
+        } else if ((Number(lab.textContent)) > 0) {
+            elem.value = elem.value + ";" + compoID + ":" + (Number(lab.textContent)) + ";";
+        } else {
+            elem.value = elem.value.replace(";" +compoID + ":" + (Number(lab.textContent) + 1) + ";", "");
+        }
+
+    }
+</script>

@@ -408,14 +408,67 @@
     <h3>Technic and Spell</h3><br />
     <div style="white-space:pre">
         @Html.DisplayFor(model => model.comp)
+        <hr />
+
+        @foreach (Spell spell in Model.Spells)
+        {
+
+            <h5 onclick="HideShow('@spell.ID')"> @spell.name</h5>
+            <dl id="@spell.ID" class="dl-horizontal" style="display:none">
+
+
+
+                <dt>
+                    Range ( --> ) - Area (O)
+                </dt>
+                <dd>
+                    @spell.getRange() ( --> ) -  @spell.getArea() (O)
+                </dd>
+                <dt>
+                    Cost
+                </dt>
+                <dd>
+                    @spell.getCostString()
+                </dd>
+
+                <dt>
+                    Effet
+                </dt>
+                <dd style="white-space:pre">
+                    @spell.getSpellDescription()
+                </dd>
+
+            </dl>
+        }
     </div>
 </div>
 <p>
     @if (User.Identity.Name == Model.Creator)
     {
+        @Html.ActionLink("New Spell", "Create", "Spells", new { id = Model.ID })
+        @:<br />
         @Html.ActionLink("Edit", "Edit", new { id = Model.ID });
         @:|
     }
     @Html.ActionLink("Back to List", "Index")
 </p>
+<script>
+    function HideShow(element) {
+        // Declare variables
+        console.log(element);
+        var box;
+        box = document.getElementById(element);
+       
 
+
+        // Loop through all list items, and hide those who don't match the search query
+        
+
+            if (box.style.display == "none") {
+                box.style.display = "";
+            } else {
+                box.style.display = "none";
+            }
+        
+    }
+</script>

@@ -1,0 +1,46 @@
+﻿@model EquilibriumCore.Models.Spell
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Spell</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Element)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Element)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IDForm)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IDForm)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.listID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.listID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IDComponents)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IDComponents)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="ID" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>
