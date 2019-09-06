@@ -15,25 +15,16 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ID" />
             <div class="form-group">
+                <label asp-for="name" class="control-label"></label>
+                <input type="text" asp-for="name" class="form-control"  />
+                <span asp-validation-for="name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Element" class="control-label"></label>
-                <select asp-for="Element" class="form-control"></select>
+                <input type="text" asp-for="Element" class="form-control" disabled />
                 <span asp-validation-for="Element" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="IDForm" class="control-label"></label>
-                <input asp-for="IDForm" class="form-control" />
-                <span asp-validation-for="IDForm" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="listID" class="control-label"></label>
-                <input asp-for="listID" class="form-control" />
-                <span asp-validation-for="listID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IDComponents" class="control-label"></label>
-                <input asp-for="IDComponents" class="form-control" />
-                <span asp-validation-for="IDComponents" class="text-danger"></span>
-            </div>
+
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>

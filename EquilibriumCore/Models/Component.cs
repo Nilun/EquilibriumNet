@@ -62,6 +62,7 @@ namespace EquilibriumCore.Models
 
             return res;
         }
+
         public string getFusedStringForLevel(int level)
         {
             if (valuesString == null) return text;
@@ -69,25 +70,24 @@ namespace EquilibriumCore.Models
             string res = "";
 
             string[] valuesBase = valuesString.Split(';');
-            List<int> valbase = new List<int>();
+            List<double> valbase = new List<double>();
             foreach (string item in valuesBase)
             {
-                valbase.Add(Convert.ToInt32(item));
+                valbase.Add(Convert.ToDouble(item));
             }
 
             string[] valuesBaseUp = upgradesString.Split(';');
-            List<int> valbaseup = new List<int>();
+            List<double> valbaseup = new List<double>();
             foreach (string item in valuesBaseUp)
             {
                 valbaseup.Add(Convert.ToInt32(item));
             }
-            for (int i = 0; i < level; i++)
-            {
+            
                 for (int j = 0; j < valbaseup.Count; j++)
                 {
-                    valbase[i] = valbase[i] + valbaseup[i];
+                    valbase[j] = valbase[j] + valbaseup[j]*level;
                 }
-            }
+            
 
 
 
