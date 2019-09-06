@@ -408,37 +408,20 @@
     <h3>Technic and Spell</h3><br />
     <div style="white-space:pre">
         @Html.DisplayFor(model => model.comp)
-        <hr />
-
-        @foreach (Spell spell in Model.Spells)
-        {
-
-            <h5 onclick="HideShow('@spell.ID')"> @spell.name</h5>
-            <dl id="@spell.ID" class="dl-horizontal" style="display:none">
-
-
-
-                <dt>
-                    Range ( --> ) - Area (O)
-                </dt>
-                <dd>
-                    @spell.getRange() ( --> ) -  @spell.getArea() (O)
-                </dd>
-                <dt>
-                    Cost
-                </dt>
-                <dd>
-                    @spell.getCostString()
-                </dd>
-
-                <dt>
-                    Effet
-                </dt>
-                <dd style="white-space:pre">
+        <hr />@foreach (Spell spell in Model.Spells){
+            <h4 onclick="HideShow('@spell.ID')"> @spell.name</h4>
+            <div id="@spell.ID" class="dl-horizontal" style="display:none">
+                <b>  Range ( --> ) - Area (O)     </b>
+                @spell.getRange() ( --> ) -  @spell.getArea() (O)
+                <b>  Cost       </b>
+                @spell.getCostString()
+                <b> Effet      </b>
+                <div style="white-space:pre">
                     @spell.getSpellDescription()
-                </dd>
-
-            </dl>
+                </div>
+                @if (User.Identity.Name == Model.Creator)
+                {<a asp-action="Delete" asp-controller="Spells" asp-route-id="@spell.ID">Delete  @spell.name </a>}
+                </div>
         }
     </div>
 </div>

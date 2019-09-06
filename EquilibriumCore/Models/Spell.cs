@@ -9,49 +9,49 @@ using System.Text;
 
 namespace EquilibriumCore.Models
 {
-    public class Spell 
+    public class Spell
     {
-        [Key]public int ID { get; set; }
+        [Key] public int ID { get; set; }
         public string name { get; set; }
         public Element Element { get; set; }
         public int IDForm { get; set; }
         public string listID { get; set; }
-        [NotMapped] public Dictionary<Component,int> components { get; set; }
         [NotMapped] public List<Component> AllComponents { get; set; }
         public string IDComponents { get; set; }
         [NotMapped] public string description { get; set; }
         public int IDCaster { get; set; }
-       
+
+
+
+        [NotMapped] public IEnumerable<Component> Components { get => LinkComponents?.Select(a=>a.Component);}
+        
+        public List<SpellLinkComponent> LinkComponents { get; set; } = new List<SpellLinkComponent>();
 
         [NotMapped] public string cost { get; set; }
         public Spell()
         {
-            components = new Dictionary<Component, int>();
+           
         }
 
         public string getSpellDescription()
         {
             bool haveform = false;
             string res = "";
-            string[] sr = IDComponents.Split(';');
-            foreach (string item in sr)
+           var compote = Components.Distinct();
+            foreach (Component compo in compote)
             {
-                if(item != "")
-                {
-                    string[] elem = item.Split(':');
-                    int id = Convert.ToInt32(elem[0]);
-                    Component compo = AllComponents.Where(a => a.ID == id ).First();
+                                  
                     if(compo.IsForm && !haveform)
                     {
                         haveform = true;
-                        res = compo.getFusedStringForLevel(Convert.ToInt32(elem[1])) + Environment.NewLine + res;
+                        res = compo.getFusedStringForLevel(Components.Count(a=>a.ID==compo.ID)) + Environment.NewLine + res;
                     }
                     else
                     {
-                        res += compo.getFusedStringForLevel(Convert.ToInt32(elem[1])) + Environment.NewLine;
+                        res += compo.getFusedStringForLevel(Components.Count(a => a.ID == compo.ID)) + Environment.NewLine;
                     }
                  
-                }
+                
             }
             if(!haveform)
             {
@@ -63,16 +63,11 @@ namespace EquilibriumCore.Models
         public string getCostString()
         {
             string res = "";
-            string[] sr = IDComponents.Split(';');
+           
             Dictionary<string,int> pricedic = new Dictionary<string, int>();
-            foreach (string item in sr)
+            foreach (Component compo in Components)
             {
-                if (item != "")
-                {
-                    string[] elem = item.Split(':');
-                    int id = Convert.ToInt32(elem[0]);
-                    Component compo = AllComponents.Where(a => a.ID == id).First();
-
+                               
                     if (compo.PriceString != null)
                     {
                         string[] cost = compo.PriceString.ToUpper().Split(' ');
@@ -93,7 +88,7 @@ namespace EquilibriumCore.Models
                         }
                     }
 
-                }
+                
             }
             foreach (var el in pricedic)
             {
@@ -105,14 +100,9 @@ namespace EquilibriumCore.Models
 
         public int getRange()
         {
-            string[] sr = IDComponents.Split(';');
-            foreach (string item in sr)
-            {
-                if (item != "")
-                {
-                    string[] elem = item.Split(':');
-                    int id = Convert.ToInt32(elem[0]);
-                    Component compo = AllComponents.Where(a => a.ID == id).First();
+           
+            foreach (Component compo in Components)
+            { 
                     if (compo.IsForm )
                     {
 
@@ -120,12 +110,28 @@ namespace EquilibriumCore.Models
                     }
                    
 
-                }
+              
             }
             return 0;
         }
 
         public int getArea()
+        {
+            foreach (Component compo in Components)
+            {
+                if (compo.IsForm)
+                {
+
+                    return compo.Area;
+                }
+
+
+
+            }
+            return 0;
+        }
+
+        public void FillForeignKey()
         {
             string[] sr = IDComponents.Split(';');
             foreach (string item in sr)
@@ -135,16 +141,17 @@ namespace EquilibriumCore.Models
                     string[] elem = item.Split(':');
                     int id = Convert.ToInt32(elem[0]);
                     Component compo = AllComponents.Where(a => a.ID == id).First();
-                    if (compo.IsForm)
+                    int quantity = Convert.ToInt32(elem[1]);
+                    if (compo.IsForm) quantity = 1;
+                    quantity = Math.Min(quantity, 6);
+                    for (int i = 0; i < quantity; i++)
                     {
-
-                        return compo.Area;
+                        LinkComponents.Add(new SpellLinkComponent() { Component = compo, Spell = this });
                     }
 
 
                 }
             }
-            return 0;
         }
     }
 }

@@ -3,14 +3,16 @@ using System;
 using EquilibriumCore.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EquilibriumCore.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20190906170219_mult to mult")]
+    partial class multtomult
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -214,7 +216,7 @@ namespace EquilibriumCore.Migrations
                         .HasForeignKey("ComponentID");
 
                     b.HasOne("EquilibriumCore.Models.Spell", "Spell")
-                        .WithMany("LinkComponents")
+                        .WithMany()
                         .HasForeignKey("SpellID");
                 });
 #pragma warning restore 612, 618

@@ -46,7 +46,10 @@ namespace EquilibriumCore.Controllers
             {
                 return NotFound();
             }
-            feuillePersonnage.Spells = db.Spell.Where(s => s.IDCaster == feuillePersonnage.ID).ToList();
+            feuillePersonnage.Spells = db.Spell.Include(c => c.LinkComponents).ThenInclude(l => l.Component)
+                .Where(s => s.IDCaster == feuillePersonnage.ID).ToList();
+           
+           
             return View(feuillePersonnage);
         }
 

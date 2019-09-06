@@ -20,5 +20,6 @@ namespace EquilibriumCore.Data
         public DbSet<EquilibriumCore.Models.Component> Component { get; set; }
         public DbSet<EquilibriumCore.Models.Partie> Partie { get; set; }
         public DbSet<EquilibriumCore.Models.Spell> Spell { get; set; }
+        public DbSet<EquilibriumCore.Models.SpellLinkComponent> SpellLinkComponent { get; set; }
     }
 }

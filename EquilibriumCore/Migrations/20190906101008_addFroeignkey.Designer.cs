@@ -3,14 +3,16 @@ using System;
 using EquilibriumCore.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EquilibriumCore.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20190906101008_addFroeignkey")]
+    partial class addFroeignkey
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -23,6 +25,8 @@ namespace EquilibriumCore.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("Area");
+
+                    b.Property<int?>("ComponentForeignKey");
 
                     b.Property<int>("Element");
 
@@ -41,6 +45,8 @@ namespace EquilibriumCore.Migrations
                     b.Property<string>("valuesString");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("ComponentForeignKey");
 
                     b.ToTable("Component");
                 });
@@ -189,33 +195,11 @@ namespace EquilibriumCore.Migrations
                     b.ToTable("Spell");
                 });
 
-            modelBuilder.Entity("EquilibriumCore.Models.SpellLinkComponent", b =>
+            modelBuilder.Entity("EquilibriumCore.Models.Component", b =>
                 {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int?>("ComponentID");
-
-                    b.Property<int?>("SpellID");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("ComponentID");
-
-                    b.HasIndex("SpellID");
-
-                    b.ToTable("SpellLinkComponent");
-                });
-
-            modelBuilder.Entity("EquilibriumCore.Models.SpellLinkComponent", b =>
-                {
-                    b.HasOne("EquilibriumCore.Models.Component", "Component")
-                        .WithMany("Links")
-                        .HasForeignKey("ComponentID");
-
-                    b.HasOne("EquilibriumCore.Models.Spell", "Spell")
-                        .WithMany("LinkComponents")
-                        .HasForeignKey("SpellID");
+                    b.HasOne("EquilibriumCore.Models.Spell")
+                        .WithMany("Components")
+                        .HasForeignKey("ComponentForeignKey");
                 });
 #pragma warning restore 612, 618
         }

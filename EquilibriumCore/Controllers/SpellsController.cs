@@ -33,7 +33,7 @@ namespace EquilibriumCore.Controllers
                 return NotFound();
             }
 
-            var spell = await _context.Spell
+            var spell = await _context.Spell.Include(s => s.LinkComponents).ThenInclude(l => l.Component)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (spell == null)
             {
@@ -57,10 +57,12 @@ namespace EquilibriumCore.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,name,Element,IDForm,listID,IDComponents,IDCaster")] Spell spell)
+        public async Task<IActionResult> Create([Bind("name,Element,IDForm,listID,IDComponents,IDCaster")] Spell spell)
         {
             if (ModelState.IsValid)
             {
+                spell.AllComponents = _context.Component.ToList();
+                spell.FillForeignKey();
                 _context.Add(spell);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -144,6 +146,7 @@ namespace EquilibriumCore.Controllers
         {
             var spell = await _context.Spell.FindAsync(id);
             _context.Spell.Remove(spell);
+            _context.SpellLinkComponent.RemoveRange(_context.SpellLinkComponent.Include(a=>a.Spell).Where(a=>a.Spell.ID==id));
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

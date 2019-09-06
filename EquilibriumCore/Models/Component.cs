@@ -8,26 +8,27 @@ using System.Threading.Tasks;
 
 namespace EquilibriumCore.Models
 {
-   
+
     public class Component
     {
-      [Key]  public int ID { get; set; }
+        [Key] public int ID { get; set; }
 
         public string name { get; set; }
         public Element Element { get; set; }
-        public string PriceString { get ; set ; }
+        public string PriceString { get; set; }
         public bool IsForm { get; set; }
         public int Range { get; set; }
         public int Area { get; set; }
 
         public string text { get; set; }
 
-       
-        public string valuesString { get ; set  ; }
 
-        
-         public string upgradesString { get ; set ; }
+        public string valuesString { get; set; }
 
+
+        public string upgradesString { get; set; }
+
+        public List<SpellLinkComponent> Links{get;set;}
         
 
         [NotMapped] public string GlobalDescription { get => getFusedString(); }
