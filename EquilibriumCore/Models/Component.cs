@@ -73,14 +73,14 @@ namespace EquilibriumCore.Models
             List<double> valbase = new List<double>();
             foreach (string item in valuesBase)
             {
-                valbase.Add(Convert.ToDouble(item));
+                valbase.Add(Convert.ToDouble(item.Replace('.',',')));
             }
 
             string[] valuesBaseUp = upgradesString.Split(';');
             List<double> valbaseup = new List<double>();
             foreach (string item in valuesBaseUp)
             {
-                valbaseup.Add(Convert.ToInt32(item));
+                valbaseup.Add(Convert.ToDouble(item.Replace('.', ',')));
             }
             
                 for (int j = 0; j < valbaseup.Count; j++)
