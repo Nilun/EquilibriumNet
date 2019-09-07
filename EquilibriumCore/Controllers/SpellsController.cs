@@ -65,7 +65,7 @@ namespace EquilibriumCore.Controllers
                 spell.FillForeignKey();
                 _context.Add(spell);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Details),"FeuillePersonnages",new { id = spell.IDCaster });
             }
             return View(spell);
         }
@@ -148,7 +148,7 @@ namespace EquilibriumCore.Controllers
             _context.Spell.Remove(spell);
             _context.SpellLinkComponent.RemoveRange(_context.SpellLinkComponent.Include(a=>a.Spell).Where(a=>a.Spell.ID==id));
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Details), "FeuillePersonnages", new { id = spell.IDCaster });
         }
 
         private bool SpellExists(int id)

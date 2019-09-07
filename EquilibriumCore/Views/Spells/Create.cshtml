@@ -7,10 +7,10 @@
 
 
 
-
+<br />
 @foreach (string item in Enum.GetNames(typeof(Element)))
 {
-    <input type="checkbox" id="@item Lore" onclick="Filter('@item')" />@item
+ <input type="checkbox" id="@item Lore" onclick="Filter('@item')" /> @item
 }
 
 <h2>Create</h2>
