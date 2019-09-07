@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -73,14 +74,14 @@ namespace EquilibriumCore.Models
             List<double> valbase = new List<double>();
             foreach (string item in valuesBase)
             {
-                valbase.Add(Convert.ToDouble(item.Replace('.',',')));
+                valbase.Add(Convert.ToDouble(item.Replace(',', '.'), CultureInfo.InvariantCulture));
             }
 
             string[] valuesBaseUp = upgradesString.Split(';');
             List<double> valbaseup = new List<double>();
             foreach (string item in valuesBaseUp)
             {
-                valbaseup.Add(Convert.ToDouble(item.Replace('.', ',')));
+                valbaseup.Add(Convert.ToDouble(item.Replace(',', '.'),CultureInfo.InvariantCulture));
             }
             
                 for (int j = 0; j < valbaseup.Count; j++)

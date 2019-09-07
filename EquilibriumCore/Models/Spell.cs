@@ -77,8 +77,9 @@ namespace EquilibriumCore.Models
                             {
                                 if (pricedic.Keys.Contains(c))
                                 {
-                                    pricedic[c]++;
-                                }
+                                if(c.First()!='*') pricedic[c]++;
+
+                            }
                                 else
                                 {
                                     pricedic.Add(c, 1);
