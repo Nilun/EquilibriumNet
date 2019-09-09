@@ -203,6 +203,7 @@ namespace EquilibriumCore.Models
                     s = "interdiction.png";
                     break;
                 default:
+                    s = "interdiction.png";
                     break;
             }
             return s;

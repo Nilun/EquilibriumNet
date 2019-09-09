@@ -46,22 +46,31 @@ namespace EquilibriumCore.Models
 
         public string getFusedStringForDescription()
         {
-            if (valuesString == null) return text;
-
-            string res = "";
-            List<string> datas = new List<string>();
-
-            string[] valuesBase = valuesString.Split(';');
-            string[] valuesBaseUp = upgradesString.Split(';');
-
-            for (int i = 0; i < valuesBase.Count() ; i++)
+            try
             {
-                datas.Add(valuesBase[i] + "(+" + valuesBaseUp[i] +")");
+                if (valuesString == null) return text;
+
+                string res = "";
+                List<string> datas = new List<string>();
+
+                string[] valuesBase = valuesString.Split(';');
+                string[] valuesBaseUp = upgradesString.Split(';');
+
+                for (int i = 0; i < valuesBase.Count(); i++)
+                {
+                    datas.Add(valuesBase[i] + "(+" + valuesBaseUp[i] + ")");
+                }
+
+                res = String.Format(text, datas.ToArray());
+
+                return res;
             }
+            catch (Exception)
+            {
 
-            res = String.Format(text, datas.ToArray());
-
-            return res;
+                throw;
+            }
+          
         }
 
         public string getFusedStringForLevel(int level)
