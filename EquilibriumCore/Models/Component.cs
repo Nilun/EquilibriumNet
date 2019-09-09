@@ -18,8 +18,8 @@ namespace EquilibriumCore.Models
         public Element Element { get; set; }
         public string PriceString { get; set; }
         public bool IsForm { get; set; }
-        public int Range { get; set; }
-        public int Area { get; set; }
+        public int Range { get; set; } = 0;
+        public int Area { get; set; } = 0;
 
         public string text { get; set; }
 

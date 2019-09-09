@@ -46,7 +46,7 @@ namespace EquilibriumCore.Controllers
         // GET: Components/Create
         public IActionResult Create()
         {
-            return View();
+            return View(new Component());
         }
 
         // POST: Components/Create

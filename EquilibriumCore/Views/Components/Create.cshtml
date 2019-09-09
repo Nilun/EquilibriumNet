@@ -21,19 +21,12 @@
             <div class="form-group">
                 <label asp-for="Element" class="control-label"></label>
                 <select asp-for="Element" class="form-control">
-                    <option value="Fire">Fire</option>
-                    <option value="Wind">Wind</option> 
-                    <option value="Earth">Earth</option>
-                    <option value="Water">Water</option> 
-                    <option value="Order">Order</option> 
-                    <option value="Shadow">Shadow</option> 
-                    <option value="Chaos">Chaos</option> 
-                    <option value="Light">Light</option> 
-                    <option value="Arcana">Arcana</option>
-                    <option value="War">War</option> 
-                    <option value="Metamagic">Metamagic</option> 
-                    <option value="Utility">Utility</option>
-                </select>
+                    @foreach (string item in Enum.GetNames(typeof(Element)))
+                    {
+                        <option value="@item"> @item </option>
+                        }
+                       
+                    </select>
                 <span asp-validation-for="Element" class="text-danger"></span>
             </div>
             <div class="form-group">
