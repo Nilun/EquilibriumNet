@@ -8,11 +8,15 @@
 
 
 <br />
-@foreach (string item in Enum.GetNames(typeof(Element)))
-{
- <input type="checkbox" id="@item Lore" onclick="Filter('@item')" /> @item
-}
 
+        @foreach (string item in Enum.GetNames(typeof(Element)))
+        {
+            
+                <input type="checkbox" id="@item Lore" onclick="Filter('@item')" />
+                <img src="~/images/Icons/@Model.imageNameForElement((Element)Enum.Parse(typeof(Element), item))" width="16" height="16" /> @item @:|
+            
+        }
+        
 <h2>Create</h2>
 
 
@@ -22,10 +26,10 @@
 
     @foreach (Component item in Model.AllComponents.Where(a => a.IsForm == true).OrderBy(a => a.name))
     {
-        <li class="@item.Element"  id="@item.ID" style="display:none">
-            <h4>@item.name</h4><div id="@item.ID desc">@item.getFusedStringForDescription()</div>
+        <li class="@item.Element" id="@item.ID" style="display:none">
+            <h4> <img src="~/images/Icons/@Model.imageNameForElement(item.Element)" width="16" height="16" /> @item.name</h4><div id="@item.ID desc">@item.getFusedStringForDescription()</div>
 
-            <button class="btn btn-success" onclick="Add(@item.ID)">+</button>
+            <button class="btn btn-success" onclick="Add(@item.ID,1)">+</button>
             <label id="@item.ID level">0</label>
             <button class="btn btn-danger" onclick="Remove(@item.ID)">-</button>
         </li>
@@ -37,16 +41,16 @@
 
     @foreach (Component item in Model.AllComponents.Where(a => a.IsForm == false).OrderBy(a => a.name))
     {
-        <li class="@item.Element" id="@item.ID" style="display:none">
-            <h4>@item.name</h4><div id="@item.ID desc">@item.getFusedStringForDescription()</div>
+    <li class="@item.Element" id="@item.ID" style="display:none">
+        <h4> <img src="~/images/Icons/@Model.imageNameForElement(item.Element)" width="16" height="16" />@item.name</h4><div id="@item.ID desc">@item.getFusedStringForDescription()</div>
 
-            <button class="btn btn-success" onclick="Add(@item.ID)">+</button>
-            <label id="@item.ID level">0</label>
-            <button class="btn btn-danger" onclick="Remove(@item.ID)">-</button>
-        </li>
+        <button class="btn btn-success" onclick="Add(@item.ID,6)">+</button>
+        <label id="@item.ID level">0</label>
+        <button class="btn btn-danger" onclick="Remove(@item.ID)">-</button>
+    </li>
     }
 
-    </ul>
+</ul>
 
 
 
@@ -83,7 +87,7 @@
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
-            
+
         </form>
     </div>
 </div>
@@ -95,8 +99,8 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
-
-
+<br />
+Icons under <a href="https://creativecommons.org/licenses/by/3.0/"> CC 3.0 License </a> Created by multiple authors on <a href="https://game-icons.net">game-icons.net</a>
 <script>
     function Filter(element) {
         // Declare variables
@@ -117,20 +121,20 @@
         }
     }
 
-    function Add(compoID) {
+    function Add(compoID, max) {
         // Declare variables
         //console.log(element);
         var ul, elem, lab;
         lab = document.getElementById(compoID + " level");
         elem = document.getElementById("compostring");
 
-        lab.textContent = (Number( lab.textContent)) + 1;
+        lab.textContent = (Number(lab.textContent)) + 1;
         if ((Number(lab.textContent)) > 1) {
-            var v = elem.value.replace(";" + compoID + ":" + (Number(lab.textContent) - 1) + ";" , ";"+ compoID + ":" + (Number(lab.textContent)) + ";");          
+            var v = elem.value.replace(";" + compoID + ":" + (Number(lab.textContent) - 1) + ";", ";" + compoID + ":" + (Number(lab.textContent)) + ";");
             elem.value = v;
         } else if ((Number(lab.textContent)) > 0) {
             elem.value = elem.value + ";" + compoID + ":" + (Number(lab.textContent)) + ";";
-        } else { 
+        } else if ((Number(lab.textContent)) < max) {
             elem.value = ";" + elem.value.replace(compoID + ":" + (Number(lab.textContent) + 1) + ";", "");
         }
 
@@ -138,7 +142,7 @@
     function Remove(compoID) {
         // Declare variables
         //console.log(element);
-        var ul, li, lab,elem;
+        var ul, li, lab, elem;
         lab = document.getElementById(compoID + " level");
         elem = document.getElementById("compostring");
 
@@ -150,11 +154,11 @@
 
 
         if ((Number(lab.textContent)) >= 1) {
-            elem.value = elem.value.replace(";" + compoID + ":" + (Number(lab.textContent) + 1) + ";", ";"+ compoID + ":" + (Number(lab.textContent)) + ";");
+            elem.value = elem.value.replace(";" + compoID + ":" + (Number(lab.textContent) + 1) + ";", ";" + compoID + ":" + (Number(lab.textContent)) + ";");
         } else if ((Number(lab.textContent)) > 0) {
             elem.value = elem.value + ";" + compoID + ":" + (Number(lab.textContent)) + ";";
         } else {
-            elem.value = elem.value.replace(";" +compoID + ":" + (Number(lab.textContent) + 1) + ";", "");
+            elem.value = elem.value.replace(";" + compoID + ":" + (Number(lab.textContent) + 1) + ";", "");
         }
 
     }

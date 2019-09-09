@@ -154,5 +154,58 @@ namespace EquilibriumCore.Models
                 }
             }
         }
+
+        public string imageNameForElement(Element elem)
+        {
+            string s = "";
+            switch (elem)
+            {
+                case Element.Fire:
+                    s = "fire.png";
+                    break;
+                case Element.Wind:
+                    s = "wind-hole.png";
+                    break;
+                case Element.Earth:
+                    s = "rock.png";
+                    break;
+                case Element.Water:
+                    s = "snowflake-2.png";
+                    break;
+                case Element.Order:
+                    s = "nested-hearts.png";
+                    break;
+                case Element.Shadow:
+                    s = "death-juice.png";
+                    break;
+                case Element.Chaos:
+                    s = "cubes.png";
+                    break;
+                case Element.Light:
+                    s = "sun.png";
+                    break;
+                case Element.Arcana:
+                    s = "spell-book.png";
+                    break;
+                case Element.War:
+                    s = "eye-shield.png";
+                    break;
+                case Element.Duality:
+                    s = "eclipse.png";
+                    break;
+                case Element.Knowledge:
+                    s = "gift-of-knowledge.png";
+                    break;
+                case Element.Metamagic:
+                    s = "interdiction.png";
+                    break;
+                case Element.Utility:
+                    s = "interdiction.png";
+                    break;
+                default:
+                    break;
+            }
+            return s;
+        }
     }
 }
