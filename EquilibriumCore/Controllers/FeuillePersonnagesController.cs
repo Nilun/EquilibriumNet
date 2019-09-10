@@ -31,6 +31,7 @@ namespace EquilibriumCore.Controllers
             // User.Identity.Name
             List<int> partieMJ = db.Partie.Where(p => p.MJ == User.Identity.Name).Select(p => p.ID).ToList();
             List<FeuillePersonnage> result = db.Feuilles.ToList().Where(a => a.Shared == true || a.Creator == User.Identity.Name || partieMJ.Contains(a.IDPartie)).ToList();
+            result.ForEach(a => a.partie = db.Partie.Where(p => p.ID == a.IDPartie).First().Name);
             return View(result);
         }
 

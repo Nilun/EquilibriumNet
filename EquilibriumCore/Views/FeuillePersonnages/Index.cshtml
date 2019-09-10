@@ -9,8 +9,17 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+Filter by game<select onchange="Filter()" id="filtering">
+    <option value=""></option>
+
+    @foreach (var item in Model.Select(a => a.partie).Distinct())
+    {
+        <option value="@item">@item</option>
+    }
+
+</select>
 <table class="table">
-    <tr>
+    <tr id="Header">
         <th>
             @Html.DisplayNameFor(model => model.Name)
         </th>
@@ -44,54 +53,77 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Race)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Level)
-        </td>
+    @foreach (var item in Model)
+    {
+        <tr class="Sheet" id="@item.partie">
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Race)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Level)
+            </td>
 
-        <td>
-            @Html.DisplayFor(modelItem => item.HPMax)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Memory)
-        </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HPMax)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Memory)
+            </td>
 
-        <td>
-            @Html.DisplayFor(modelItem => item.Brutality)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Swiftness)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Spirit)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Malice)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Vitality)
-        </td>
-        <td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Brutality)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Swiftness)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Spirit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Malice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Vitality)
+            </td>
+            <td>
 
-            @if (User.Identity.Name == item.Creator)
-            {
-                @Html.ActionLink("Edit", "Edit", new { id = item.ID });
-                @:|
-                @Html.ActionLink("Delete", "Delete", new { id = item.ID });
-                @:|
-            }
+                @if (User.Identity.Name == item.Creator)
+                {
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ID });
+                    @:|
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ID });
+                    @:|
+                }
 
-            @Html.ActionLink("Details", "Details", new { id = item.ID })
+                @Html.ActionLink("Details", "Details", new { id = item.ID })
 
-        </td>
-        </tr >
-}
+            </td>
+        </tr>
+    }
 
 </table>
+<script>
+    function Filter() {
+        // Declare variables
+        var ul, li, i;
+        filterOn = document.getElementById("filtering").value;
+        li = document.getElementsByClassName("Sheet");
+
+
+        // Loop through all list items, and hide those who don't match the search query
+        for (i = 0; i < li.length; i++) {
+
+            if (li[i].id == filterOn || filterOn == "") {
+
+                li[i].style.display = "";
+            } else {
+                li[i].style.display = "none";
+            }
+
+
+        }
+    }
+</script>
