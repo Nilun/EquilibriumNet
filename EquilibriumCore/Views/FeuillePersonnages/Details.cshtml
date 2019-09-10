@@ -406,16 +406,17 @@
     </div>
 
     <h3>Technic and Spell</h3><br />
-    <div style="white-space:pre">
+    <div>
         @Html.DisplayFor(model => model.comp)
         <hr />@foreach (Spell spell in Model.Spells){
             <h4 onclick="HideShow('@spell.ID')"> @spell.name</h4>
             <div id="@spell.ID" class="dl-horizontal" style="display:none">
                 <b>  Range ( --> ) - Area (O)     </b>
                 @spell.getRange() ( --> ) -  @spell.getArea() (O)
+               <br />
                 <b>  Cost       </b>
                 @spell.getCostString()
-                <b> Effet      </b>
+                <br /><b> Effet      </b>
                 <div style="white-space:pre">
                     @spell.getSpellDescription()
                 </div>

@@ -27,8 +27,9 @@
     @foreach (Component item in Model.AllComponents.Where(a => a.IsForm == true).OrderBy(a => a.name))
     {
         <li class="@item.Element" id="@item.ID" style="display:none">
-            <h4><img src="~/images/Icons/@Model.imageNameForElement(item.Element)" width="16" height="16" />  @item.name</h4><div id="@item.ID desc">@item.getFusedStringForDescription()</div>
-
+            <h4><img src="~/images/Icons/@Model.imageNameForElement(item.Element)" width="16" height="16" />@item.name</h4><div id="@item.ID desc">@item.getFusedStringForDescription()</div>
+            @if (item.PriceString != null)
+            { <b>Cost</b> @item.PriceString <br /> }
             <button class="btn btn-success" onclick="Add(@item.ID,1)">+</button>
             <label id="@item.ID level">0</label>
             <button class="btn btn-danger" onclick="Remove(@item.ID)">-</button>
@@ -42,8 +43,8 @@
     @foreach (Component item in Model.AllComponents.Where(a => a.IsForm == false).OrderBy(a => a.name))
     {
     <li class="@item.Element" id="@item.ID" style="display:none">
-        <h4> <img src="~/images/Icons/@Model.imageNameForElement(item.Element)" width="16" height="16" />@item.name</h4><div id="@item.ID desc">@item.getFusedStringForDescription()</div>
-
+        <h4> <img src="~/images/Icons/@Model.imageNameForElement(item.Element)" width="16" height="16" />@item.name</h4><div id="@item.ID desc" style="white-space:pre">@item.getFusedStringForDescription()</div>
+        <b>Cost</b> @item.PriceString <br />
         <button class="btn btn-success" onclick="Add(@item.ID,6)">+</button>
         <label id="@item.ID level">0</label>
         <button class="btn btn-danger" onclick="Remove(@item.ID)">-</button>
@@ -92,9 +93,6 @@
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
