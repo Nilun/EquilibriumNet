@@ -169,6 +169,7 @@ namespace EquilibriumCore.Controllers
 
 
         [MiddlewareFilter(typeof(JsReportPipeline))]
+        [AllowAnonymous]
         public IActionResult DetailPdf(int id)
         {
             HttpContext.JsReportFeature().Recipe(Recipe.ChromePdf);
