@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Runtime.InteropServices;
 using EquilibriumCore.Data;
 using EquilibriumCore.Models;
 using jsreport.AspNetCore;
@@ -50,7 +51,9 @@ namespace EquilibriumCore
             services.AddDbContext<DataContext>(option=> option.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddJsReport(new LocalReporting()
-        .UseBinary(JsReportBinary.GetBinary())
+        .UseBinary(RuntimeInformation.IsOSPlatform(OSPlatform.Windows)  ?
+                    jsreport.Binary.JsReportBinary.GetBinary() :
+                    jsreport.Binary.Linux.JsReportBinary.GetBinary())
         .AsUtility()
         .Create());
         }
@@ -66,7 +69,6 @@ namespace EquilibriumCore
             else
             {
                 app.UseDeveloperExceptionPage();
-                app.UseExceptionHandler("/Home/Error");
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
