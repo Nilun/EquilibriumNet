@@ -4,6 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using EquilibriumCore.Data;
 using EquilibriumCore.Models;
+using jsreport.AspNetCore;
+using jsreport.Binary;
+using jsreport.Local;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -46,6 +49,10 @@ namespace EquilibriumCore
 
             services.AddDbContext<DataContext>(option=> option.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddJsReport(new LocalReporting()
+        .UseBinary(JsReportBinary.GetBinary())
+        .AsUtility()
+        .Create());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

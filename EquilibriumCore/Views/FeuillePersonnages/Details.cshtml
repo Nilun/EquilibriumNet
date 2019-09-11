@@ -122,11 +122,11 @@
             <td>Spirit</td>
         </tr>
         <tr>
-            <td height="50" style="background-image:url('../../images/diamond.png') ; background-size:contain; background-repeat:no-repeat; background-position:center; width : auto ;  text-align:center">
+            <td height="50" style="background-image:url('../../images/diamond.png') ; background-size:contain; background-repeat:no-repeat; background-position:center; width : auto ;  text-align:center ;  -webkit-print-color-adjust: exact; ">
                 <h3> @Html.DisplayFor(model => model.Malice)</h3>
 
             </td>
-            <td height="50" style="background-image:url('../../images/diamond.png') ; background-size:contain; background-repeat:no-repeat; background-position:center; width : auto ;  text-align:center">
+            <td height="50" style="background-image:url('../../images/diamond.png') ; background-size:contain; background-repeat:no-repeat; background-position:center; width : auto ;  text-align:center ;  -webkit-print-color-adjust: exact; ">
 
                 <h3>  @Html.DisplayFor(model => model.Spirit)</h3>
             </td>
@@ -427,6 +427,9 @@
     </div>
 </div>
 <p>
+    <br />
+    <a asp-action="DetailPdf"  asp-route-id="@Model.ID">to pdf</a>
+    <br />
     @if (User.Identity.Name == Model.Creator)
     {
         @Html.ActionLink("New Spell", "Create", "Spells", new { id = Model.ID })

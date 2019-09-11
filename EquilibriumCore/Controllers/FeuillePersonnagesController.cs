@@ -12,6 +12,11 @@ using EquilibriumCore.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 
+using System.IO;
+using jsreport.AspNetCore;
+using jsreport.Types;
+//using CoreHtmlToImage;
+
 namespace EquilibriumCore.Controllers
 {
     [Authorize]
@@ -161,5 +166,41 @@ namespace EquilibriumCore.Controllers
             }
             base.Dispose(disposing);
         }
+
+
+        [MiddlewareFilter(typeof(JsReportPipeline))]
+        public IActionResult DetailPdf(int id)
+        {
+            HttpContext.JsReportFeature().Recipe(Recipe.ChromePdf);
+
+
+
+         
+            FeuillePersonnage feuillePersonnage = db.Feuilles.Find(id);
+            if (feuillePersonnage == null)
+            {
+                return NotFound();
+            }
+            feuillePersonnage.Spells = db.Spell.Include(c => c.LinkComponents).ThenInclude(l => l.Component)
+                .Where(s => s.IDCaster == feuillePersonnage.ID).ToList();
+
+
+            return View("Details" , feuillePersonnage);
+        }
+
+        //public ActionResult CreateImage(int id)
+        //{
+
+        //    var v = Directory.GetFiles(Directory.GetCurrentDirectory());
+        //    if (System.IO.File.Exists(id + ".png")) System.IO.File.Delete(id + ".png");
+
+        //    HtmlConverter converter = new HtmlConverter();
+
+        //    var bytes = converter.FromUrl("https://localhost:44310/FeuillePersonnages/Details/" + id);
+        //    // var bytes = converter.FromHtmlString("test");
+
+        //    return File(bytes, "image/png", true);
+
+        //}
     }
 }
