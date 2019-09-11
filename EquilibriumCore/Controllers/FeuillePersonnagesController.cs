@@ -15,7 +15,7 @@ using Microsoft.AspNetCore.Authorization;
 using System.IO;
 using jsreport.AspNetCore;
 using jsreport.Types;
-//using CoreHtmlToImage;
+using CoreHtmlToImage;
 
 namespace EquilibriumCore.Controllers
 {
@@ -188,19 +188,19 @@ namespace EquilibriumCore.Controllers
             return View("Details" , feuillePersonnage);
         }
 
-        //public ActionResult CreateImage(int id)
-        //{
+        public ActionResult CreateImage(int id)
+        {
 
-        //    var v = Directory.GetFiles(Directory.GetCurrentDirectory());
-        //    if (System.IO.File.Exists(id + ".png")) System.IO.File.Delete(id + ".png");
+            var v = Directory.GetFiles(Directory.GetCurrentDirectory());
+            if (System.IO.File.Exists(id + ".png")) System.IO.File.Delete(id + ".png");
 
-        //    HtmlConverter converter = new HtmlConverter();
+            HtmlConverter converter = new HtmlConverter();
 
-        //    var bytes = converter.FromUrl("https://localhost:44310/FeuillePersonnages/Details/" + id);
-        //    // var bytes = converter.FromHtmlString("test");
+            var bytes = converter.FromUrl("https://equilibrium.jupotter.eu/spells/Details/1");
+            // var bytes = converter.FromHtmlString("test");
 
-        //    return File(bytes, "image/png", true);
+            return File(bytes, "image/png", true);
 
-        //}
+        }
     }
 }
