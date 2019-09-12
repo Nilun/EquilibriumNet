@@ -70,6 +70,8 @@ namespace EquilibriumCore.Models
 
         public int IDPartie { get; set; }
         [NotMapped] public string partie { get; set; }
+
+        [NotMapped] public bool openSpells { get; set; } = false;
         [NotMapped] public List<Partie> partiePossible = new List<Partie>();
         [NotMapped] public List<Spell> Spells { get; set; } = new List<Spell>();
         //[NotMapped] public int Memory { get =>(int)Math.Truncate((double)(3+Level/2));  }

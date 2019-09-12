@@ -410,8 +410,8 @@
         @Html.DisplayFor(model => model.comp)
         <hr />@foreach (Spell spell in Model.Spells){
             <h4 onclick="HideShow('@spell.ID')"> @spell.name</h4>
-            <div id="@spell.ID" class="dl-horizontal" style="display:none">
-                <b>  Range ( --> ) - Area (O)     </b>
+            <div id="@spell.ID" class="dl-horizontal" style="display:  block ">
+<b>  Range ( --> ) - Area (O)     </b>
                 @spell.getRange() ( --> ) -  @spell.getArea() (O)
                <br />
                 <b>  Cost       </b>
