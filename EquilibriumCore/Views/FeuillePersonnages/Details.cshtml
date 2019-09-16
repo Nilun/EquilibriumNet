@@ -5,11 +5,11 @@
 }
 
 
-
 <div>
     <h2>  @Html.DisplayFor(model => model.Name)</h2>
     <hr />
-
+   
+    <div class="tooltip" style="opacity:0.5"> ID <span class="tooltiptext"> @Model.ID </span></div>
 
     <table width="100%">
         <tr>
@@ -145,10 +145,8 @@
 <br />
 <br />
 <div>
-    <br />
-    <br />
-    <br />
-    <table align="center" width="100%">
+ 
+    <table  align="center" width="100%" style="page-break-before:always">
         <tr>
             <td>
 
@@ -392,7 +390,7 @@
     </table>
 </div>
 
-<div>
+<div style="page-break-before:always">
     <hr />
 
     <h3>Passive</h3><br />
@@ -411,9 +409,10 @@
         <hr />@foreach (Spell spell in Model.Spells){
             <h4 onclick="HideShow('@spell.ID')"> @spell.name</h4>
             <div id="@spell.ID" class="dl-horizontal" style="display:  block ">
-<b>  Range ( --> ) - Area (O)     </b>
+                <div class="tooltip" style="opacity:0.5"> ID <span class="tooltiptext"> @spell.ID </span></div>
+                <b>  Range ( --> ) - Area (O)     </b>
                 @spell.getRange() ( --> ) -  @spell.getArea() (O)
-               <br />
+                <br />
                 <b>  Cost       </b>
                 @spell.getCostString()
                 <br /><b> Effet      </b>
@@ -422,7 +421,7 @@
                 </div>
                 @if (User.Identity.Name == Model.Creator)
                 {<a asp-action="Delete" asp-controller="Spells" asp-route-id="@spell.ID">Delete  @spell.name </a>}
-                </div>
+            </div>
         }
     </div>
 </div>
