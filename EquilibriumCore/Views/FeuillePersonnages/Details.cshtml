@@ -8,8 +8,10 @@
 <div>
     <h2>  @Html.DisplayFor(model => model.Name)</h2>
     <hr />
-   
-    <div class="tooltip" style="opacity:0.5"> ID <span class="tooltiptext"> @Model.ID </span></div>
+
+    @if (Model.showHidable)
+    {<div class="tooltip" style="opacity:0.5"> ID <span class="tooltiptext"> @Model.ID </span></div>
+    }
 
     <table width="100%">
         <tr>
@@ -409,7 +411,8 @@
         <hr />@foreach (Spell spell in Model.Spells){
             <h4 onclick="HideShow('@spell.ID')"> @spell.name</h4>
             <div id="@spell.ID" class="dl-horizontal" style="display:  block ">
-                <div class="tooltip" style="opacity:0.5"> ID <span class="tooltiptext"> @spell.ID </span></div>
+               
+              @if (Model.showHidable) {  <div class="tooltip" style="opacity:0.5"> ID <span class="tooltiptext"> spell.ID </span></div> }
                 <b>  Range ( --> ) - Area (O)     </b>
                 @spell.getRange() ( --> ) -  @spell.getArea() (O)
                 <br />
@@ -426,18 +429,21 @@
     </div>
 </div>
 <p>
-    <br />
-    <a asp-action="DetailPdf"  asp-route-id="@Model.ID">to pdf</a>
-    <br />
-    @if (User.Identity.Name == Model.Creator)
+    @if (Model.showHidable)
     {
-        @Html.ActionLink("New Spell", "Create", "Spells", new { id = Model.ID })
-        @:<br />
-        @Html.ActionLink("Edit", "Edit", new { id = Model.ID });
-        @:|
+        <br />
+        <a asp-action="DetailPdf" asp-route-id="@Model.ID">to pdf</a>
+        <br />
+        @if (User.Identity.Name == Model.Creator)
+        {
+            @Html.ActionLink("New Spell", "Create", "Spells", new { id = Model.ID })
+            @:<br />
+            @Html.ActionLink("Edit", "Edit", new { id = Model.ID });
+            @:|
+        }
+        @Html.ActionLink("Back to List", "Index")
     }
-    @Html.ActionLink("Back to List", "Index")
-</p>
+    </p>
 <script>
     function HideShow(element) {
         // Declare variables

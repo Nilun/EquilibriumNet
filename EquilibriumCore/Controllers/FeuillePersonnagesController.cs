@@ -184,7 +184,7 @@ namespace EquilibriumCore.Controllers
             }
             feuillePersonnage.Spells = db.Spell.Include(c => c.LinkComponents).ThenInclude(l => l.Component)
                 .Where(s => s.IDCaster == feuillePersonnage.ID).ToList();
-
+            feuillePersonnage.showHidable = false;
 
             return View("Details" , feuillePersonnage);
         }
