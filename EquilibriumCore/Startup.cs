@@ -18,6 +18,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Pomelo.EntityFrameworkCore.MySql;
+using Microsoft.AspNetCore.DataProtection;
+using System.IO;
+
 namespace EquilibriumCore
 {
     public class Startup
@@ -47,6 +50,14 @@ namespace EquilibriumCore
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
             });
+
+            var environment = services.BuildServiceProvider().GetRequiredService<IHostingEnvironment>();
+
+
+            services.AddDataProtection()
+                    .SetApplicationName($"my-app-{environment.EnvironmentName}")
+                    .PersistKeysToFileSystem(new DirectoryInfo($@"{environment.ContentRootPath}\keys"));
+
 
             services.AddDbContext<DataContext>(option=> option.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
