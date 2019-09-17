@@ -209,7 +209,7 @@ namespace EquilibriumCore.Controllers
 
             HtmlConverter converter = new HtmlConverter();
 
-            var bytes = converter.FromUrl("https://equilibrium.jupotter.eu/spells/Details/"+id);
+            var bytes = converter.FromUrl("https://equilibrium.jupotter.eu/spells/Card/"+id);
             // var bytes = converter.FromHtmlString("test");
 
             return File(bytes, "image/png", true);
