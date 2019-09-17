@@ -5,7 +5,7 @@
     Layout = "";
 }
 
-<table style="background-image:url('../../images/spell card.png')!important ; background-size:contain!important;background-position:top,left !important; background-repeat:no-repeat!important; background-position:center!important;width:365px;height:541px">
+<table  style="background-image:url('@Context.Request.Scheme://@Context.Request.Host/images/spell card.png')!important ; -webkit-print-color-adjust: exact; background-size:contain!important;background-position:top,left !important; background-repeat:no-repeat!important; background-position:center!important;width:365px!important;height:541px!important">
     <tr style="height:30%">
         <td>
             <div style="margin:4px; font-family:Gabriola ; font-size:x-large">
@@ -19,7 +19,7 @@
                     <br />
                     @foreach (Element elem in @Model.GetElement())
                     {
-                        <img src="~/images/Icons/@Model.imageNameForElement(elem)" width="16" height="16" />
+                        <img src="@Context.Request.Scheme://@Context.Request.Host/images/Icons/@Model.imageNameForElement(elem)" width="16" height="16" />
                         @Html.Raw(elem.ToString());
                     }
                 </b>

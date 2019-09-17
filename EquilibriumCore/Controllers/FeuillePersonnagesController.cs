@@ -202,18 +202,20 @@ namespace EquilibriumCore.Controllers
             return File(bytes, "image/png", true);
 
         }
+
+        [MiddlewareFilter(typeof(JsReportPipeline))]
         [AllowAnonymous]
         public ActionResult CreateSpellCard(int id)
         {
-                      
-
+            HttpContext.JsReportFeature().Recipe(Recipe.ChromeImage).Configure(a => a.Template.ChromeImage = new ChromeImage() { OmitBackground = false , ClipHeight = 550, ClipX=0,ClipY=0, ClipWidth=375});
+            
             HtmlConverter converter = new HtmlConverter();
-            string s = "https://equilibrium.jupotter.eu/spells/Card/"+id;
-            //string s = "https://localhost:44310/spells/Card/"+id;
-            var bytes = converter.FromUrl(s,370);
+            //string s = "https://equilibrium.jupotter.eu/spells/Card/"+id;
+            ////string s = "https://localhost:44310/spells/Card/"+id;
+            //var bytes = converter.FromUrl(s,370);
             // var bytes = converter.FromHtmlString("test");
-
-            return File(bytes, "image/png", true);
+            var sp = db.Spell.Include(c=>c.LinkComponents).ThenInclude(l => l.Component).First(c => c.ID == id);
+            return View("../Spells/Card",sp);
 
         }
     }
