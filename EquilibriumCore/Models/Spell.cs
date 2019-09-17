@@ -155,6 +155,26 @@ namespace EquilibriumCore.Models
             }
         }
 
+        public List<Element> GetElement()
+        {
+            List<Element> res = new List<Element>();
+            Dictionary<Element, int> count = new Dictionary<Element, int>();
+            foreach (var item in Components.Select(c=>c.Element))
+            {
+                if (count.Keys.Contains(item))
+                {
+                    count[item]++;
+                        }else
+                {
+                    count.Add(item, 1);
+                }
+            }
+            int max = count.Values.Max();
+            res = count.Where(c => c.Value == max).Select(c => c.Key).ToList();
+
+            return res;
+        }
+
         public string imageNameForElement(Element elem)
         {
             string s = "";

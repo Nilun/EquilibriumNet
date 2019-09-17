@@ -155,5 +155,22 @@ namespace EquilibriumCore.Controllers
         {
             return _context.Spell.Any(e => e.ID == id);
         }
+
+        public async Task<IActionResult> Card(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var spell = await _context.Spell.Include(s => s.LinkComponents).ThenInclude(l => l.Component)
+                .FirstOrDefaultAsync(m => m.ID == id);
+            if (spell == null)
+            {
+                return NotFound();
+            }
+            spell.AllComponents = _context.Component.ToList();
+            return View(spell);
+        }
     }
 }

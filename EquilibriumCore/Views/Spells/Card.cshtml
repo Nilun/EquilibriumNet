@@ -1,0 +1,41 @@
+﻿@model EquilibriumCore.Models.Spell
+
+@{
+    ViewData["Title"] = "Card";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<table style="background-image:url('../../images/spell card.png')!important ; background-size:contain!important;background-position:top,left !important; background-repeat:no-repeat!important; background-position:center!important;width:365px;height:541px">
+    <tr style="height:30%">
+        <td>
+            <div style="margin:4px; font-family:Gabriola ; font-size:x-large">
+                <b>
+                    <u style="font-size:xx-large"> @Model.name</u>
+                    <br />
+
+                    Cost : @Model.getCostString() <br />
+                    Range : @Model.getRange() M
+                    Area : @Model.getArea() M
+                    <br />
+                    @foreach (Element elem in @Model.GetElement())
+                    {
+                        <img src="~/images/Icons/@Model.imageNameForElement(elem)" width="16" height="16" />
+                        @Html.Raw(elem.ToString());
+                    }
+                </b>
+            </div>
+</td>
+    </tr>
+    <tr style="height:70%">
+        <td>
+            <div style="margin:4px" >
+
+                @Model.getSpellDescription()
+               
+            </div>
+        </td>
+    </tr>
+
+
+</table>
+
