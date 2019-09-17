@@ -202,14 +202,15 @@ namespace EquilibriumCore.Controllers
             return File(bytes, "image/png", true);
 
         }
-
+        [AllowAnonymous]
         public ActionResult CreateSpellCard(int id)
         {
                       
 
             HtmlConverter converter = new HtmlConverter();
-
-            var bytes = converter.FromUrl("https://equilibrium.jupotter.eu/spells/Card/"+id);
+            string s = "https://equilibrium.jupotter.eu/spells/Card/"+id;
+            //string s = "https://localhost:44310/spells/Card/"+id;
+            var bytes = converter.FromUrl(s,370);
             // var bytes = converter.FromHtmlString("test");
 
             return File(bytes, "image/png", true);

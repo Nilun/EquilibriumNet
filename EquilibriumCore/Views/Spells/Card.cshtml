@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "Card";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "";
 }
 
 <table style="background-image:url('../../images/spell card.png')!important ; background-size:contain!important;background-position:top,left !important; background-repeat:no-repeat!important; background-position:center!important;width:365px;height:541px">
@@ -24,14 +24,14 @@
                     }
                 </b>
             </div>
-</td>
+        </td>
     </tr>
     <tr style="height:70%">
         <td>
-            <div style="margin:4px" >
+            <div style="margin:4px">
 
                 @Model.getSpellDescription()
-               
+
             </div>
         </td>
     </tr>
