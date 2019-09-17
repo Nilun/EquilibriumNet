@@ -192,12 +192,24 @@ namespace EquilibriumCore.Controllers
         public ActionResult CreateImage(int id)
         {
 
-            var v = Directory.GetFiles(Directory.GetCurrentDirectory());
-            if (System.IO.File.Exists(id + ".png")) System.IO.File.Delete(id + ".png");
+        
 
             HtmlConverter converter = new HtmlConverter();
 
             var bytes = converter.FromUrl("https://equilibrium.jupotter.eu/spells/Details/1");
+            // var bytes = converter.FromHtmlString("test");
+
+            return File(bytes, "image/png", true);
+
+        }
+
+        public ActionResult CreateSpellCard(int id)
+        {
+                      
+
+            HtmlConverter converter = new HtmlConverter();
+
+            var bytes = converter.FromUrl("https://equilibrium.jupotter.eu/spells/Details/"+id);
             // var bytes = converter.FromHtmlString("test");
 
             return File(bytes, "image/png", true);
