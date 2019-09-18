@@ -16,6 +16,7 @@ using System.IO;
 using jsreport.AspNetCore;
 using jsreport.Types;
 using CoreHtmlToImage;
+using Newtonsoft.Json;
 
 namespace EquilibriumCore.Controllers
 {
@@ -217,6 +218,11 @@ namespace EquilibriumCore.Controllers
             var sp = db.Spell.Include(c=>c.LinkComponents).ThenInclude(l => l.Component).First(c => c.ID == id);
             return View("../Spells/Card",sp);
 
+        }
+        public ActionResult SpellList(int id)
+        {
+            string res = JsonConvert.SerializeObject(db.Spell.Where(a => a.IDCaster == id).Select(a=>a.ID).ToArray());
+            return View("SpellList",res);
         }
     }
 }
