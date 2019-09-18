@@ -219,6 +219,7 @@ namespace EquilibriumCore.Controllers
             return View("../Spells/Card",sp);
 
         }
+        [AllowAnonymous]
         public ActionResult SpellList(int id)
         {
             string res = JsonConvert.SerializeObject(db.Spell.Where(a => a.IDCaster == id).Select(a=>a.ID).ToArray());
