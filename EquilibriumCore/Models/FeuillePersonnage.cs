@@ -76,6 +76,8 @@ namespace EquilibriumCore.Models
         [NotMapped] public bool showHidable { get; set; } = true;
         [NotMapped] public List<Partie> partiePossible = new List<Partie>();
         [NotMapped] public List<Spell> Spells { get; set; } = new List<Spell>();
+        [NotMapped] public List<Tooltiper> tipspells { get; set; } = new List<Tooltiper>();
+
         //[NotMapped] public int Memory { get =>(int)Math.Truncate((double)(3+Level/2));  }
         //[NotMapped] public int Brutality { get => skills!=null?skills.Brutality:999; }
         //[NotMapped] public int Swiftness { get => skills != null ? skills.Swiftness:999; }
@@ -88,6 +90,33 @@ namespace EquilibriumCore.Models
         public FeuillePersonnage ()
         {
             Level = 1;
+        }
+
+        public string InsertTooltip(string value)
+        {
+
+           
+
+            string result = "";
+            string[] working_array = value.Split(" ");
+
+            foreach (string item in working_array)
+            {
+                Tooltiper tp = tipspells.FirstOrDefault(t => t.keyword.ToUpper() == (item.ToUpper()));
+                if (tp != null)
+                {
+                    result += tp.getString() +" ";
+                }
+                else
+                {
+                    result += item + " ";
+                }
+            }
+
+
+            return result;
+
+
         }
     }
 }

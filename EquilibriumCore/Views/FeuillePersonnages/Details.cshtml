@@ -422,7 +422,7 @@
                 @spell.getCostString()
                 <br /><b> Effet      </b>
                 <div style="white-space:pre">
-                    @spell.getSpellDescription()
+               @Html.Raw(@Model.InsertTooltip(@spell.getSpellDescription()))
                 </div>
                 @if (User.Identity.Name == Model.Creator)
                 {<a asp-action="Delete" asp-controller="Spells" asp-route-id="@spell.ID">Delete  @spell.name </a>}

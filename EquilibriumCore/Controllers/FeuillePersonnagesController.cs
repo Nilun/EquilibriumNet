@@ -55,8 +55,9 @@ namespace EquilibriumCore.Controllers
             }
             feuillePersonnage.Spells = db.Spell.Include(c => c.LinkComponents).ThenInclude(l => l.Component)
                 .Where(s => s.IDCaster == feuillePersonnage.ID).ToList();
-           
-           
+            feuillePersonnage.tipspells = db.Tooltiper.ToList();
+
+
             return View(feuillePersonnage);
         }
 
@@ -225,5 +226,7 @@ namespace EquilibriumCore.Controllers
             string res = JsonConvert.SerializeObject(db.Spell.Where(a => a.IDCaster == id).Select(a=>a.ID).ToArray());
             return View("SpellList",res);
         }
+
+    
     }
 }
