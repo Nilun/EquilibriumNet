@@ -187,7 +187,7 @@ namespace EquilibriumCore.Controllers
                     MemoryStream ms = new MemoryStream();
                     r.Content.CopyTo(ms);
                     var rep = Tuple.Create(ms.ToArray(), r.Meta);
-                    memory.Set("f" + id, rep, TimeSpan.FromHours(10));
+                    memory.Set("f" + id, rep, TimeSpan.FromMinutes(10));
                     ms.Dispose();
                     r.Content.Seek(0, SeekOrigin.Begin);
                 });
@@ -237,7 +237,7 @@ namespace EquilibriumCore.Controllers
                                                                    MemoryStream ms = new MemoryStream();
                                                                    r.Content.CopyTo(ms);
                                                                    var rep = Tuple.Create(ms.ToArray(),r.Meta) ;
-                                                                   memory.Set("s" + id,rep, TimeSpan.FromHours(10));
+                                                                   memory.Set("s" + id,rep, TimeSpan.FromMinutes(10));
                                                                    ms.Dispose();
                                                                    r.Content.Seek(0, SeekOrigin.Begin);
                                                                 });
