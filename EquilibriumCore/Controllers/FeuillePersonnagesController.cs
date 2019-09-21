@@ -17,6 +17,7 @@ using jsreport.AspNetCore;
 using jsreport.Types;
 using CoreHtmlToImage;
 using Newtonsoft.Json;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace EquilibriumCore.Controllers
 {
@@ -24,10 +25,12 @@ namespace EquilibriumCore.Controllers
     public class FeuillePersonnagesController : Controller
     {
         private DataContext db;
+        IMemoryCache memory;
 
-        public FeuillePersonnagesController(DataContext datas)
+        public FeuillePersonnagesController(DataContext datas , IMemoryCache cache)
         {
             db = datas;
+            memory = cache;
         }
 
         // GET: FeuillePersonnages
@@ -174,21 +177,36 @@ namespace EquilibriumCore.Controllers
         [AllowAnonymous]
         public IActionResult DetailPdf(int id)
         {
-            HttpContext.JsReportFeature().Recipe(Recipe.ChromePdf);
 
-
-
-         
-            FeuillePersonnage feuillePersonnage = db.Feuilles.Find(id);
-            if (feuillePersonnage == null)
+            if (!memory.TryGetValue<Tuple<Byte[], ReportMeta>>("f" + id, out var result))
             {
-                return NotFound();
-            }
-            feuillePersonnage.Spells = db.Spell.Include(c => c.LinkComponents).ThenInclude(l => l.Component)
-                .Where(s => s.IDCaster == feuillePersonnage.ID).ToList();
-            feuillePersonnage.showHidable = false;
 
-            return View("Details" , feuillePersonnage);
+                HttpContext.JsReportFeature().Recipe(Recipe.ChromePdf);
+                HttpContext.JsReportFeature().OnAfterRender((r) =>
+                {
+                    MemoryStream ms = new MemoryStream();
+                    r.Content.CopyTo(ms);
+                    var rep = Tuple.Create(ms.ToArray(), r.Meta);
+                    memory.Set("f" + id, rep, TimeSpan.FromHours(10));
+                    ms.Dispose();
+                    r.Content.Seek(0, SeekOrigin.Begin);
+                });
+
+
+
+                FeuillePersonnage feuillePersonnage = db.Feuilles.Find(id);
+                if (feuillePersonnage == null)
+                {
+                    return NotFound();
+                }
+                feuillePersonnage.Spells = db.Spell.Include(c => c.LinkComponents).ThenInclude(l => l.Component)
+                    .Where(s => s.IDCaster == feuillePersonnage.ID).ToList();
+                feuillePersonnage.showHidable = false;
+
+                return View("Details", feuillePersonnage);
+            }
+            HttpContext.JsReportFeature().Enabled = false;
+            return File(result.Item1, result.Item2.ContentType);
         }
 
         public ActionResult CreateImage(int id)
@@ -206,18 +224,30 @@ namespace EquilibriumCore.Controllers
         }
 
         [MiddlewareFilter(typeof(JsReportPipeline))]
-        [AllowAnonymous]
+        [AllowAnonymous]        
         public ActionResult CreateSpellCard(int id)
         {
+           
+            if(!memory.TryGetValue<Tuple<Byte[],ReportMeta>>("s"+id , out var result))
+            { 
+
             HttpContext.JsReportFeature().Recipe(Recipe.ChromeImage).Configure(a => a.Template.ChromeImage = new ChromeImage() { OmitBackground = false , ClipHeight = 550, ClipX=0,ClipY=0, ClipWidth=375});
-            
+            HttpContext.JsReportFeature().OnAfterRender((r) =>
+                                                               {
+                                                                   MemoryStream ms = new MemoryStream();
+                                                                   r.Content.CopyTo(ms);
+                                                                   var rep = Tuple.Create(ms.ToArray(),r.Meta) ;
+                                                                   memory.Set("s" + id,rep, TimeSpan.FromHours(10));
+                                                                   ms.Dispose();
+                                                                   r.Content.Seek(0, SeekOrigin.Begin);
+                                                                });
             HtmlConverter converter = new HtmlConverter();
-            //string s = "https://equilibrium.jupotter.eu/spells/Card/"+id;
-            ////string s = "https://localhost:44310/spells/Card/"+id;
-            //var bytes = converter.FromUrl(s,370);
-            // var bytes = converter.FromHtmlString("test");
+          
             var sp = db.Spell.Include(c=>c.LinkComponents).ThenInclude(l => l.Component).First(c => c.ID == id);
             return View("../Spells/Card",sp);
+            }
+            HttpContext.JsReportFeature().Enabled = false;
+            return File( result.Item1 ,result.Item2.ContentType );
 
         }
         [AllowAnonymous]
@@ -226,7 +256,8 @@ namespace EquilibriumCore.Controllers
             string res = JsonConvert.SerializeObject(db.Spell.Where(a => a.IDCaster == id).Select(a=>a.ID).ToArray());
             return View("SpellList",res);
         }
+       
 
-    
+
     }
 }

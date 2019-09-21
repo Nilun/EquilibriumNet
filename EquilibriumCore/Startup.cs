@@ -67,6 +67,7 @@ namespace EquilibriumCore
                     jsreport.Binary.Linux.JsReportBinary.GetBinary())
         .AsUtility()
         .Create());
+            services.AddResponseCaching();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -76,16 +77,18 @@ namespace EquilibriumCore
             {
                 app.UseDeveloperExceptionPage();
                 app.UseHttpsRedirection();
+                
             }
             else
             {
                 app.UseDeveloperExceptionPage();
+             
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseCookiePolicy();
-
+            app.UseResponseCaching();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
