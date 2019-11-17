@@ -70,6 +70,7 @@ namespace EquilibriumCore.Models
 
         public int IDPartie { get; set; }
         [NotMapped] public string partie { get; set; }
+        [NotMapped] public int  Initiative { get => Malice + Swiftness;}
 
         [NotMapped] public bool openSpells { get; set; } = false;
 

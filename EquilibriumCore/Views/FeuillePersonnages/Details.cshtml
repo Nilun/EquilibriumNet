@@ -19,7 +19,7 @@
 
 
                 </span>
-                <dl class="dl-horizontal" align="center">
+                <dl class="dl-horizontal" align="left">
                     <dt>
                         @Html.DisplayNameFor(model => model.Race)
                     </dt>
@@ -53,7 +53,7 @@
 
                 </dl>
             </td>
-            <td class="dl-horizontal" align="center">
+            <td class="dl-horizontal"  align="left">
                 <dl>
                     <dt>
                         Skill Point
@@ -75,6 +75,14 @@
 
                     <dd>
                         @Html.DisplayFor(model => model.Memory) (with  @Html.DisplayFor(model => model.MemoryBonus) bonus included )
+                    </dd>
+                    <dt>
+                        Initiative
+                    </dt>
+
+                    <dd>
+                        <img src="~/images/d4.png" height="48" width="48"/> + 
+                        @Html.DisplayFor(model =>  model.Initiative)
                     </dd>
                 </dl>
             </td>
@@ -407,29 +415,32 @@
 
     <h3>Technic and Spell</h3><br />
     <div>
-        @Html.DisplayFor(model => model.comp)
-        <hr />@foreach (Spell spell in Model.Spells){
-        <div style="page-break-inside:avoid">
-            <h4 onclick="HideShow('@spell.ID')"> @spell.name</h4>
-            <div id="@spell.ID" class="dl-horizontal" style="display:  block ">
-
-                @if (Model.showHidable)
-                {<div class="tooltip" style="opacity:0.5"> ID <span class="tooltiptext"> @spell.ID </span></div>}
-                <b>  Range ( --> ) - Area (O)     </b>
-                @spell.getRange() ( --> ) -  @spell.getArea() (O)
-                <br />
-                <b>  Cost       </b>
-                @spell.getCostString()
-                <br /><b> Effet      </b>
-                <div style="white-space:pre">
-               @Html.Raw(@Model.InsertTooltip(@spell.getSpellDescription()))
+        <div style="white-space:pre">
+            @Html.DisplayFor(model => model.comp)
                 </div>
-                @if (User.Identity.Name == Model.Creator)
-                {<a asp-action="Delete" asp-controller="Spells" asp-route-id="@spell.ID">Delete  @spell.name </a>}
-            </div>
+            <hr />@foreach (Spell spell in Model.Spells)
+            {
+                <div style="page-break-inside:avoid">
+                    <h4 onclick="HideShow('@spell.ID')"> @spell.name</h4>
+                    <div id="@spell.ID" class="dl-horizontal" style="display:  block ">
+
+                        @if (Model.showHidable)
+                        {<div class="tooltip" style="opacity:0.5"> ID <span class="tooltiptext"> @spell.ID </span></div>}
+                        <b>  Range ( --> ) - Area (O)     </b>
+                        @spell.getRange() ( --> ) -  @spell.getArea() (O)
+                        <br />
+                        <b>  Cost       </b>
+                        @spell.getCostString()
+                        <br /><b> Effet      </b>
+                        <div style="white-space:pre">
+                            @Html.Raw(@Model.InsertTooltip(@spell.getSpellDescription()))
+                        </div>
+                        @if (User.Identity.Name == Model.Creator)
+                        {<a asp-action="Delete" asp-controller="Spells" asp-route-id="@spell.ID">Delete  @spell.name </a>}
+                    </div>
+                </div>
+            }
         </div>
-        }
-    </div>
 </div>
 <p>
     @if (Model.showHidable)
