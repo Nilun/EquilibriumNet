@@ -60,7 +60,7 @@ namespace EquilibriumCore.Controllers
                 .Where(s => s.IDCaster == feuillePersonnage.ID).ToList();
             feuillePersonnage.tipspells = db.Tooltiper.ToList();
 
-
+            feuillePersonnage.partiePossible = getParties();
             return View(feuillePersonnage);
         }
 
@@ -128,7 +128,7 @@ namespace EquilibriumCore.Controllers
                 feuillePersonnage.Creator = User.Identity.Name;
                 db.Feuilles.Update(feuillePersonnage);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", new { id = feuillePersonnage.ID });
             }
             return View(feuillePersonnage);
         }
