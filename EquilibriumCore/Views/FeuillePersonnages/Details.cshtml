@@ -493,7 +493,15 @@
 
                         @foreach (string partie in Model.partiePossible.Select(a => a.Name))
                         {
-                            <option value="@partie">@partie</option>
+                            @if (partie == Model.partie)
+                            {
+                                <option value="@partie" selected>@partie</option>
+                            }
+                            else
+                            {
+                                <option value="@partie">@partie</option>
+                            }
+
                         }
 
                     </select>

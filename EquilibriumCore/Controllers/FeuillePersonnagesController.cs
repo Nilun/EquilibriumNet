@@ -60,6 +60,7 @@ namespace EquilibriumCore.Controllers
                 .Where(s => s.IDCaster == feuillePersonnage.ID).ToList();
             feuillePersonnage.tipspells = db.Tooltiper.ToList();
 
+            feuillePersonnage.partie = db.Partie.Where(a => a.ID == feuillePersonnage.IDPartie).First().Name;
             feuillePersonnage.partiePossible = getParties();
             return View(feuillePersonnage);
         }
