@@ -59,7 +59,13 @@ namespace EquilibriumCore.Controllers
             feuillePersonnage.Spells = db.Spell.Include(c => c.LinkComponents).ThenInclude(l => l.Component)
                 .Where(s => s.IDCaster == feuillePersonnage.ID).ToList();
             feuillePersonnage.tipspells = db.Tooltiper.ToList();
-
+            if (feuillePersonnage.skills != null)
+            {
+                string[] splited = feuillePersonnage.skills.Split(';',StringSplitOptions.RemoveEmptyEntries);
+                //feuillePersonnage.ListSkills = db.Skills.Where((a) => splited.Contains(a.ID.ToString())).ToList();
+                feuillePersonnage.ListSkills = splited.Select((a) => db.Skills.Find(int.Parse(a))).ToList();
+                feuillePersonnage.calculateLevelOfSkills();
+            }
             feuillePersonnage.partie = db.Partie.Where(a => a.ID == feuillePersonnage.IDPartie).First().Name;
             feuillePersonnage.partiePossible = getParties();
             return View(feuillePersonnage);
@@ -116,6 +122,40 @@ namespace EquilibriumCore.Controllers
             return View(feuillePersonnage);
         }
 
+        public ActionResult AddSkillsFP(int? SkillId, int? id)
+        {
+            if (id == null)
+            {
+                return BadRequest();
+            }
+            FeuillePersonnage feuillePersonnage = db.Feuilles.Find(id);           
+            if (feuillePersonnage == null)
+            {
+                return NotFound();
+            }
+            feuillePersonnage.skills += SkillId + ";";
+            db.Feuilles.Update(feuillePersonnage);
+            db.SaveChanges();
+            return RedirectToAction("Details", new { id = id });
+        }
+        public ActionResult RemoveSkillsFP(int? SkillId, int? id)
+        {
+            if (id == null)
+            {
+                return BadRequest();
+            }
+            FeuillePersonnage feuillePersonnage = db.Feuilles.Find(id);
+            if (feuillePersonnage == null)
+            {
+                return NotFound();
+            }
+            var nl = feuillePersonnage.skills.Split(";").ToList();
+           nl.Remove(SkillId.ToString());
+            feuillePersonnage.skills = String.Join(';',nl) + ";";
+            db.Feuilles.Update(feuillePersonnage);
+            db.SaveChanges();
+            return RedirectToAction("Details", new { id = id });
+        }
         // POST: FeuillePersonnages/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.

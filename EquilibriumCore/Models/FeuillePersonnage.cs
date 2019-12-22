@@ -66,7 +66,9 @@ namespace EquilibriumCore.Models
 
         public string passive { get; set; }
         public string Stuff { get; set; }
+        public string skills { get; set; }
         public string comp { get; set; }
+
 
         public int IDPartie { get; set; }
         [NotMapped] public string partie { get; set; }
@@ -78,6 +80,7 @@ namespace EquilibriumCore.Models
         [NotMapped] public List<Partie> partiePossible = new List<Partie>();
         [NotMapped] public List<Spell> Spells { get; set; } = new List<Spell>();
         [NotMapped] public List<Tooltiper> tipspells { get; set; } = new List<Tooltiper>();
+        [NotMapped] public List<Skills> ListSkills { get; set; } = new List<Skills>();
 
         //[NotMapped] public int Memory { get =>(int)Math.Truncate((double)(3+Level/2));  }
         //[NotMapped] public int Brutality { get => skills!=null?skills.Brutality:999; }
@@ -92,7 +95,18 @@ namespace EquilibriumCore.Models
         {
             Level = 1;
         }
-
+        public void calculateLevelOfSkills()
+        {
+            var tempList = ListSkills;
+            List<Skills> nList = new List<Skills>();
+            foreach (Skills s in tempList.Distinct())
+            {
+                Skills ns = s;
+                ns.CurrentLevel = tempList.Count((a)=>a.Name==s.Name);
+                nList.Add(ns);
+            }
+            ListSkills = nList;
+        }
         public string InsertTooltip(string value)
         {
 

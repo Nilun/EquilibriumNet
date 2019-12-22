@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -15,7 +16,8 @@ namespace EquilibriumCore.Models
         public string Effect { get; set; }
         public int levelMax { get; set; }
         public string Tags { get; set; }
-    
+        [NotMapped] int currentLevel;
+        [NotMapped] public int CurrentLevel {get =>  currentLevel;set => setLevel(value);}
         public Skills()
         {
             this.superCat = "";
@@ -33,6 +35,16 @@ namespace EquilibriumCore.Models
             Effect = effect;
             this.levelMax = levelMax;
             Tags = "";
+        }
+        public void setLevel(int value)
+        {
+            if(value>levelMax)
+            {
+                currentLevel = levelMax;
+            }else
+            {
+                currentLevel = value;
+            }
         }
     }
 }

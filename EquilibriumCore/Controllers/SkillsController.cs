@@ -43,6 +43,17 @@ namespace EquilibriumCore.Controllers
             return View(skills);
         }
 
+        public async Task<IActionResult> Select(int? FP )
+        {
+            ViewBag.FP = FP;
+            return View(await _context.Skills.ToListAsync());
+        }
+        public async Task<IActionResult> Selected(int? id,int? FP)
+        {
+                       
+            return RedirectToAction("AddSkillsFP", "FeuillePersonnages", new { id = FP });
+        }
+
         // GET: Skills/Create
         public IActionResult Create()
         {
