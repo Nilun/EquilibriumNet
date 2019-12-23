@@ -46,6 +46,13 @@ namespace EquilibriumCore.Controllers
         public async Task<IActionResult> Select(int? FP )
         {
             ViewBag.FP = FP;
+            List<string> Tags = new List<string>();
+            Tags = _context.Skills.Select((a) => a.Tags).Where((a)=> a !=null && a != "").SelectMany(a =>a.Split(" ",StringSplitOptions.RemoveEmptyEntries)).Distinct().ToList();
+            List<string> Cats = _context.Skills.Select((a) => a.cat).Distinct().ToList();
+            List<string> SupCats = _context.Skills.Select((a) => a.superCat).Distinct().ToList();
+            ViewBag.Tags = Tags;
+            ViewBag.Cats = Cats;
+            ViewBag.SupCats = SupCats;
             return View(await _context.Skills.ToListAsync());
         }
         public async Task<IActionResult> Selected(int? id,int? FP)

@@ -5,8 +5,28 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Select</h2>
-
+<h2>Select One ...</h2>
+<select id="filterSC" onchange="Filter()">
+    <option value=""></option>
+    @foreach (string item in ViewBag.SupCats)
+    {
+    <option value="@item">@item</option>
+    }
+</select>
+<select id="filterC" onchange="Filter()">
+    <option value=""></option>
+    @foreach (string item in ViewBag.Cats)
+    {
+        <option value="@item">@item</option>
+    }
+</select>
+<select id="filterT" onchange="Filter()">
+    <option value=""></option>
+    @foreach (string item in ViewBag.Tags)
+    {
+        <option value="@item">@item</option>
+    }
+</select>
 <table class="table">
     <thead>
         <tr>           
@@ -27,7 +47,8 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr>
+        <tr  class="Skills" id="@item.getIDComposed()">
+          
                         <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
@@ -47,3 +68,58 @@
 }
     </tbody>
 </table>
+<script>
+    function Filter() {
+        // Declare variables
+        var ul, li, i;
+        filterOnSC = document.getElementById("filterSC").value;
+        filterOnC = document.getElementById("filterC").value;
+        filterOnT = document.getElementById("filterT").value;
+        li = document.getElementsByClassName("Skills");
+        
+       
+        
+        // Loop through all list items, and hide those who don't match the search query
+        for (i = 0; i < li.length; i++) {
+            var s = li[i].id.split(",");
+            var tagok = false;
+            var COK = false;
+            var SCOK = false;
+           
+            if ((filterOnSC == "" || s[0] == filterOnSC)) {
+                COK = true;
+               // console.log(s[0] + " == " + filterOnSC + (s[0] == filterOnSC));
+            }
+            if ((filterOnC == "" || s[1] == filterOnC)) {
+               // console.log(s[1] + " == " + filterOnC + (s[1] == filterOnC));
+                SCOK = true;
+            }
+            if((filterOnT != ""))
+            {
+               
+                for (var j = 0; j < s.length; j++) {
+
+                    if ((filterOnT == s[j])) //
+                    {
+
+                        tagok = true;
+                    }
+
+
+                }
+                
+            } else {
+                tagok = true;
+            }
+
+            if (COK && SCOK && tagok) {
+               // console.log(COK + " " + SCOK + " " + tagok)
+                li[i].style.display = "";
+            } else {
+                li[i].style.display = "none";
+            }
+
+
+        }
+    }
+</script>

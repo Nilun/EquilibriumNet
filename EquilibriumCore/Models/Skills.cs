@@ -76,6 +76,9 @@ namespace EquilibriumCore.Models
             }
             return s;
         }
-
+        public string getIDComposed()
+        {
+            return superCat + "," + cat + "," + Tags;
+        }
     }
 }
