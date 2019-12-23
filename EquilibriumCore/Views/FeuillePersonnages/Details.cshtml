@@ -418,22 +418,24 @@
 
     <div style="page-break-before:always">
         <hr />
-        <a asp-action="Select" asp-controller="Skills" asp-all-route-data="@{ new Dictionary<string, string> { { "FP", Model.ID.ToString() } }; } ">Add a new passive</a>
-        <h3>Passive</h3><br />
-                        <div>
-                            @foreach (Skills s in Model.ListSkills)
-                            {
+        <div id="Edition" style="display:  none ">
+            <a asp-action="Select" asp-controller="Skills" asp-all-route-data="@{ new Dictionary<string, string> { { "FP", Model.ID.ToString() } }; } ">Add a new passive</a>
+      </div>
+            <h3>Passive</h3><br />
+            <div>
+                @foreach (Skills s in Model.ListSkills)
+                {
 
-                                <h4> @s.Name </h4> @s.CurrentLevel @:/ @s.levelMax <br />
-                        <div id="Edition" style="display:  none ">
-                            <a class="btn btn-danger" asp-action="RemoveSkillsFP" asp-all-route-data="@{ new Dictionary<string, string> { {"SkillId" ,s.ID.ToString() }, {"id", Model.ID.ToString() } }; } ">-</a>
-                            <a asp-action="AddSkillsFP" asp-all-route-data="@{ new Dictionary<string, string> { {"SkillId" ,s.ID.ToString() }, {"id", Model.ID.ToString() } }; } " class="btn btn-success">+</a>
-                        </div>
-                        @s.Effect
+                    <h4> @s.Name </h4> @s.CurrentLevel @:/ @s.levelMax <br />
+                    <div id="Edition" style="display:  none ">
+                        <a class="btn btn-danger" asp-action="RemoveSkillsFP" asp-all-route-data="@{ new Dictionary<string, string> { {"SkillId" ,s.ID.ToString() }, {"id", Model.ID.ToString() } }; } ">-</a>
+                        <a asp-action="AddSkillsFP" asp-all-route-data="@{ new Dictionary<string, string> { {"SkillId" ,s.ID.ToString() }, {"id", Model.ID.ToString() } }; } " class="btn btn-success">+</a>
+                    </div>
+                    @s.currentEffect
 
-                    }
-                        </div>
-                        </div>
+                }
+            </div>
+        </div>
         <div style="white-space:pre">
 
             <div id="NEdition" style="display:  block">

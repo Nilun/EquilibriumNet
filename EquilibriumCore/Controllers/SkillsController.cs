@@ -97,7 +97,7 @@ namespace EquilibriumCore.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,superCat,cat,Name,Effect,levelMax,Tags")] Skills skills)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,superCat,cat,Name,Effect,levelMax,Tags,Ignore")] Skills skills)
         {
             if (id != skills.ID)
             {

@@ -16,6 +16,8 @@ namespace EquilibriumCore.Models
         public string Effect { get; set; }
         public int levelMax { get; set; }
         public string Tags { get; set; }
+        public string Ignore { get; set; }
+        [NotMapped]public string currentEffect { get => getEffect(); }
         [NotMapped] int currentLevel;
         [NotMapped] public int CurrentLevel {get =>  currentLevel;set => setLevel(value);}
         public Skills()
@@ -46,5 +48,22 @@ namespace EquilibriumCore.Models
                 currentLevel = value;
             }
         }
+        public string getEffect()
+        {
+            string s = "";
+            foreach (char c in Effect)
+            {
+                int outVal;
+                if(int.TryParse(c.ToString(),out outVal) && c.ToString() != Ignore)
+                {
+                    s += outVal * CurrentLevel;
+                }else
+                {
+                    s += c;
+                }
+            }
+            return s;
+        }
+
     }
 }
