@@ -51,10 +51,22 @@ namespace EquilibriumCore.Models
         public string getEffect()
         {
             string s = "";
+            string[] ignored;
+            if (Ignore != null && Ignore != ""  && Ignore.Contains(';'))
+            {
+                 ignored = Ignore.Split(";");
+            }else if (Ignore != null && Ignore != "")
+            {
+                ignored = new string[1];
+                ignored[0] = Ignore;
+            } else
+            {
+                ignored = new string[0];
+            }
             foreach (char c in Effect)
             {
                 int outVal;
-                if(int.TryParse(c.ToString(),out outVal) && c.ToString() != Ignore)
+                if(int.TryParse(c.ToString(),out outVal) && !ignored.Contains( c.ToString()))
                 {
                     s += outVal * CurrentLevel;
                 }else
