@@ -23,7 +23,7 @@ namespace EquilibriumCore.Models
         [NotMapped] public int Memory { get => (int)Math.Truncate((double)(3 + Level / 2)) + MemoryBonus; }
 
         public int SkillPoint { get => 5 + (int)Math.Truncate((double)((Level - 1) / 2)); }
-        public int ClassPoint { get => 2 + (int)Math.Truncate((double)(Level / 2)); }
+        public int ClassPoint { get => getClassPoint(); }
 
         public int OneHand { get; set; }
         public int LOneHand { get; set; }
@@ -106,6 +106,23 @@ namespace EquilibriumCore.Models
                 nList.Add(ns);
             }
             ListSkills = nList;
+        }
+
+        public int getClassPoint()
+        {
+            int result = 2;
+            for (int i = 1; i <= Level; i++)
+            {
+                if((i%5)==0)
+                {
+                    result += 2;
+                }else
+                {
+                    result += i % 2 == 0 ? 1 : 0;
+                }
+
+            }
+            return result;
         }
         public string InsertTooltip(string value)
         {
