@@ -422,6 +422,7 @@
             <a asp-action="Select" asp-controller="Skills" asp-all-route-data="@{ new Dictionary<string, string> { { "FP", Model.ID.ToString() } }; } ">Add a new passive</a>
       </div>
             <h3>Passive</h3><br />
+        <input type="text" class="hidden" id="skills" name="skills" value="@Model.skills"/>
             <div>
                 @foreach (Skills s in Model.ListSkills)
                 {
