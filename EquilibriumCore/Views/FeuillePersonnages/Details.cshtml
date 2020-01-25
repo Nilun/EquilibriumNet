@@ -3,25 +3,25 @@
 @{
     ViewBag.Title = "Details";
 }
+<body onload="startEdit();">
+    <form asp-action="Edit">
 
-<form asp-action="Edit">
-   
-    <input type="hidden" id="ID" name="ID" value="@Model.ID" />
-    <div>
+        <input type="hidden" id="ID" name="ID" value="@Model.ID" />
+        <div>
 
-        @if (User.Identity.Name == Model.Creator)
-        {
-            <div id="NEdition" style="display:  block"> <a href="#" onclick="HideShowEdition('NEdition');HideShowEdition('Edition')" class="btn btn-info" style="float:right">Edit</a> </div>
+            @if (User.Identity.Name == Model.Creator)
+            {
+                <div id="NEdition" style="display:  block"> <a href="#" onclick="HideShowEdition('NEdition');HideShowEdition('Edition')" class="btn btn-info" style="float:right">Edit</a> </div>
 
-            <div class="form-group">
-                <div id="Edition" style="display:  none">
-                    <div class="form-group">
-                        <div style="float:right"> <input type="submit" value="Save" class="btn btn-success" /> </div>
+                <div class="form-group">
+                    <div id="Edition" style="display:  none">
+                        <div class="form-group">
+                            <div style="float:right"> <input type="submit" value="Save" class="btn btn-success" /> </div>
+                        </div>
                     </div>
-                </div>
 
-            </div>
-        }
+                </div>
+            }
             <div id="NEdition" style="display:  block"><h2>  @Html.DisplayFor(model => model.Name)</h2></div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.Name)</div></div>
             <hr />
 
@@ -106,58 +106,58 @@
             </table>
 
         </div>
-    <div>
-        <h3>Focus</h3>
+        <div>
+            <h3>Focus</h3>
 
 
-        <table align="center" height="150">
+            <table align="center" height="150">
 
-            <tr style="text-align:center">
-                <td>Brutality</td>
-            </tr>
-            <tr>
-                <td style="background-image:url('../../images/diamond.png')!important ; -webkit-print-color-adjust: exact; background-size:contain!important; background-repeat:no-repeat!important; background-position:center!important; width : auto!important ; height : auto!important ; text-align:center">
-                    <h3> @Html.DisplayFor(model => model.Brutality)</h3>
+                <tr style="text-align:center">
+                    <td>Brutality</td>
+                </tr>
+                <tr>
+                    <td style="background-image:url('../../images/diamond.png')!important ; -webkit-print-color-adjust: exact; background-size:contain!important; background-repeat:no-repeat!important; background-position:center!important; width : auto!important ; height : auto!important ; text-align:center">
+                        <h3> @Html.DisplayFor(model => model.Brutality)</h3>
 
-                </td>
-            </tr>
-        </table>
+                    </td>
+                </tr>
+            </table>
 
 
-        <table align="center" width="550" height="150">
+            <table align="center" width="550" height="150">
 
-            <tr style="text-align:center">
-                <td width="50%">Vitality</td>
-                <td>Swiftness</td>
-            </tr>
-            <tr>
-                <td height="50" style="background-image:url('../../images/diamond.png')!important ; background-size:contain!important; background-repeat:no-repeat!important; background-position:center!important; width : auto!important ;  text-align:center">
-                    <h3> @Html.DisplayFor(model => model.Vitality)</h3>
+                <tr style="text-align:center">
+                    <td width="50%">Vitality</td>
+                    <td>Swiftness</td>
+                </tr>
+                <tr>
+                    <td height="50" style="background-image:url('../../images/diamond.png')!important ; background-size:contain!important; background-repeat:no-repeat!important; background-position:center!important; width : auto!important ;  text-align:center">
+                        <h3> @Html.DisplayFor(model => model.Vitality)</h3>
 
-                </td>
-                <td height="50" style="background-image:url('../../images/diamond.png')!important ; background-size:contain!important; background-repeat:no-repeat!important; background-position:center!important; width : auto!important ; text-align:center">
-                    <h3>  @Html.DisplayFor(model => model.Swiftness)</h3>
-                </td>
-            </tr>
-        </table>
+                    </td>
+                    <td height="50" style="background-image:url('../../images/diamond.png')!important ; background-size:contain!important; background-repeat:no-repeat!important; background-position:center!important; width : auto!important ; text-align:center">
+                        <h3>  @Html.DisplayFor(model => model.Swiftness)</h3>
+                    </td>
+                </tr>
+            </table>
 
-        <table align="center" height="150" width="300">
+            <table align="center" height="150" width="300">
 
-            <tr style="text-align:center">
-                <td width="50%">Malice</td>
-                <td>Spirit</td>
-            </tr>
-            <tr>
-                <td height="50" style="background-image:url('../../images/diamond.png')!important ; background-size:contain!important; background-repeat:no-repeat!important; background-position:center!important; width : auto!important ;  text-align:center ;  -webkit-print-color-adjust: exact; ">
-                    <h3> @Html.DisplayFor(model => model.Malice)</h3>
+                <tr style="text-align:center">
+                    <td width="50%">Malice</td>
+                    <td>Spirit</td>
+                </tr>
+                <tr>
+                    <td height="50" style="background-image:url('../../images/diamond.png')!important ; background-size:contain!important; background-repeat:no-repeat!important; background-position:center!important; width : auto!important ;  text-align:center ;  -webkit-print-color-adjust: exact; ">
+                        <h3> @Html.DisplayFor(model => model.Malice)</h3>
 
-                </td>
-                <td height="50" style="background-image:url('../../images/diamond.png')!important; background-size:contain!important; background-repeat:no-repeat!important; background-position:center!important; width : auto!important ;  text-align:center ;  -webkit-print-color-adjust: exact; ">
+                    </td>
+                    <td height="50" style="background-image:url('../../images/diamond.png')!important; background-size:contain!important; background-repeat:no-repeat!important; background-position:center!important; width : auto!important ;  text-align:center ;  -webkit-print-color-adjust: exact; ">
 
-                    <h3>  @Html.DisplayFor(model => model.Spirit)</h3>
-                </td>
-            </tr>
-        </table>
+                        <h3>  @Html.DisplayFor(model => model.Spirit)</h3>
+                    </td>
+                </tr>
+            </table>
 
 
 
@@ -166,263 +166,263 @@
 
 
 
-    </div>
-    <br />
-    <br />
-    <br />
-    <div>
+        </div>
+        <br />
+        <br />
+        <br />
+        <div>
 
-        <table align="center" width="100%" style="page-break-before:always">
-            <tr>
-                <td>
+            <table align="center" width="100%" style="page-break-before:always">
+                <tr>
+                    <td>
 
 
-                    <h4> War skills</h4>
+                        <h4> War skills</h4>
 
-                    <dl class="dl-horizontal">
-                        <dt>
-                            One Hand (Swiftness)
-                        </dt>
+                        <dl class="dl-horizontal">
+                            <dt>
+                                One Hand (Swiftness)
+                            </dt>
 
-                        <dd>
-                            <div id="NEdition" style="display:  block">  @Html.DisplayFor(model => model.OneHand)</div><div class="form-group"> <div id="Edition"  style="display:  none ">@Html.EditorFor(model => model.OneHand)</div></div>
-                        </dd>
+                            <dd>
+                                <div id="NEdition" style="display:  block">  @Html.DisplayFor(model => model.OneHand)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.OneHand)</div></div>
+                            </dd>
 
-                        <dt>
-                            Light One Hand <br /> (Malice)
-                        </dt>
+                            <dt>
+                                Light One Hand <br /> (Malice)
+                            </dt>
 
-                        <dd>
-                            <div id="NEdition" style="display:  block">  @Html.DisplayFor(model => model.LOneHand)</div><div class="form-group"> <div id="Edition"  style="display:  none ">@Html.EditorFor(model => model.OneHand)</div></div>
-                        </dd>
+                            <dd>
+                                <div id="NEdition" style="display:  block">  @Html.DisplayFor(model => model.LOneHand)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.LOneHand)</div></div>
+                            </dd>
 
-                        <dt>
-                            Two Hand (Brutality)
-                        </dt>
+                            <dt>
+                                Two Hand (Brutality)
+                            </dt>
 
-                        <dd>
-                            <div id="NEdition" style="display:  block">   @Html.DisplayFor(model => model.TwoHand)</div><div class="form-group"> <div id="Edition"  style="display:  none ">@Html.EditorFor(model => model.OneHand)</div></div>
-                        </dd>
+                            <dd>
+                                <div id="NEdition" style="display:  block">   @Html.DisplayFor(model => model.TwoHand)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.TwoHand)</div></div>
+                            </dd>
 
-                        <dt>
-                            Throwing (Malice)
-                        </dt>
-
-                        <dd>
-                            <div id="NEdition" style="display:  block">   @Html.DisplayFor(model => model.Throw)</div><div class="form-group"> <div id="Edition"  style="display:  none ">@Html.EditorFor(model => model.Throw)</div></div>
-                        </dd>
-
-                        <dt>
-                            Archery (Brutality)
-                        </dt>
-
-                        <dd>
-                            <div id="NEdition" style="display:  block">   @Html.DisplayFor(model => model.Bow)</div><div class="form-group"> <div id="Edition"  style="display:  none ">@Html.EditorFor(model => model.Bow)</div></div>
-                        </dd>
-
-                        <dt>
-                            Bodybuilding (Vitality)
-                        </dt>
-
-                        <dd>
-                            <div id="NEdition" style="display:  block">   @Html.DisplayFor(model => model.Body)</div><div class="form-group"> <div id="Edition"  style="display:  none ">@Html.EditorFor(model => model.Body)</div></div>
-                        </dd>
-
-                        <dt>
-                            Parry (Vitality)
-                        </dt>
-
-                        <dd>
-                            <div id="NEdition" style="display:  block">  @Html.DisplayFor(model => model.Parry)</div><div class="form-group"> <div id="Edition"  style="display:  none ">@Html.EditorFor(model => model.Parry)</div></div>
-                        </dd>
-                    </dl>
-                </td>
-                <td>
-                    <h4> Magic skills</h4>
-
-                    <dl class="dl-horizontal">
-                        <dt>
-                            Elemental Magic (Spirit)
-                        </dt>
-
-                        <dd>
-                            <div id="NEdition" style="display:  block">   @Html.DisplayFor(model => model.Elem)</div><div class="form-group"> <div id="Edition"  style="display:  none ">@Html.EditorFor(model => model.Elem)</div></div>
-                        </dd>
-
-                        <dt>
-                            Occult Magic (Malice)
-                        </dt>
-
-                        <dd>
-                            <div id="NEdition" style="display:  block"> @Html.DisplayFor(model => model.Occult)</div><div class="form-group"> <div id="Edition"  style="display:  none ">@Html.EditorFor(model => model.Occult)</div></div>
-                        </dd>
-
-                        <dt>
-                            Primordial Magic <br /> (Brutality)
-                        </dt>
-
-                        <dd>
-                            <div id="NEdition" style="display:  block">    @Html.DisplayFor(model => model.Primordial)</div><div class="form-group"> <div id="Edition"  style="display:  none ">@Html.EditorFor(model => model.Primordial)</div></div>
-                        </dd>
-
-                        <dt>
-                            Metamagic (Swiftness)
-                        </dt>
-
-                        <dd>
-                            <div id="NEdition" style="display:  block"> @Html.DisplayFor(model => model.Metamagic)</div><div class="form-group"> <div id="Edition"  style="display:  none ">@Html.EditorFor(model => model.Metamagic)</div></div>
-                        </dd>
-
-                        <dt>
-                            Infusion (Spirit)
-                        </dt>
-
-                        <dd>
-                            <div id="NEdition" style="display:  block">   @Html.DisplayFor(model => model.Infusion)</div><div class="form-group"> <div id="Edition"  style="display:  none ">@Html.EditorFor(model => model.Infusion)</div></div>
-                        </dd>
-
-                        <dt>
-                            Resistance (Vitality)
-                        </dt>
-
-                        <dd>
-                            <div id="NEdition" style="display:  block"> @Html.DisplayFor(model => model.Resist)</div><div class="form-group"> <div id="Edition"  style="display:  none ">@Html.EditorFor(model => model.Resist)</div></div>
-                        </dd>
-
-                        <dt>
-                            Magic Identification <br> (Swiftness)
-                        </dt>
-
-                        <dd>
-                            <div id="NEdition" style="display:  block">  @Html.DisplayFor(model => model.MagicIdentif)</div><div class="form-group"> <div id="Edition"  style="display:  none ">@Html.EditorFor(model => model.MagicIdentif)</div></div>
-                        </dd>
-                    </dl>
-                </td>
-                <td>
-                    <h4> Adventuring  skills</h4>
-
-                    <dl class="dl-horizontal">
-                        <dt>
-                            Stealth (Malice)
-                        </dt>
-
-                        <dd>
-                            <div id="NEdition" style="display:  block">  @Html.DisplayFor(model => model.Stealth)</div><div class="form-group"> <div id="Edition"  style="display:  none ">@Html.EditorFor(model => model.Stealth)</div></div>
-                        </dd>
-
-                        <dt>
-                            Survival (Swiftness)
-                        </dt>
-
-                        <dd>
-                            <div id="NEdition" style="display:  block">  @Html.DisplayFor(model => model.Survival)</div><div class="form-group"> <div id="Edition"  style="display:  none ">@Html.EditorFor(model => model.Survival)</div></div>
-                        </dd>
-
-                        <dt>
-                            Perception (Spirit)
-                        </dt>
-
-                        <dd>
-                            <div id="NEdition" style="display:  block">  @Html.DisplayFor(model => model.Perception)</div><div class="form-group"> <div id="Edition"  style="display:  none ">@Html.EditorFor(model => model.Perception)</div></div>
-                        </dd>
-
-                        <dt>
-                            Speechcraft (Malice)
-                        </dt>
-
-                        <dd>
-                            <div id="NEdition" style="display:  block">  @Html.DisplayFor(model => model.Speech)</div><div class="form-group"> <div id="Edition"  style="display:  none ">@Html.EditorFor(model => model.Speech)</div></div>
-                        </dd>
-
-                        <dt>
-                            History (Spirit)
-                        </dt>
-
-                        <dd>
-                            <div id="NEdition" style="display:  block">  @Html.DisplayFor(model => model.History)</div><div class="form-group"> <div id="Edition"  style="display:  none ">@Html.EditorFor(model => model.History)</div></div>
-                        </dd>
-
-                        <dt>
-                            Medic (Spirit)
-                        </dt>
-
-                        <dd>
-                            <div id="NEdition" style="display:  block">  @Html.DisplayFor(model => model.Medic)</div><div class="form-group"> <div id="Edition"  style="display:  none ">@Html.EditorFor(model => model.Medic)</div></div>
-                        </dd>
-
-                        <dt>
-                            Empath (Swiftness)
-                        </dt>
-
-                        <dd>
-                            <div id="NEdition" style="display:  block">  @Html.DisplayFor(model => model.Empath)</div><div class="form-group"> <div id="Edition"  style="display:  none ">@Html.EditorFor(model => model.Empath)</div></div>
-                        </dd>
-
-                        <dt>
-                            Athletism (Brutality)
-                        </dt>
-
-                        <dd>
-                            <div id="NEdition" style="display:  block">  @Html.DisplayFor(model => model.Athletism)</div><div class="form-group"> <div id="Edition"  style="display:  none ">@Html.EditorFor(model => model.Athletism)</div></div>
-                        </dd>
-
-                        <dt>
-                            Acrobatics (Vitality)
-                        </dt>
-
-                        <dd>
-                            <div id="NEdition" style="display:  block"> @Html.DisplayFor(model => model.Acrobatics)</div><div class="form-group"> <div id="Edition"  style="display:  none ">@Html.EditorFor(model => model.Acrobatics)</div></div>
-                        </dd>
-
-                        <dt>
-                            Craft (Brutality)
-                        </dt>
-
-                        <dd>
-                            <div id="NEdition" style="display:  block">  @Html.DisplayFor(model => model.CraftB)</div><div class="form-group"> <div id="Edition"  style="display:  none ">@Html.EditorFor(model => model.CraftB)</div></div>
-                        </dd>
-                        <dt>
-                            Craft (Swiftness)
-                        </dt>
-
-                        <dd>
-                            <div id="NEdition" style="display:  block">   @Html.DisplayFor(model => model.CraftSW)</div><div class="form-group"> <div id="Edition"  style="display:  none ">@Html.EditorFor(model => model.CraftSW)</div></div>
-                        </dd>
-                        <dt>
-                            Craft (Spirit)
-                        </dt>
-
-                        <dd>
-                            <div id="NEdition" style="display:  block">  @Html.DisplayFor(model => model.CraftS)</div><div class="form-group"> <div id="Edition"  style="display:  none ">@Html.EditorFor(model => model.CraftS)</div></div>
-                        </dd>
-                        <dt>
-                            Craft (Malice)
-                        </dt>
-
-                        <dd>
-                            <div id="NEdition" style="display:  block">   @Html.DisplayFor(model => model.CraftM)</div><div class="form-group"> <div id="Edition"  style="display:  none ">@Html.EditorFor(model => model.CraftM)</div></div>
-                        </dd>
-
-                        <dt>
-                            Intimidation (Brutality)
-                        </dt>
-
-                        <dd>
-                            <div id="NEdition" style="display:  block">  @Html.DisplayFor(model => model.Intimidation)</div><div class="form-group"> <div id="Edition"  style="display:  none ">@Html.EditorFor(model => model.Intimidation)</div></div>
-                        </dd>
-                    </dl>
-                </td>
-            </tr>
-        </table>
-    </div>
-
-    <div style="page-break-before:always">
-        <hr />
-        <div id="Edition" style="display:  none ">
-            <a asp-action="Select" asp-controller="Skills" asp-all-route-data="@{ new Dictionary<string, string> { { "FP", Model.ID.ToString() } }; } ">Add a new passive</a>
-      </div>
+                            <dt>
+                                Throwing (Malice)
+                            </dt>
+
+                            <dd>
+                                <div id="NEdition" style="display:  block">   @Html.DisplayFor(model => model.Throw)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.Throw)</div></div>
+                            </dd>
+
+                            <dt>
+                                Archery (Brutality)
+                            </dt>
+
+                            <dd>
+                                <div id="NEdition" style="display:  block">   @Html.DisplayFor(model => model.Bow)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.Bow)</div></div>
+                            </dd>
+
+                            <dt>
+                                Bodybuilding (Vitality)
+                            </dt>
+
+                            <dd>
+                                <div id="NEdition" style="display:  block">   @Html.DisplayFor(model => model.Body)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.Body)</div></div>
+                            </dd>
+
+                            <dt>
+                                Parry (Vitality)
+                            </dt>
+
+                            <dd>
+                                <div id="NEdition" style="display:  block">  @Html.DisplayFor(model => model.Parry)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.Parry)</div></div>
+                            </dd>
+                        </dl>
+                    </td>
+                    <td>
+                        <h4> Magic skills</h4>
+
+                        <dl class="dl-horizontal">
+                            <dt>
+                                Elemental Magic (Spirit)
+                            </dt>
+
+                            <dd>
+                                <div id="NEdition" style="display:  block">   @Html.DisplayFor(model => model.Elem)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.Elem)</div></div>
+                            </dd>
+
+                            <dt>
+                                Occult Magic (Malice)
+                            </dt>
+
+                            <dd>
+                                <div id="NEdition" style="display:  block"> @Html.DisplayFor(model => model.Occult)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.Occult)</div></div>
+                            </dd>
+
+                            <dt>
+                                Primordial Magic <br /> (Brutality)
+                            </dt>
+
+                            <dd>
+                                <div id="NEdition" style="display:  block">    @Html.DisplayFor(model => model.Primordial)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.Primordial)</div></div>
+                            </dd>
+
+                            <dt>
+                                Metamagic (Swiftness)
+                            </dt>
+
+                            <dd>
+                                <div id="NEdition" style="display:  block"> @Html.DisplayFor(model => model.Metamagic)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.Metamagic)</div></div>
+                            </dd>
+
+                            <dt>
+                                Infusion (Spirit)
+                            </dt>
+
+                            <dd>
+                                <div id="NEdition" style="display:  block">   @Html.DisplayFor(model => model.Infusion)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.Infusion)</div></div>
+                            </dd>
+
+                            <dt>
+                                Resistance (Vitality)
+                            </dt>
+
+                            <dd>
+                                <div id="NEdition" style="display:  block"> @Html.DisplayFor(model => model.Resist)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.Resist)</div></div>
+                            </dd>
+
+                            <dt>
+                                Magic Identification <br> (Swiftness)
+                            </dt>
+
+                            <dd>
+                                <div id="NEdition" style="display:  block">  @Html.DisplayFor(model => model.MagicIdentif)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.MagicIdentif)</div></div>
+                            </dd>
+                        </dl>
+                    </td>
+                    <td>
+                        <h4> Adventuring  skills</h4>
+
+                        <dl class="dl-horizontal">
+                            <dt>
+                                Stealth (Malice)
+                            </dt>
+
+                            <dd>
+                                <div id="NEdition" style="display:  block">  @Html.DisplayFor(model => model.Stealth)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.Stealth)</div></div>
+                            </dd>
+
+                            <dt>
+                                Survival (Swiftness)
+                            </dt>
+
+                            <dd>
+                                <div id="NEdition" style="display:  block">  @Html.DisplayFor(model => model.Survival)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.Survival)</div></div>
+                            </dd>
+
+                            <dt>
+                                Perception (Spirit)
+                            </dt>
+
+                            <dd>
+                                <div id="NEdition" style="display:  block">  @Html.DisplayFor(model => model.Perception)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.Perception)</div></div>
+                            </dd>
+
+                            <dt>
+                                Speechcraft (Malice)
+                            </dt>
+
+                            <dd>
+                                <div id="NEdition" style="display:  block">  @Html.DisplayFor(model => model.Speech)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.Speech)</div></div>
+                            </dd>
+
+                            <dt>
+                                History (Spirit)
+                            </dt>
+
+                            <dd>
+                                <div id="NEdition" style="display:  block">  @Html.DisplayFor(model => model.History)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.History)</div></div>
+                            </dd>
+
+                            <dt>
+                                Medic (Spirit)
+                            </dt>
+
+                            <dd>
+                                <div id="NEdition" style="display:  block">  @Html.DisplayFor(model => model.Medic)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.Medic)</div></div>
+                            </dd>
+
+                            <dt>
+                                Empath (Swiftness)
+                            </dt>
+
+                            <dd>
+                                <div id="NEdition" style="display:  block">  @Html.DisplayFor(model => model.Empath)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.Empath)</div></div>
+                            </dd>
+
+                            <dt>
+                                Athletism (Brutality)
+                            </dt>
+
+                            <dd>
+                                <div id="NEdition" style="display:  block">  @Html.DisplayFor(model => model.Athletism)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.Athletism)</div></div>
+                            </dd>
+
+                            <dt>
+                                Acrobatics (Vitality)
+                            </dt>
+
+                            <dd>
+                                <div id="NEdition" style="display:  block"> @Html.DisplayFor(model => model.Acrobatics)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.Acrobatics)</div></div>
+                            </dd>
+
+                            <dt>
+                                Craft (Brutality)
+                            </dt>
+
+                            <dd>
+                                <div id="NEdition" style="display:  block">  @Html.DisplayFor(model => model.CraftB)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.CraftB)</div></div>
+                            </dd>
+                            <dt>
+                                Craft (Swiftness)
+                            </dt>
+
+                            <dd>
+                                <div id="NEdition" style="display:  block">   @Html.DisplayFor(model => model.CraftSW)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.CraftSW)</div></div>
+                            </dd>
+                            <dt>
+                                Craft (Spirit)
+                            </dt>
+
+                            <dd>
+                                <div id="NEdition" style="display:  block">  @Html.DisplayFor(model => model.CraftS)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.CraftS)</div></div>
+                            </dd>
+                            <dt>
+                                Craft (Malice)
+                            </dt>
+
+                            <dd>
+                                <div id="NEdition" style="display:  block">   @Html.DisplayFor(model => model.CraftM)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.CraftM)</div></div>
+                            </dd>
+
+                            <dt>
+                                Intimidation (Brutality)
+                            </dt>
+
+                            <dd>
+                                <div id="NEdition" style="display:  block">  @Html.DisplayFor(model => model.Intimidation)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.Intimidation)</div></div>
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div style="page-break-before:always">
+            <hr />
+            <div id="Edition" style="display:  none ">
+                <a asp-action="Select" asp-controller="Skills" asp-all-route-data="@{ new Dictionary<string, string> { { "FP", Model.ID.ToString() } }; } ">Add a new passive</a>
+            </div>
             <h3>Passive</h3><br />
-        <input type="text" class="hidden" id="skills" name="skills" value="@Model.skills"/>
+            <input type="text" class="hidden" id="skills" name="skills" value="@Model.skills" />
             <div>
                 @foreach (Skills s in Model.ListSkills)
                 {
@@ -545,12 +545,12 @@
                 @Html.ActionLink("Back to List", "Index")
             }
         </p>
-    </div>
+        </div>
 
-</form>
+    </form>
+</body>
 
-
-    <script>
+<script>
         function HideShow(element) {
             // Declare variables
             //  console.log(element);
@@ -580,10 +580,6 @@
 
             // Loop through all list items, and hide those who don't match the search query
 
-
-
-
-
         }
         function invertVisible(item) {
             if (item.style.display == "none") {
@@ -592,4 +588,15 @@
                 item.style.display = "none";
             }
         }
-    </script>
+        function startEdit() {
+
+            @if (@ViewBag.edit) {
+                @:console.log("True")
+               @:HideShowEdition('NEdition');
+                @:HideShowEdition('Edition');
+            }else
+            {
+                @:console.log("False")
+            }
+        }
+</script>

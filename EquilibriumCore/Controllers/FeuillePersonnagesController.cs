@@ -45,7 +45,7 @@ namespace EquilibriumCore.Controllers
         }
 
         // GET: FeuillePersonnages/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int? id ,bool? edit =false)
         {
             if (id == null)
             {
@@ -68,6 +68,7 @@ namespace EquilibriumCore.Controllers
             }
             feuillePersonnage.partie = db.Partie.Where(a => a.ID == feuillePersonnage.IDPartie).First().Name;
             feuillePersonnage.partiePossible = getParties();
+            ViewBag.edit = edit;
             return View(feuillePersonnage);
         }
 
@@ -136,7 +137,7 @@ namespace EquilibriumCore.Controllers
             feuillePersonnage.skills += SkillId + ";";
             db.Feuilles.Update(feuillePersonnage);
             db.SaveChanges();
-            return RedirectToAction("Details", new { id = id });
+            return RedirectToAction("Details", new { id = id  ,edit=true});
         }
         public ActionResult RemoveSkillsFP(int? SkillId, int? id)
         {
@@ -154,7 +155,9 @@ namespace EquilibriumCore.Controllers
             feuillePersonnage.skills = String.Join(';',nl) + ";";
             db.Feuilles.Update(feuillePersonnage);
             db.SaveChanges();
-            return RedirectToAction("Details", new { id = id });
+
+            ViewBag.edit = true;
+            return RedirectToAction("Details", new { id = id , edit = true });
         }
         // POST: FeuillePersonnages/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
