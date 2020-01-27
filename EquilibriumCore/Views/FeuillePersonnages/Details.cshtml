@@ -437,12 +437,16 @@
                 }
             </div>
         </div>
-        <div style="white-space:pre">
+        <div >
 
-            <div id="NEdition" style="display:  block">
-                @Html.DisplayFor(model => model.passive)
-            </div><div class="form-group"> <div id="Edition" style="display:  none "><textarea id="passive" name="passive" class="passive" style="width:80%; height:100px"> @Model.passive </textarea></div></div>
-            <h3>Stuff</h3><br />
+            
+                <div id="NEdition" style="display:  block">
+                    <div style="white-space:pre">
+                        @Html.DisplayFor(model => model.passive)
+                    </div>
+                    </div><div class="form-group"> <div id="Edition" style="display:  none "><textarea id="passive" name="passive" class="passive" style="width:80%; height:100px"> @Model.passive </textarea></div></div>
+            
+                <h3>Stuff</h3><br />
             <div>
 
                 <div id="NEdition" style="display:  block">
@@ -452,7 +456,7 @@
             </div>
             <h3>Technic and Spell</h3><br />
             <div>
-                <div style="white-space:pre">
+                <div >
                     <div id="NEdition" style="display:  block ;white-space:pre">
                         @Html.DisplayFor(model => model.comp)
                     </div>
@@ -465,7 +469,7 @@
                 {
                     <div style="page-break-inside:avoid">
                         <h4 onclick="HideShow('@spell.ID')"> @spell.name</h4>
-                        <div id="@spell.ID" class="dl-horizontal" style="display:  block ">
+                        <div id="@spell.ID" class="dl-horizontal" style="display:  none ">
 
                             @if (Model.showHidable)
                             {

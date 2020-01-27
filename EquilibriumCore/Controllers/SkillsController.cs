@@ -50,9 +50,9 @@ namespace EquilibriumCore.Controllers
             Tags = _context.Skills.Select((a) => a.Tags).Where((a)=> a !=null && a != "").SelectMany(a =>a.Split(" ",StringSplitOptions.RemoveEmptyEntries)).Distinct().ToList();
             List<string> Cats = _context.Skills.Select((a) => a.cat).Distinct().ToList();
             List<string> SupCats = _context.Skills.Select((a) => a.superCat).Distinct().ToList();
-            ViewBag.Tags = Tags;
-            ViewBag.Cats = Cats;
-            ViewBag.SupCats = SupCats;
+            ViewBag.Tags = Tags.OrderBy((a) => a);
+            ViewBag.Cats = Cats.OrderBy((a)=>a);
+            ViewBag.SupCats = SupCats.OrderBy((a) => a);
             return View(await _context.Skills.ToListAsync());
         }
         public async Task<IActionResult> Selected(int? id,int? FP)
