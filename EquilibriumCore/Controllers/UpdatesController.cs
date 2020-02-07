@@ -26,9 +26,7 @@ namespace EquilibriumCore.Controllers
         // GET: Updates
         public async Task<IActionResult> Index()
         {       
-                        bool rb = User.IsInRole("Admin");
-            var roles = await userManager.GetRolesAsync(await userManager.GetUserAsync(User));
-
+             
 
             List<Update> res = await _context.Update.OrderByDescending((a)=>a.Sortie).ToListAsync();
                        res.ForEach((up) => up.modifications = _context.Modification
