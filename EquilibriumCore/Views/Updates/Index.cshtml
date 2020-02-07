@@ -1,0 +1,21 @@
+﻿@model IEnumerable<EquilibriumCore.Models.Update>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<body>
+    <h1>Changelog</h1>
+    @foreach (Update update in Model)
+    {
+        <h2> @update.Name </h2>
+        @update.Description;
+        @foreach (Modification modification in update.modifications )
+        {
+            <hr />
+            @modification.TexteOld  @:»   @modification.TexteNew
+        }
+        }
+    </body>

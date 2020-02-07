@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EquilibriumCore.Models
 {
-    public class SecurityContext : IdentityDbContext<EquilibriumCoreUser>
+    public class SecurityContext : IdentityDbContext<EquilibriumCoreUser, IdentityRole, string>
     {
         public SecurityContext(DbContextOptions<SecurityContext> options)
             : base(options)

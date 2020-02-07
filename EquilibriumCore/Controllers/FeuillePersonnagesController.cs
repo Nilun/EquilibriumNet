@@ -136,6 +136,7 @@ namespace EquilibriumCore.Controllers
             }
             feuillePersonnage.skills += SkillId + ";";
             db.Feuilles.Update(feuillePersonnage);
+            feuillePersonnage.LastUpdate = DateTime.Now;
             db.SaveChanges();
             return RedirectToAction("Details", new { id = id  ,edit=true});
         }
@@ -153,6 +154,7 @@ namespace EquilibriumCore.Controllers
             var nl = feuillePersonnage.skills.Split(";").ToList();
            nl.Remove(SkillId.ToString());
             feuillePersonnage.skills = String.Join(';',nl) + ";";
+            feuillePersonnage.LastUpdate = DateTime.Now;
             db.Feuilles.Update(feuillePersonnage);
             db.SaveChanges();
 
@@ -170,6 +172,7 @@ namespace EquilibriumCore.Controllers
             {
                 feuillePersonnage.IDPartie = db.Partie.Where(a => a.Name == feuillePersonnage.partie).First().ID;
                 feuillePersonnage.Creator = User.Identity.Name;
+                feuillePersonnage.LastUpdate = DateTime.Now;
                 db.Feuilles.Update(feuillePersonnage);
                 db.SaveChanges();
                 return RedirectToAction("Details", new { id = feuillePersonnage.ID });
@@ -231,7 +234,13 @@ namespace EquilibriumCore.Controllers
                     MemoryStream ms = new MemoryStream();
                     r.Content.CopyTo(ms);
                     var rep = Tuple.Create(ms.ToArray(), r.Meta);
-                    memory.Set("f" + id, rep, TimeSpan.FromMinutes(10));
+                    DateTime now = DateTime.Now;
+                    //memory.Set("f" + id, rep, TimeSpan.FromMinutes(10));
+                    string path = Directory.GetCurrentDirectory() + "/PDF/f" + id + now.ToString("ddMMyyy") + ".pdf";
+                    if (!Directory.Exists(Directory.GetCurrentDirectory() + "/PDF")) Directory.CreateDirectory(Directory.GetCurrentDirectory() + "/PDF");
+                   var file =  System.IO.File.Create(path);
+                    file.Write(ms.ToArray());
+                    file.Close();
                     ms.Dispose();
                     r.Content.Seek(0, SeekOrigin.Begin);
                 });
@@ -246,7 +255,7 @@ namespace EquilibriumCore.Controllers
                 feuillePersonnage.Spells = db.Spell.Include(c => c.LinkComponents).ThenInclude(l => l.Component)
                     .Where(s => s.IDCaster == feuillePersonnage.ID).ToList();
                 feuillePersonnage.showHidable = false;
-
+                ViewBag.edit = false;
                 return View("Details", feuillePersonnage);
             }
             HttpContext.JsReportFeature().Enabled = false;

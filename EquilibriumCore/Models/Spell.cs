@@ -20,7 +20,8 @@ namespace EquilibriumCore.Models
         public string IDComponents { get; set; }
         [NotMapped] public string description { get; set; }
         public int IDCaster { get; set; }
-
+        DateTime LastUpdate { get; set; }
+        int LinkedDocument { get; set; }
 
 
         [NotMapped] public IEnumerable<Component> Components { get => LinkComponents?.Select(a=>a.Component);}

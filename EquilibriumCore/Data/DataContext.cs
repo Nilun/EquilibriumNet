@@ -23,5 +23,9 @@ namespace EquilibriumCore.Data
         public DbSet<EquilibriumCore.Models.SpellLinkComponent> SpellLinkComponent { get; set; }
         public DbSet<EquilibriumCore.Models.Tooltiper> Tooltiper { get; set; }
         public DbSet<EquilibriumCore.Models.Skills> Skills { get; set; }
+        public DbSet<EquilibriumCore.Models.Document> Documents { get; set; }
+        public DbSet<EquilibriumCore.Models.Update> Update { get; set; }
+        public DbSet<EquilibriumCore.Models.Modification> Modification { get; set; }
+
     }
 }

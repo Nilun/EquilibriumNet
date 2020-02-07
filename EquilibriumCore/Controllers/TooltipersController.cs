@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using EquilibriumCore.Data;
 using EquilibriumCore.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EquilibriumCore.Controllers
 {
+    [Authorize]
     public class TooltipersController : Controller
     {
         private readonly DataContext _context;

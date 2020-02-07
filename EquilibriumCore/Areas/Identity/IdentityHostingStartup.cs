@@ -20,7 +20,7 @@ namespace EquilibriumCore.Areas.Identity
                     options.UseMySql(
                         context.Configuration.GetConnectionString("DefaultConnection")));
 
-                services.AddDefaultIdentity<EquilibriumCoreUser>()
+                services.AddIdentity<EquilibriumCoreUser, IdentityRole>()
                     .AddEntityFrameworkStores<SecurityContext>();
             });
         }

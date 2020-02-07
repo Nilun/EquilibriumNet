@@ -8,26 +8,39 @@ using Microsoft.EntityFrameworkCore;
 using EquilibriumCore.Data;
 using EquilibriumCore.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using EquilibriumCore.Areas.Identity.Data;
 
 namespace EquilibriumCore.Controllers
 {
-    [Authorize]
-    public class PartiesController : Controller
+    public class UpdatesController : Controller
     {
         private readonly DataContext _context;
-
-        public PartiesController(DataContext context)
+        private UserManager<EquilibriumCoreUser> userManager;
+        public UpdatesController(DataContext context,UserManager<EquilibriumCoreUser> usermanager)
         {
+            userManager = usermanager;
             _context = context;
         }
 
-        // GET: Parties
+        // GET: Updates
         public async Task<IActionResult> Index()
-        {
-            return View(await _context.Partie.ToListAsync());
+        {       
+                        bool rb = User.IsInRole("Admin");
+            var roles = await userManager.GetRolesAsync(await userManager.GetUserAsync(User));
+
+
+            List<Update> res = await _context.Update.OrderByDescending((a)=>a.Sortie).ToListAsync();
+                       res.ForEach((up) => up.modifications = _context.Modification
+            .Where((mod) => mod.IDUpdate == up.ID)
+            .OrderBy((a)=>a.Categorie)
+            .ThenBy((a)=>a.SousCategorie)
+            .ToList());
+            return View(res);
         }
 
-        // GET: Parties/Details/5
+        // GET: Updates/Details/5
+        [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -35,40 +48,43 @@ namespace EquilibriumCore.Controllers
                 return NotFound();
             }
 
-            var partie = await _context.Partie
+            var update = await _context.Update
                 .FirstOrDefaultAsync(m => m.ID == id);
-            if (partie == null)
+            if (update == null)
             {
                 return NotFound();
             }
 
-            return View(partie);
+            return View(update);
         }
 
-        // GET: Parties/Create
+        // GET: Updates/Create
+        [Authorize]
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Parties/Create
+        // POST: Updates/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Name,MJ,Joueurs")] Partie partie)
+        [Authorize]
+        public async Task<IActionResult> Create([Bind("ID,Name,Description,Sortie")] Update update)
         {
-            partie.MJ = User.Identity.Name;
             if (ModelState.IsValid)
             {
-                _context.Add(partie);
+                _context.Add(update);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                               return RedirectToAction(nameof(Index));
             }
-            return View(partie);
+
+            return View(update);
         }
 
-        // GET: Parties/Edit/5
+        // GET: Updates/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -76,22 +92,23 @@ namespace EquilibriumCore.Controllers
                 return NotFound();
             }
 
-            var partie = await _context.Partie.FindAsync(id);
-            if (partie == null)
+            var update = await _context.Update.FindAsync(id);
+            if (update == null)
             {
                 return NotFound();
             }
-            return View(partie);
+            return View(update);
         }
 
-        // POST: Parties/Edit/5
+        // POST: Updates/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Name,MJ,Joueurs")] Partie partie)
+        [Authorize]
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Name,Description,Sortie")] Update update)
         {
-            if (id != partie.ID)
+            if (id != update.ID)
             {
                 return NotFound();
             }
@@ -100,12 +117,12 @@ namespace EquilibriumCore.Controllers
             {
                 try
                 {
-                    _context.Update(partie);
+                    _context.Update(update);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PartieExists(partie.ID))
+                    if (!UpdateExists(update.ID))
                     {
                         return NotFound();
                     }
@@ -116,10 +133,11 @@ namespace EquilibriumCore.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(partie);
+            return View(update);
         }
 
-        // GET: Parties/Delete/5
+        // GET: Updates/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -127,30 +145,31 @@ namespace EquilibriumCore.Controllers
                 return NotFound();
             }
 
-            var partie = await _context.Partie
+            var update = await _context.Update
                 .FirstOrDefaultAsync(m => m.ID == id);
-            if (partie == null)
+            if (update == null)
             {
                 return NotFound();
             }
 
-            return View(partie);
+            return View(update);
         }
 
-        // POST: Parties/Delete/5
+        // POST: Updates/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var partie = await _context.Partie.FindAsync(id);
-            _context.Partie.Remove(partie);
+            var update = await _context.Update.FindAsync(id);
+            _context.Update.Remove(update);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool PartieExists(int id)
+        private bool UpdateExists(int id)
         {
-            return _context.Partie.Any(e => e.ID == id);
+            return _context.Update.Any(e => e.ID == id);
         }
     }
 }

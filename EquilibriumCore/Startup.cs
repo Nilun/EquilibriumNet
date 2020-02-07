@@ -20,6 +20,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Pomelo.EntityFrameworkCore.MySql;
 using Microsoft.AspNetCore.DataProtection;
 using System.IO;
+using EquilibriumCore.Areas.Identity.Data;
 
 namespace EquilibriumCore
 {
@@ -71,7 +72,7 @@ namespace EquilibriumCore
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env ,IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
@@ -103,6 +104,32 @@ namespace EquilibriumCore
                 var securcontext =    serviceScope.ServiceProvider.GetService<SecurityContext>();
                 securcontext.Database.Migrate();
 	    }
+            createAdmin(serviceProvider).GetAwaiter().GetResult();
+        }
+        private async Task createAdmin(IServiceProvider serviceProvider)
+        {
+            var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var userManager = serviceProvider.GetRequiredService<UserManager<EquilibriumCoreUser>>();
+
+            var roleCheck = await roleManager.RoleExistsAsync("Admin");
+            if (!roleCheck)
+            {
+                var roleResult = await roleManager.CreateAsync(new IdentityRole("Admin"));
+               
+            }
+
+            var adminUser = await userManager.FindByNameAsync("Admin");
+            if (adminUser == null)
+            {
+                adminUser = new EquilibriumCoreUser("Admin");
+                var password = "Admin1";
+                var userResult = await userManager.CreateAsync(adminUser, password);
+                if (userResult != null)
+                {
+                    await userManager.AddToRoleAsync(adminUser, "Admin");
+                    Console.WriteLine($"Created admin user with password {password}");
+                }
+            }
         }
     }
 }

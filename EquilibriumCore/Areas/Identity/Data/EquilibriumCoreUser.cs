@@ -9,5 +9,13 @@ namespace EquilibriumCore.Areas.Identity.Data
     // Add profile data for application users by adding properties to the EquilibriumCoreUser class
     public class EquilibriumCoreUser : IdentityUser
     {
+        public EquilibriumCoreUser()
+        {
+
+        }
+        public EquilibriumCoreUser(string userName):base(userName)
+        {
+
+        }
     }
 }

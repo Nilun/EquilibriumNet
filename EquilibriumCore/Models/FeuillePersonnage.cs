@@ -71,6 +71,9 @@ namespace EquilibriumCore.Models
 
 
         public int IDPartie { get; set; }
+
+        public DateTime LastUpdate { get; set; }
+        int LinkedDocument { get; set; }
         [NotMapped] public string partie { get; set; }
         [NotMapped] public int  Initiative { get => Malice + Swiftness;}
 
@@ -81,15 +84,7 @@ namespace EquilibriumCore.Models
         [NotMapped] public List<Spell> Spells { get; set; } = new List<Spell>();
         [NotMapped] public List<Tooltiper> tipspells { get; set; } = new List<Tooltiper>();
         [NotMapped] public List<Skills> ListSkills { get; set; } = new List<Skills>();
-
-        //[NotMapped] public int Memory { get =>(int)Math.Truncate((double)(3+Level/2));  }
-        //[NotMapped] public int Brutality { get => skills!=null?skills.Brutality:999; }
-        //[NotMapped] public int Swiftness { get => skills != null ? skills.Swiftness:999; }
-        //[NotMapped] public int Spirit { get=> skills != null ? skills.Spirit : 999;  }
-        //[NotMapped] public int Malice { get => skills != null ? skills.Malice : 999;  }
-        //[NotMapped] public int Vitality { get => skills != null ? skills.Vitality : 999;  }
-
-        //public FeuilleSkills skills { get; set; }
+               
 
         public FeuillePersonnage ()
         {

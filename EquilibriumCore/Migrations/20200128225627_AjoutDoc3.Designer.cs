@@ -3,14 +3,16 @@ using System;
 using EquilibriumCore.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EquilibriumCore.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20200128225627_AjoutDoc3")]
+    partial class AjoutDoc3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -155,26 +157,6 @@ namespace EquilibriumCore.Migrations
                     b.ToTable("Feuilles");
                 });
 
-            modelBuilder.Entity("EquilibriumCore.Models.Modification", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Categorie");
-
-                    b.Property<int?>("IDUpdate");
-
-                    b.Property<string>("SousCategorie");
-
-                    b.Property<string>("TexteNew");
-
-                    b.Property<string>("TexteOld");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Modification");
-                });
-
             modelBuilder.Entity("EquilibriumCore.Models.Partie", b =>
                 {
                     b.Property<int>("ID")
@@ -283,22 +265,6 @@ namespace EquilibriumCore.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Tooltiper");
-                });
-
-            modelBuilder.Entity("EquilibriumCore.Models.Update", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Description");
-
-                    b.Property<string>("Name");
-
-                    b.Property<DateTime>("Sortie");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Update");
                 });
 
             modelBuilder.Entity("EquilibriumCore.Models.SpellLinkComponent", b =>
