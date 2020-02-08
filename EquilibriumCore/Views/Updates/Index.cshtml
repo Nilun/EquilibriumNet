@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<EquilibriumCore.Models.Update>
-
+@inject EquilibriumCore.Service.IToolTipService ToolTips
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -12,10 +12,10 @@
     {
         <h2> @update.Name </h2>
         @update.Description;
-        @foreach (Modification modification in update.modifications )
+        @foreach (Modification modification in update.modifications)
         {
             <hr />
-            @modification.TexteOld  @:»   @modification.TexteNew
-        }
-        }
-    </body>
+            @Html.Raw(ToolTips.InsertTooltip(modification.TexteOld)) @:»   @Html.Raw(ToolTips.InsertTooltip(modification.TexteNew))
+}
+}
+        </body>

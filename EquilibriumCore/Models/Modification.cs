@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,7 +15,7 @@ namespace EquilibriumCore.Models
         public string TexteOld { get; set; }
         public string TexteNew { get; set; }
         public int? IDUpdate { get; set; }
-
-
+      
+        
     }
 }

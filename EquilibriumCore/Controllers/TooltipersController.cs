@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using EquilibriumCore.Data;
 using EquilibriumCore.Models;
 using Microsoft.AspNetCore.Authorization;
+using EquilibriumCore.Service;
 
 namespace EquilibriumCore.Controllers
 {
@@ -15,9 +16,10 @@ namespace EquilibriumCore.Controllers
     public class TooltipersController : Controller
     {
         private readonly DataContext _context;
-
-        public TooltipersController(DataContext context)
+        private readonly IToolTipService toolTipService;
+        public TooltipersController(DataContext context,IToolTipService tps)
         {
+            toolTipService = tps;
             _context = context;
         }
 
@@ -62,6 +64,7 @@ namespace EquilibriumCore.Controllers
             {
                 _context.Add(tooltiper);
                 await _context.SaveChangesAsync();
+                await toolTipService.UpdateTooltip();
                 return RedirectToAction(nameof(Index));
             }
             return View(tooltiper);
@@ -113,6 +116,7 @@ namespace EquilibriumCore.Controllers
                         throw;
                     }
                 }
+               await toolTipService.UpdateTooltip();
                 return RedirectToAction(nameof(Index));
             }
             return View(tooltiper);
@@ -132,7 +136,7 @@ namespace EquilibriumCore.Controllers
             {
                 return NotFound();
             }
-
+          
             return View(tooltiper);
         }
 
@@ -144,6 +148,7 @@ namespace EquilibriumCore.Controllers
             var tooltiper = await _context.Tooltiper.FindAsync(id);
             _context.Tooltiper.Remove(tooltiper);
             await _context.SaveChangesAsync();
+            await toolTipService.UpdateTooltip();
             return RedirectToAction(nameof(Index));
         }
 

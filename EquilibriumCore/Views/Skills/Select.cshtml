@@ -10,7 +10,7 @@
     <option value=""></option>
     @foreach (string item in ViewBag.SupCats)
     {
-    <option value="@item">@item</option>
+        <option value="@item">@item</option>
     }
 </select>
 <select id="filterC" onchange="Filter()">
@@ -29,7 +29,7 @@
 </select>
 <table class="table">
     <thead>
-        <tr>           
+        <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
@@ -46,26 +46,27 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr  class="Skills" id="@item.getIDComposed()">
-          
-                        <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Effect)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.levelMax)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Tags)
-            </td>
-            <td>
-                <a asp-action="AddSkillsFP" asp-controller="FeuillePersonnages" asp-route-id="@ViewBag.FP" asp-all-route-data="@{ new Dictionary<string, string> { {"SkillId" ,item.ID.ToString() }, {"id", ViewBag.FP.ToString() } }; } ">Selected</a>                
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr class="Skills" id="@item.getIDComposed()">
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Effect)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.levelMax)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tags)
+                </td>
+                <td>
+                    <a asp-action="AddSkillsFP" asp-controller="FeuillePersonnages" asp-route-id="@ViewBag.FP" asp-all-route-data="@{ new Dictionary<string, string> { {"SkillId" ,item.ID.ToString() }, {"id", ViewBag.FP.ToString() } }; } ">Selected</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
 <script>
@@ -76,27 +77,26 @@
         filterOnC = document.getElementById("filterC").value;
         filterOnT = document.getElementById("filterT").value;
         li = document.getElementsByClassName("Skills");
-        
-       
-        
+
+
+
         // Loop through all list items, and hide those who don't match the search query
         for (i = 0; i < li.length; i++) {
             var s = li[i].id.split(" ");
             var tagok = false;
             var COK = false;
             var SCOK = false;
-           
+
             if ((filterOnSC == "" || s[0] == filterOnSC)) {
                 COK = true;
-               // console.log(s[0] + " == " + filterOnSC + (s[0] == filterOnSC));
+                // console.log(s[0] + " == " + filterOnSC + (s[0] == filterOnSC));
             }
             if ((filterOnC == "" || s[1] == filterOnC)) {
-               // console.log(s[1] + " == " + filterOnC + (s[1] == filterOnC));
+                // console.log(s[1] + " == " + filterOnC + (s[1] == filterOnC));
                 SCOK = true;
             }
-            if((filterOnT != ""))
-            {
-               
+            if ((filterOnT != "")) {
+
                 for (var j = 0; j < s.length; j++) {
 
                     if ((filterOnT == s[j])) //
@@ -107,13 +107,13 @@
 
 
                 }
-                
+
             } else {
                 tagok = true;
             }
 
             if (COK && SCOK && tagok) {
-               // console.log(COK + " " + SCOK + " " + tagok)
+                // console.log(COK + " " + SCOK + " " + tagok)
                 li[i].style.display = "";
             } else {
                 li[i].style.display = "none";

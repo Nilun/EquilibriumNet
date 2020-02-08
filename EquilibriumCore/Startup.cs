@@ -21,6 +21,7 @@ using Pomelo.EntityFrameworkCore.MySql;
 using Microsoft.AspNetCore.DataProtection;
 using System.IO;
 using EquilibriumCore.Areas.Identity.Data;
+using EquilibriumCore.Service;
 
 namespace EquilibriumCore
 {
@@ -69,6 +70,7 @@ namespace EquilibriumCore
         .AsUtility()
         .Create());
             services.AddResponseCaching();
+            services.AddScoped<IToolTipService, ToolTipService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -16,5 +16,6 @@ namespace EquilibriumCore.Models
         {
             return "<div class='tooltip' style='opacity: 1'>" + keyword +" <span class='tooltiptext'>" + tooltiptext +" </span></div>";
         }
+
     }
 }
