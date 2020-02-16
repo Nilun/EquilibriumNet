@@ -22,6 +22,8 @@ using Microsoft.AspNetCore.DataProtection;
 using System.IO;
 using EquilibriumCore.Areas.Identity.Data;
 using EquilibriumCore.Service;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Net;
 
 namespace EquilibriumCore
 {
@@ -60,7 +62,7 @@ namespace EquilibriumCore
                     .SetApplicationName($"my-app-{environment.EnvironmentName}")
                     .PersistKeysToFileSystem(new DirectoryInfo($@"{environment.ContentRootPath}\keys"));
 
-
+           
             services.AddDbContext<DataContext>(option=> option.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddJsReport(new LocalReporting()
@@ -71,6 +73,7 @@ namespace EquilibriumCore
         .Create());
             services.AddResponseCaching();
             services.AddScoped<IToolTipService, ToolTipService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -89,8 +92,9 @@ namespace EquilibriumCore
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseAuthentication();
+            app.UseAuthentication();           
             app.UseCookiePolicy();
+          
             app.UseResponseCaching();
             app.UseMvc(routes =>
             {
@@ -99,7 +103,7 @@ namespace EquilibriumCore
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-	    using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
 	    {
 		var context = serviceScope.ServiceProvider.GetService<DataContext>();
 		context.Database.Migrate();

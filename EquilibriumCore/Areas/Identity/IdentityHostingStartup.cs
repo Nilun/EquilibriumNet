@@ -2,6 +2,7 @@
 using EquilibriumCore.Areas.Identity.Data;
 using EquilibriumCore.Models;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
@@ -22,6 +23,13 @@ namespace EquilibriumCore.Areas.Identity
 
                 services.AddIdentity<EquilibriumCoreUser, IdentityRole>()
                     .AddEntityFrameworkStores<SecurityContext>();
+                services.AddAuthentication().AddCookie(options =>
+                {
+                    options.LoginPath = new PathString("Identity/Account/Login/");
+                    options.LogoutPath = new PathString("Identity/Account/Logout/");
+                }
+
+           );
             });
         }
     }

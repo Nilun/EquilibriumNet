@@ -19,18 +19,18 @@ namespace EquilibriumCore.Areas.Identity.Pages.Account
         private readonly SignInManager<EquilibriumCoreUser> _signInManager;
         private readonly UserManager<EquilibriumCoreUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
-        private readonly IEmailSender _emailSender;
+       //private readonly IEmailSender _emailSender;
 
         public RegisterModel(
             UserManager<EquilibriumCoreUser> userManager,
             SignInManager<EquilibriumCoreUser> signInManager,
-            ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            ILogger<RegisterModel> logger)//,
+          //  IEmailSender emailSender)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
-            _emailSender = emailSender;
+          //  _emailSender = emailSender;
         }
 
         [BindProperty]
