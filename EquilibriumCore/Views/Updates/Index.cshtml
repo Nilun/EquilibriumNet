@@ -15,7 +15,7 @@
         @foreach (Modification modification in update.modifications)
         {
             <hr />
-            @Html.Raw(ToolTips.InsertTooltip(modification.TexteOld)) @:»   @Html.Raw(ToolTips.InsertTooltip(modification.TexteNew))
+            @Html.Raw(ToolTips.InsertTooltip(modification.GetUpdate())) 
 }
 }
         </body>

@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace EquilibriumCore.Controllers
 {
-    [Authorize]
+   
     public class RulesController : Controller
     {
         private readonly DataContext _context;
@@ -56,6 +56,7 @@ namespace EquilibriumCore.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("ID,Category,IsTitle,Text")] Rules rules)
         {
             if (ModelState.IsValid)
@@ -68,6 +69,7 @@ namespace EquilibriumCore.Controllers
         }
 
         // GET: Rules/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -88,6 +90,7 @@ namespace EquilibriumCore.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("ID,Category,IsTitle,Text")] Rules rules)
         {
             if (id != rules.ID)
@@ -139,6 +142,7 @@ namespace EquilibriumCore.Controllers
         // POST: Rules/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var rules = await _context.Rules.FindAsync(id);
