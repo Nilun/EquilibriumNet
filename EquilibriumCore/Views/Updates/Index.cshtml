@@ -8,14 +8,54 @@
 
 <body>
     <h1>Changelog</h1>
+
+    @{
+        bool first = true;
+    }
     @foreach (Update update in Model)
     {
-        <h2> @update.Name </h2>
         @update.Description;
-        @foreach (Modification modification in update.modifications)
+
+        <h2 onclick="HideShow('u @update.ID')"> @update.Name <small> @update.Sortie.ToString("dd MMM yyyy") </small> </h2>
+
+        string visible = "none";
+        if (first)
         {
-            <hr />
-            @Html.Raw(ToolTips.InsertTooltip(modification.GetUpdate())) 
-}
-}
-        </body>
+            visible = "block";
+        }
+      
+        <div id="u @update.ID" style="display: @visible ">
+
+           
+            @foreach (Modification modification in update.modifications)
+            {
+                <hr />
+                @Html.Raw(ToolTips.InsertTooltip(modification.GetUpdate()))
+            }
+
+        </div>
+        first = false;
+    }
+
+</body>
+<script>
+    function HideShow(element) {
+        // Declare variables
+        //  console.log(element);
+        var box;
+        box = document.getElementById(element);
+
+
+
+        // Loop through all list items, and hide those who don't match the search query
+
+
+        if (box.style.display == "none") {
+            box.style.display = "";
+        }
+        else {
+            box.style.display = "none";
+        }
+
+    }
+</script>

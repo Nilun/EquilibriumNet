@@ -558,28 +558,25 @@
 </body>
 
 <script>
-                                                                    function HideShow(element)
-{
-                                                                // Declare variables
-                                                                //  console.log(element);
-                                                                var box;
-                                                                box = document.getElementById(element);
+    function HideShow(element) {
+        // Declare variables
+        //  console.log(element);
+        var box;
+        box = document.getElementById(element);
 
 
 
-                                                                // Loop through all list items, and hide those who don't match the search query
+        // Loop through all list items, and hide those who don't match the search query
 
 
-                                                                if (box.style.display == "none")
-                                                                {
-                                                                    box.style.display = "";
-                                                                }
-                                                                else
-                                                                {
-                                                                    box.style.display = "none";
-                                                                }
+        if (box.style.display == "none") {
+            box.style.display = "";
+        }
+        else {
+            box.style.display = "none";
+        }
 
-}
+    }
 
 function HideShowEdition(element)
 {
@@ -604,8 +601,7 @@ function invertVisible(item)
                                                                     item.style.display = "none";
                                                                 }
 }
-function startEdit()
-{
+    function startEdit() {
 
                                                                 @if(@ViewBag.edit) {
                                                                     @:console.log("True")
@@ -615,5 +611,6 @@ function startEdit()
                                                                                 {
                                                                             @:console.log("False")
                                                                                         }
-}
+
+    }
 </script>
