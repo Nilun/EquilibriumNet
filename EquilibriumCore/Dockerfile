@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:2.1-aspnetcore-runtime AS base
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1 AS base
 EXPOSE 80
 WORKDIR /app
 RUN apt-get update && \
@@ -9,7 +9,7 @@ RUN apt-get update && \
     apt-get install -y google-chrome-unstable --no-install-recommends
 ENV chrome:launchOptions:args --no-sandbox
 
-FROM microsoft/dotnet:2.1-sdk AS build
+FROM mcr.microsoft.com/dotnet/core/sdk AS build
 WORKDIR /src
 COPY ["EquilibriumCore.csproj", "EquilibriumCore/"]
 RUN dotnet restore "EquilibriumCore/EquilibriumCore.csproj"

@@ -63,7 +63,7 @@
                     @Html.DisplayFor(modelItem => item.Tags)
                 </td>
                 <td>
-                    <a asp-action="AddSkillsFP" asp-controller="FeuillePersonnages" asp-route-id="@ViewBag.FP" asp-all-route-data="@{ new Dictionary<string, string> { {"SkillId" ,item.ID.ToString() }, {"id", ViewBag.FP.ToString() } }; } ">Selected</a>
+                    <a asp-action="AddSkillsFP" asp-controller="FeuillePersonnages" asp-route-id="@ViewBag.FP" asp-all-route-data=' new Dictionary<string, string> { {"SkillId" ,item.ID.ToString() }, {"id", ViewBag.FP.ToString() } }; '>Selected</a>
                 </td>
             </tr>
         }

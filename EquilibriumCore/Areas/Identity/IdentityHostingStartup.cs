@@ -16,21 +16,26 @@ namespace EquilibriumCore.Areas.Identity
     {
         public void Configure(IWebHostBuilder builder)
         {
-            builder.ConfigureServices((context, services) => {
+            builder.ConfigureServices((context, services) =>
+            {
                 services.AddDbContext<SecurityContext>(options =>
                     options.UseMySql(
                         context.Configuration.GetConnectionString("DefaultConnection")));
 
-                services.AddIdentity<EquilibriumCoreUser, IdentityRole>()
-                    .AddEntityFrameworkStores<SecurityContext>();
-                services.AddAuthentication().AddCookie(options =>
+                services.AddDefaultIdentity<EquilibriumCoreUser>(options =>
                 {
-                    options.LoginPath = new PathString("Identity/Account/Login/");
-                    options.LogoutPath = new PathString("Identity/Account/Logout/");
-                }
+                    options.Password.RequireDigit = true;
+                    options.Password.RequiredLength = 5;
+                    options.Password.RequireLowercase = false;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequireUppercase = false;
+                })
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<SecurityContext>();
 
-           );
+
             });
+            
         }
     }
 }
