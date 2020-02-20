@@ -50,7 +50,7 @@ namespace EquilibriumCore.Controllers
             ViewBag.FP = FP;
             List<string> Tags = new List<string>();
             Tags = _context.Skills.Select((a) => a.Tags).Where((a) => a != null && a != "").ToList();
-            Tags = String.Join(' ', Tags).Split(' ',StringSplitOptions.RemoveEmptyEntries).ToList();  //.SelectMany(a => a.Split(" ",StringSplitOptions.RemoveEmptyEntries)).Distinct().ToList();
+            Tags = String.Join(' ', Tags).Split(' ',StringSplitOptions.RemoveEmptyEntries).Distinct().ToList();  //.SelectMany(a => a.Split(" ",StringSplitOptions.RemoveEmptyEntries)).Distinct().ToList();
             List<string> Cats = _context.Skills.Select((a) => a.cat).Distinct().ToList();
             List<string> SupCats = _context.Skills.Select((a) => a.superCat).Distinct().ToList();
             ViewBag.Tags = Tags.OrderBy((a) => a);
