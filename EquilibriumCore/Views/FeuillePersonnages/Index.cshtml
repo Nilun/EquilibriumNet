@@ -92,8 +92,7 @@ Filter by game<select onchange="Filter()" id="filtering">
 
                 @if (User.Identity.Name == item.Creator)
                 {
-                    @Html.ActionLink("Edit", "Edit", new { id = item.ID });
-                    @:|
+                  
                     @Html.ActionLink("Delete", "Delete", new { id = item.ID });
                     @:|
                 }
