@@ -18,6 +18,7 @@ using jsreport.Types;
 using CoreHtmlToImage;
 using Newtonsoft.Json;
 using Microsoft.Extensions.Caching.Memory;
+using System.Threading.Tasks;
 
 namespace EquilibriumCore.Controllers
 {
@@ -64,8 +65,9 @@ namespace EquilibriumCore.Controllers
                 string[] splited = feuillePersonnage.skills.Split(';',StringSplitOptions.RemoveEmptyEntries);
                 //feuillePersonnage.ListSkills = db.Skills.Where((a) => splited.Contains(a.ID.ToString())).ToList();
                 feuillePersonnage.ListSkills = splited.Select((a) => db.Skills.Find(int.Parse(a))).ToList();
-                feuillePersonnage.calculateLevelOfSkills();
+                feuillePersonnage.calculateLevelOfSkills();              
             }
+            feuillePersonnage.ListAttaques = db.Attaque.Where((a) => a.User == id).ToList();
             feuillePersonnage.partie = db.Partie.Where(a => a.ID == feuillePersonnage.IDPartie).First().Name;
             feuillePersonnage.partiePossible = getParties();
             ViewBag.edit = edit;
@@ -303,6 +305,36 @@ namespace EquilibriumCore.Controllers
             return File( result.Item1 ,result.Item2.ContentType );
 
         }
+        // POST: Attaques/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost , ActionName("AttackCreate")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("ID,name,Portée,Type,Description,User")] Attaque attaque)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Add(attaque);
+                await db.SaveChangesAsync();               
+            }
+            return RedirectToAction(nameof(Details),new  {id = attaque.User });
+        }
+        // POST: Attaques/Delete/5
+        [HttpPost, ActionName("AttackDelete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AttackDeleteConfirmed(int id)
+        {
+            var attaque = await db.Attaque.FindAsync(id);
+            db.Attaque.Remove(attaque);
+            await db.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        private bool AttaqueExists(int id)
+        {
+            return db.Attaque.Any(e => e.ID == id);
+        }
+
         [AllowAnonymous]
         public ActionResult SpellList(int id)
         {

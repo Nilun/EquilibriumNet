@@ -84,7 +84,7 @@ namespace EquilibriumCore.Models
         [NotMapped] public List<Spell> Spells { get; set; } = new List<Spell>();
         [NotMapped] public List<Tooltiper> tipspells { get; set; } = new List<Tooltiper>();
         [NotMapped] public List<Skills> ListSkills { get; set; } = new List<Skills>();
-               
+        [NotMapped] public List<Attaque> ListAttaques { get; set; } = new List<Attaque>();
 
         public FeuillePersonnage ()
         {

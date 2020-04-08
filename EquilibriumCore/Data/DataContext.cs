@@ -27,6 +27,7 @@ namespace EquilibriumCore.Data
         public DbSet<EquilibriumCore.Models.Update> Update { get; set; }
         public DbSet<EquilibriumCore.Models.Modification> Modification { get; set; }
         public DbSet<EquilibriumCore.Models.Equipement> Equipement { get; set; }
+        public DbSet<EquilibriumCore.Models.Attaque> Attaque { get; set; }
 
     }
 }
