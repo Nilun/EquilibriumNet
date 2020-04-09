@@ -25,7 +25,7 @@ namespace EquilibriumCore.API
         public async Task<ActionResult<FeuillePersonnage>> GetFeuillePersonnage(int id)
         {
             var feuillePersonnage = await _context.Feuilles.FindAsync(id);
-
+            feuillePersonnage.ListAttaques = _context.Attaque.Where((a) => a.User == id).ToList();
             if (feuillePersonnage == null)
             {
                 return NotFound();
