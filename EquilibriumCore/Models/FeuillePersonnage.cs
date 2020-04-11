@@ -21,8 +21,9 @@ namespace EquilibriumCore.Models
         [NotMapped] public int HPMax { get => 10 + Level * HPPerLevel + Body * 5; }
         public int MemoryBonus { get; set; }
         [NotMapped] public int Memory { get => (int)Math.Truncate((double)(3 + Level / 2)) + MemoryBonus; }
-
-        public int SkillPoint { get => 5 + (int)Math.Truncate((double)((Level - 1) / 2)); }
+        
+        //5 + (int)Math.Truncate((double)((Level - 1) / 2))
+        public int SkillPoint { get => getSkillPoint(); }
         public int ClassPoint { get => getClassPoint(); }
 
         public int OneHand { get; set; }
@@ -36,7 +37,7 @@ namespace EquilibriumCore.Models
         public int Elem { get; set; }
         public int Occult { get; set; }
         public int Primordial { get; set; }
-        public int Metamagic { get; set; }
+      //  public int Metamagic { get; set; }
         public int Infusion { get; set; }
         public int Resist { get; set; }
         public int MagicIdentif { get; set; }
@@ -58,10 +59,18 @@ namespace EquilibriumCore.Models
 
         public int Intimidation { get; set; }
 
-        public int Brutality { get => 1 + TwoHand + Bow + Primordial + Athletism + CraftB + Intimidation; }
-        public int Swiftness { get => 1 + OneHand + Metamagic + MagicIdentif + Survival + Empath + CraftSW; }
-        public int Spirit { get => 1 + Elem + Infusion + Perception + History + Medic + CraftS; }
-        public int Malice { get => 1 + LOneHand + Occult + Stealth + Speech + Throw + CraftM; }
+        public int Art { get; set; }
+        public int ShadowCraft { get; set; }
+        public int Disrupt { get; set; }
+        public int Teaching { get; set; }
+        public int AnimalH { get; set; }
+        public int MageWeap { get; set; }
+
+
+        public int Brutality { get => 1 + TwoHand + Bow + Primordial + Athletism + CraftB + Intimidation+ Disrupt; }
+        public int Swiftness { get => 1 + OneHand  + MagicIdentif + Survival + Empath + CraftSW + Art+ MageWeap; }
+        public int Spirit { get => 1 + Elem + Infusion + Perception + History + Medic + CraftS+ AnimalH+ Teaching; }
+        public int Malice { get => 1 + LOneHand + Occult + Stealth + Speech + Throw + CraftM+ ShadowCraft; }
         public int Vitality { get => 1 + Parry + Body + Resist + Acrobatics; }
 
         public string passive { get; set; }
@@ -116,6 +125,31 @@ namespace EquilibriumCore.Models
                     result += i % 2 == 0 ? 1 : 0;
                 }
 
+            }
+            return result;
+        }
+
+        public int getSkillPoint()
+        {
+            int result = 0;
+            for (int i = 1; i <= Level; i++)
+            {
+                if (i==1)
+                {
+                    result += 5;
+                }
+                else
+                {
+                    if ((i%5)==0)
+                    {
+                        result += 2;
+                    }
+                    else if ((i % 2) > 0)
+                    {
+                        result += 1;
+                    }
+                    
+                }
             }
             return result;
         }

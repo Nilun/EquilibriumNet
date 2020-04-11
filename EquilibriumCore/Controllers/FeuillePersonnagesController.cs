@@ -90,7 +90,7 @@ namespace EquilibriumCore.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind("ID,Name,Race,Level,HPPerLevel,HPNow,MemoryBonus,OneHand,LOneHand,TwoHand,Throw,Bow,Body,Parry,Elem,Occult,Primordial,Metamagic,Infusion,Resist,MagicIdentif,Stealth,Survival,Perception,Speech,History,Medic,Empath,Athletism,Acrobatics,CraftB,CraftSW,CraftS,CraftM,Intimidation,passive,Stuff,comp,partie,Shared")] FeuillePersonnage feuillePersonnage)
+        public ActionResult Create([Bind("ID,Name,Race,Level,HPPerLevel,HPNow,MemoryBonus,OneHand,LOneHand,TwoHand,Throw,Bow,Body,Parry,Elem,Occult,Primordial,Metamagic,Infusion,Resist,MagicIdentif,Stealth,Survival,Perception,Speech,History,Medic,Empath,Athletism,Acrobatics,CraftB,CraftSW,CraftS,CraftM,Intimidation,passive,Stuff,comp,partie,Shared,MageWeap,Art,ShadowCraft,Disrupt,Teaching,AnimalH")] FeuillePersonnage feuillePersonnage)
         {
             if (ModelState.IsValid)
             {
@@ -168,7 +168,7 @@ namespace EquilibriumCore.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind("ID,Name,Race,Level,HPPerLevel,HPNow,MemoryBonus,OneHand,LOneHand,TwoHand,Throw,Bow,Body,Parry,Elem,Occult,Primordial,Metamagic,Infusion,Resist,MagicIdentif,Stealth,Survival,Perception,Speech,History,Medic,Empath,Athletism,Acrobatics,CraftB,CraftSW,CraftS,CraftM,Intimidation,passive,Stuff,comp,partie,Shared,skills")] FeuillePersonnage feuillePersonnage)
+        public ActionResult Edit([Bind("ID,Name,Race,Level,HPPerLevel,HPNow,MemoryBonus,OneHand,LOneHand,TwoHand,Throw,Bow,Body,Parry,Elem,Occult,Primordial,Metamagic,Infusion,Resist,MagicIdentif,Stealth,Survival,Perception,Speech,History,Medic,Empath,Athletism,Acrobatics,CraftB,CraftSW,CraftS,CraftM,Intimidation,passive,Stuff,comp,partie,Shared,skills,MageWeap,Art,ShadowCraft,Disrupt,Teaching,AnimalH")] FeuillePersonnage feuillePersonnage)
         {
             if (ModelState.IsValid)
             {
