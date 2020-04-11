@@ -171,8 +171,10 @@
             <br />
             <br />
             <br />
-            <div>
-
+            <div> <h4 @if (Model.getQteSkillPointUsed() > Model.SkillPoint) { @: style="background-color:red"
+    }>
+    Skills @Model.getQteSkillPointUsed() / @Model.SkillPoint
+</h4>
                 <table align="center" width="100%" style="page-break-before:always">
                     <tr>
                         <td>
@@ -465,27 +467,31 @@
                 @a.name @:* @a.Type * : @a.Description <br />
             }
 
-            <div style="page-break-before:always">
-                <hr />
-                <div id="Edition" style="display:  none ">
-                    <a asp-action="Select" asp-controller="Skills" asp-all-route-data=' new Dictionary<string, string> { { "FP", Model.ID.ToString() } }  '>Add a new passive</a>
-                </div>
-                <h3>Passive</h3><br />
-                <input type="text" class="hidden" id="skills" name="skills" value="@Model.skills" />
-                <div>
-                    @foreach (Skills s in Model.ListSkills)
-                    {
+        <div style="page-break-before:always">
+            <hr />
+            <div id="Edition" style="display:  none ">
+                <a asp-action="Select" asp-controller="Skills" asp-all-route-data=' new Dictionary<string, string> { { "FP", Model.ID.ToString() } }  '>Add a new passive</a>
+            </div>           
+            <h3 @if (Model.getQtePassivePointUsed() > Model.ClassPoint) { @: style="background-color:red"
+                }>
+                Passive     @Model.getQtePassivePointUsed() / @Model.ClassPoint
+            </h3>
+            <br />
+            <input type="text" class="hidden" id="skills" name="skills" value="@Model.skills" />
+            <div>
+                @foreach (Skills s in Model.ListSkills)
+                {
 
-                        <h4> @s.Name </h4> @s.CurrentLevel @:/ @s.levelMax <br />
-                        <div id="Edition" style="display:  none ">
-                            <a class="btn btn-danger" asp-action="RemoveSkillsFP" asp-all-route-data=' new Dictionary<string, string> { {"SkillId" ,s.ID.ToString() }, {"id", Model.ID.ToString() } } '>-</a>
-                            <a asp-action="AddSkillsFP" asp-all-route-data=' new Dictionary<string, string> { {"SkillId" ,s.ID.ToString() }, {"id", Model.ID.ToString() } };   ' class="btn btn-success">+</a>
-                        </div>
-                        @Html.Raw(ToolTips.InsertTooltip(s.currentEffect))
+                    <h4> @s.Name </h4> @s.CurrentLevel @:/ @s.levelMax <br />
+                    <div id="Edition" style="display:  none ">
+                        <a class="btn btn-danger" asp-action="RemoveSkillsFP" asp-all-route-data=' new Dictionary<string, string> { {"SkillId" ,s.ID.ToString() }, {"id", Model.ID.ToString() } } '>-</a>
+                        <a asp-action="AddSkillsFP" asp-all-route-data=' new Dictionary<string, string> { {"SkillId" ,s.ID.ToString() }, {"id", Model.ID.ToString() } };   ' class="btn btn-success">+</a>
+                    </div>
+                    @Html.Raw(ToolTips.InsertTooltip(s.currentEffect))
 
-                    }
-                </div>
+                }
             </div>
+        </div>
             <div>
 
 

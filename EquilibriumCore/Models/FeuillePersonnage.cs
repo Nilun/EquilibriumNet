@@ -95,6 +95,8 @@ namespace EquilibriumCore.Models
         [NotMapped] public List<Skills> ListSkills { get; set; } = new List<Skills>();
         [NotMapped] public List<Attaque> ListAttaques { get; set; } = new List<Attaque>();
 
+        [NotMapped] public int QteSkills { get => getQteSkillPointUsed(); }
+        [NotMapped] public int QtePassive { get =>  getQtePassivePointUsed();  }
         public FeuillePersonnage ()
         {
             Level = 1;
@@ -178,6 +180,20 @@ namespace EquilibriumCore.Models
             return result;
 
 
+        }
+
+        public int getQteSkillPointUsed()
+        {
+            return Brutality + Malice + Swiftness + Vitality + Spirit - 5;
+        }
+        public int getQtePassivePointUsed()
+        {
+            int res = 0;
+            foreach (Skills item in ListSkills)
+            {
+                res += item.CurrentLevel;
+            }
+            return res;
         }
     }
 }
