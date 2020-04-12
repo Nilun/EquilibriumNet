@@ -171,7 +171,7 @@
             <br />
             <br />
             <br />
-            <div> <h4 @if (Model.getQteSkillPointUsed() > Model.SkillPoint) { @: style="background-color:red"
+            <div> <h4 @if (Model.getQteSkillPointUsed() != Model.SkillPoint) { @: style="background-color:red"
     }>
     Skills @Model.getQteSkillPointUsed() / @Model.SkillPoint
 </h4>
@@ -471,7 +471,7 @@
             <div id="Edition" style="display:  none ">
                 <a asp-action="Select" asp-controller="Skills" asp-all-route-data=' new Dictionary<string, string> { { "FP", Model.ID.ToString() } }  '>Add a new passive</a>
             </div>           
-            <h3 @if (Model.getQtePassivePointUsed() > Model.ClassPoint) { @: style="background-color:red"
+            <h3 @if (Model.getQtePassivePointUsed() != Model.ClassPoint) { @: style="background-color:red"
                 }>
                 Passive     @Model.getQtePassivePointUsed() / @Model.ClassPoint
             </h3>
