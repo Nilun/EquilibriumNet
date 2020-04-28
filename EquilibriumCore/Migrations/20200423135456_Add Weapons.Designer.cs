@@ -3,42 +3,21 @@ using System;
 using EquilibriumCore.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EquilibriumCore.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20200423135456_Add Weapons")]
+    partial class AddWeapons
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
-
-            modelBuilder.Entity("EquilibriumCore.Models.Armors", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("ArmorMagical")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ArmorPhysical")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.Property<string>("Special")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Armors");
-                });
 
             modelBuilder.Entity("EquilibriumCore.Models.Attaque", b =>
                 {
@@ -325,32 +304,6 @@ namespace EquilibriumCore.Migrations
                     b.ToTable("Modification");
                 });
 
-            modelBuilder.Entity("EquilibriumCore.Models.ObjetInventaire", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("CharacterID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Detail")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.Property<bool>("Equiper")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<int>("ItemSourceID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TypeObjectIn")
-                        .HasColumnType("int");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("ObjetInventaire");
-                });
-
             modelBuilder.Entity("EquilibriumCore.Models.Partie", b =>
                 {
                     b.Property<int>("ID")
@@ -508,41 +461,6 @@ namespace EquilibriumCore.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Update");
-                });
-
-            modelBuilder.Entity("EquilibriumCore.Models.Weapon", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("Bonus")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.Property<int>("NumberOfDice")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SecondTypeWeapon")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Special")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.Property<int>("TypeWeapon")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ValueMax")
-                        .HasColumnType("int");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Weapon");
                 });
 
             modelBuilder.Entity("EquilibriumCore.Models.SpellLinkComponent", b =>

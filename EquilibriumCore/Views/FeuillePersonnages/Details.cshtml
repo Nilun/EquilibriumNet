@@ -4,7 +4,7 @@
 @{
     ViewBag.Title = "Details";
 }
-    <body onload="startEdit();">
+    <body>
         <form asp-action="Edit">
 
             <input type="hidden" id="ID" name="ID" value="@Model.ID" />
@@ -12,12 +12,12 @@
 
                 @if (User.Identity.Name == Model.Creator)
                 {
-                    <div id="NEdition" style="display:  block"> <a href="#" onclick="HideShowEdition('NEdition');HideShowEdition('Edition')" class="btn btn-info" style="float:right">Edit</a> </div>
+                    <div id="NEdition" style="display:  block "> <a href="#" onclick="HideShowEdition('NEdition');HideShowEdition('Edition')" class="btn btn-info" style="float:right ; position:fixed ; right:50px ">Edit</a> </div>
 
                     <div class="form-group">
                         <div id="Edition" style="display:  none">
                             <div class="form-group">
-                                <div style="float:right"> <input type="submit" value="Save" class="btn btn-success" /> </div>
+                                <div style="float: right ; position:fixed ; right:50px"> <input type="submit" value="Save" class="btn btn-success" /> </div>
                             </div>
                         </div>
 
@@ -27,7 +27,7 @@
                 <hr />
 
                 @if (Model.showHidable)
-                {<div class="tooltip" style="opacity:0.5"> ID <span class="tooltiptext"> @Model.ID </span></div>
+                {<div class="tooltip" style=" opacity: 0.5"> ID <span class="tooltiptext"> @Model.ID </span></div>
             }
 
                 <table width="100%">
@@ -171,10 +171,11 @@
             <br />
             <br />
             <br />
-            <div> <h4 @if (Model.getQteSkillPointUsed() != Model.SkillPoint) { @: style="background-color:red"
-    }>
-    Skills @Model.getQteSkillPointUsed() / @Model.SkillPoint
-</h4>
+            <div>
+                <h4 @if (Model.getQteSkillPointUsed() != Model.SkillPoint) { @: style="background-color:red"
+                    }>
+                    Skills @Model.getQteSkillPointUsed() / @Model.SkillPoint
+                </h4>
                 <table align="center" width="100%" style="page-break-before:always">
                     <tr>
                         <td>
@@ -239,7 +240,7 @@
                                     <div id="NEdition" style="display:  block">  @Html.DisplayFor(model => model.Parry)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.Parry)</div></div>
                                 </dd>
                             </dl>
-                        
+
                             <h4> Magic skills</h4>
 
                             <dl class="dl-horizontal">
@@ -453,6 +454,7 @@
                     </tr>
                 </table>
             </div>
+            <a id="Attacks"></a>
             <h2> Attacks</h2>
 
             <div id="Edition" style="display:  none ">
@@ -466,31 +468,31 @@
                 @a.name @:* @a.Type * : @a.Description <br />
             }
 
-        <div style="page-break-before:always">
-            <hr />
-            <div id="Edition" style="display:  none ">
-                <a asp-action="Select" asp-controller="Skills" asp-all-route-data=' new Dictionary<string, string> { { "FP", Model.ID.ToString() } }  '>Add a new passive</a>
-            </div>           
-            <h3 @if (Model.getQtePassivePointUsed() != Model.ClassPoint) { @: style="background-color:red"
-                }>
-                Passive     @Model.getQtePassivePointUsed() / @Model.ClassPoint
-            </h3>
-            <br />
-            <input type="text" class="hidden" id="skills" name="skills" value="@Model.skills" />
-            <div>
-                @foreach (Skills s in Model.ListSkills)
-                {
+            <div style="page-break-before:always">
+                <hr />
+                <div id="Edition" style="display:  none ">
+                    <a asp-action="Select" asp-controller="Skills" asp-all-route-data=' new Dictionary<string, string> { { "FP", Model.ID.ToString() } }  '>Add a new passive</a>
+                </div>
+                <h3 @if (Model.getQtePassivePointUsed() != Model.ClassPoint) { @: style="background-color:red"
+                    }>
+                    Passive     @Model.getQtePassivePointUsed() / @Model.ClassPoint
+                </h3>
+                <br />
+                <input type="text" class="hidden" id="skills" name="skills" value="@Model.skills" />
+                <div>
+                    @foreach (Skills s in Model.ListSkills)
+                    {
 
-                    <h4> @s.Name </h4> @s.CurrentLevel @:/ @s.levelMax <br />
-                    <div id="Edition" style="display:  none ">
-                        <a class="btn btn-danger" asp-action="RemoveSkillsFP" asp-all-route-data=' new Dictionary<string, string> { {"SkillId" ,s.ID.ToString() }, {"id", Model.ID.ToString() } } '>-</a>
-                        <a asp-action="AddSkillsFP" asp-all-route-data=' new Dictionary<string, string> { {"SkillId" ,s.ID.ToString() }, {"id", Model.ID.ToString() } };   ' class="btn btn-success">+</a>
-                    </div>
-                    @Html.Raw(ToolTips.InsertTooltip(s.currentEffect))
+                        <h4> @s.Name </h4> @s.CurrentLevel @:/ @s.levelMax <br />
+                        <div id="Edition" style="display:  none ">
+                            <a class="btn btn-danger" asp-action="RemoveSkillsFP" asp-all-route-data=' new Dictionary<string, string> { { "SkillId", s.ID.ToString() }, { "id", Model.ID.ToString() } } '>-</a>
+                            <a asp-action="AddSkillsFP" asp-all-route-data=' new Dictionary<string, string> { { "SkillId", s.ID.ToString() }, { "id", Model.ID.ToString() } };   ' class="btn btn-success">+</a>
+                        </div>
+                        @Html.Raw(ToolTips.InsertTooltip(s.currentEffect))
 
-                }
+                    }
+                </div>
             </div>
-        </div>
             <div>
 
 
@@ -499,15 +501,51 @@
                         @Html.Raw(ToolTips.InsertTooltip(Model.passive))
                     </div>
                 </div><div class="form-group"> <div id="Edition" style="display:  none "><textarea id="passive" name="passive" class="passive" style="width:80%; height:100px"> @Model.passive </textarea></div></div>
-
+                <a id="Stuff"></a>
                 <h3>Stuff</h3><br />
-                <div>
-
-                    <div id="NEdition" style="display:  block">
-                        @Html.Raw(ToolTips.InsertTooltip(Model.Stuff))
-                    </div><div class="form-group"> <div id="Edition" style="display:  none "><textarea id="Stuff" name="Stuff" class="Stuff" style="width:80%; height:100px"> @Model.Stuff </textarea></div></div>
+                <div id="Edition" style="display:  none ">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addItem">
+                        Add New Item
+                    </button>
 
                 </div>
+                <div>
+                    <table>
+
+                        @foreach (Tuple<Weapon, ObjetInventaire> wp in ViewBag.InventoryWeapons)
+                        {
+                            <tr>
+                                <td>
+                                    @wp.Item1.Name.ToString() : @String.Format("{0}D{1}+{2} .", wp.Item1.NumberOfDice, wp.Item1.ValueMax, wp.Item1.Bonus)
+                                    <b>@wp.Item1.Special </b>
+                                    <i> @wp.Item2.Detail . @wp.Item1.Description </i>
+                                </td>
+                                <td>
+                                    <h4 id="Edition" style="display:  none "><a asp-action="DeleteInventory" asp-controller="FeuillePersonnages" asp-route-id="@wp.Item2.ID" asp-route-idUser="@Model.ID" class="btn btn-danger">x</a></h4>
+                                </td>
+                            </tr>
+                        }
+                        @foreach (Tuple<Armors, ObjetInventaire> wp in ViewBag.InventoryArmors)
+                        {
+                            <tr>
+                                <td>
+                                    @wp.Item1.Name.ToString() : @String.Format("Physical : {0} . Magical : {1} .", wp.Item1.ArmorPhysical, wp.Item1.ArmorPhysical)
+                                    <b>@wp.Item1.Special </b>
+                                    <i> @wp.Item2.Detail . @wp.Item1.Special </i>
+                                </td>
+                                <td>
+                                    <h4 id="Edition" style="display:  none "><a asp-action="DeleteInventory" asp-controller="FeuillePersonnages" asp-route-id="@wp.Item2.ID" asp-route-idUser="@Model.ID" class="btn btn-danger">x</a></h4>
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                    <div id="NEdition" style="display:  block">
+                        @Html.Raw(ToolTips.InsertTooltip(Model.Stuff))
+                    </div>
+                    <div class="form-group"> <div id="Edition" style="display:  none "><textarea id="Stuff" name="Stuff" class="Stuff" style="width:80%; height:100px"> @Model.Stuff </textarea></div></div>
+
+                </div>
+                <a id="TS"></a>
                 <h3>Technic and Spell</h3><br />
                 <div>
                     <div>
@@ -607,8 +645,8 @@
 
         </form>
 
-     
 
+        <!------------------------------Modal Add attack--------------------------------------------------------->
         <div class="modal fade" id="addAttack" tabindex="-1" role="dialog" aria-labelledby="Ajout" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -657,7 +695,49 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    
+
+                    </div>
+                </div>
+            </div>
+        </div>      
+        <!------------------------------Modal Add Item--------------------------------------------------------->
+        <div class="modal fade" id="addItem" tabindex="-1" role="dialog" aria-labelledby="AjoutItem" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="AjoutItemLabel">Add Item</h5>
+
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h4>Chose One </h4>
+                        <h5 class="btn btn-info" onclick="SwitchToItem(1)">Weapons</h5>  <h5 class="btn btn-info" onclick="SwitchToItem(2)">Armor</h5>
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-4">
+                                <form asp-action="CreateInventoryObject" method="post">
+                                    <select id="ItemSourceID" name="ItemSourceID" type="text" onchange="GetItemData()" class="form-control">
+                                    </select>
+                                    <div id="Property1"></div>
+                                    <div id="Property2"></div>
+                                    <div id="Property3"></div>
+                                    <div class="form-group">
+                                        <textarea id="Detail" name="Detail" class="Detail" style="width:300px; height:100px">  </textarea>
+                                        <input id="CharacterID" name="CharacterID" hidden="hidden" value="@Model.ID" />
+                                        <input id="TypeObjectIn" name="TypeObjectIn" hidden="hidden" value="1" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="submit" value="Create" class="btn btn-default" />
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
                     </div>
                 </div>
             </div>
@@ -666,8 +746,26 @@
 
 
 
-<script>
-    function HideShow(element) {
+<script type="text/javascript">
+
+    var Weapons = @Html.Raw(ViewBag.Weapons) ;
+     var Armors = @Html.Raw(ViewBag.Armors) ;
+
+    document.onload = startEdit();
+    function startEdit() {
+        console.log("pass");
+    @if (@ViewBag.edit) {
+    @:console.log("True")
+    @:HideShowEdition('NEdition');
+    @:HideShowEdition('Edition');
+    } else
+    {
+    @:console.log("False")
+    }
+
+    }
+   
+function HideShow(element) {
         // Declare variables
         //  console.log(element);
         var box;
@@ -686,7 +784,6 @@
         }
 
     }
-
 function HideShowEdition(element)
 {
     // Declare variables
@@ -708,18 +805,56 @@ function invertVisible(item)
     else
     {
     item.style.display = "none";
-                                                                    }
     }
-    function startEdit() {
-
-    @if(@ViewBag.edit) {
-    @:console.log("True")
-    @:HideShowEdition('NEdition');
-    @:HideShowEdition('Edition');
-    }else
+}
+ 
+    function LoadListItem(typeItem)
     {
-    @:console.log("False")
+        var list;
+        if (typeItem == 1) {
+
+            list = Weapons;
+        } else {
+            list = Armors;
+        }
+
+
+        var selec = document.getElementById('ItemSourceID');
+        while (selec.options.length)
+        {
+                 selec.remove(0);
+            }
+        list.forEach((value) => {
+            var c = document.createElement("option");
+            c.text = value["Name"];
+            c.value = value["ID"];
+            selec.options.add(c, selec.options.length);
+        }
+        );
+        selec.selectedIndex = 0;
+        GetItemData();
     }
 
+    function SwitchToItem(typeItem) {
+          document.getElementById("TypeObjectIn").value = typeItem;
+        LoadListItem(typeItem);
+      
     }
+    function GetItemData() {
+        
+        if (document.getElementById("TypeObjectIn").value == 1) {
+            
+           var e = document.getElementById("ItemSourceID");
+        var Weapon = e.options[e.selectedIndex].value;
+        document.getElementById("Property1").innerHTML = "Damage : " + Weapons[e.selectedIndex]["NumberOfDice"] + "D" + Weapons[e.selectedIndex]["ValueMax"] + "+ (" + Weapons[e.selectedIndex]["Bonus"] + ")";
+        document.getElementById("Property2").innerHTML = "Special : " + Weapons[e.selectedIndex]["Special"];
+            document.getElementById("Property3").innerHTML = "";
+        } else {
+          var e = document.getElementById("ItemSourceID");
+        var armor = e.options[e.selectedIndex].value;
+        document.getElementById("Property1").innerHTML = "Physical Armor : " + Armors[e.selectedIndex]["ArmorPhysical"] ;
+            document.getElementById("Property2").innerHTML = "Magical Armor : " + Armors[e.selectedIndex]["ArmorMagical"];
+  document.getElementById("Property3").innerHTML = "Special : " + Armors[e.selectedIndex]["Special"];
+        }
+     }
 </script>

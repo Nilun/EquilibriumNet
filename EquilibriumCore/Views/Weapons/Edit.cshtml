@@ -1,0 +1,81 @@
+﻿@model EquilibriumCore.Models.Weapon
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit</h2>
+
+<h4>Weapon</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ID" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TypeWeapon" class="control-label"></label>
+                <select asp-for="TypeWeapon" class="form-control">
+                    <option>TwoHand</option>
+                    <option>OneHand</option>
+                    <option>ShortHand</option>
+                    <option>Wizard</option>
+                    <option>All</option>
+                </select>
+                <span asp-validation-for="TypeWeapon" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SecondTypeWeapon" class="control-label"></label>
+                <select asp-for="SecondTypeWeapon" class="form-control">
+                    <option>Sword</option>
+                    <option>Axe</option>
+                    <option>Mace</option>
+                    <option>Dagger</option>
+                    <option>Throwing</option>
+                    <option>Bow</option>
+                    <option>Other</option>
+                </select>
+                <span asp-validation-for="SecondTypeWeapon" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NumberOfDice" class="control-label"></label>
+                <input asp-for="NumberOfDice" class="form-control" />
+                <span asp-validation-for="NumberOfDice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ValueMax" class="control-label"></label>
+                <input asp-for="ValueMax" class="form-control" />
+                <span asp-validation-for="ValueMax" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Bonus" class="control-label"></label>
+                <input asp-for="Bonus" class="form-control" />
+                <span asp-validation-for="Bonus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Special" class="control-label"></label>
+                <input asp-for="Special" class="form-control" />
+                <span asp-validation-for="Special" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

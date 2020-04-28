@@ -28,6 +28,9 @@ namespace EquilibriumCore.Data
         public DbSet<EquilibriumCore.Models.Modification> Modification { get; set; }
         public DbSet<EquilibriumCore.Models.Equipement> Equipement { get; set; }
         public DbSet<EquilibriumCore.Models.Attaque> Attaque { get; set; }
+        public DbSet<EquilibriumCore.Models.Weapon> Weapon { get; set; }
+        public DbSet<EquilibriumCore.Models.ObjetInventaire> ObjetInventaire { get; set; }
+        public DbSet<EquilibriumCore.Models.Armors> Armors { get; set; }
 
     }
 }

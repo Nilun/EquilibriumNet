@@ -19,7 +19,7 @@ using CoreHtmlToImage;
 using Newtonsoft.Json;
 using Microsoft.Extensions.Caching.Memory;
 using System.Threading.Tasks;
-
+using Newtonsoft.Json;
 namespace EquilibriumCore.Controllers
 {
     [Authorize]
@@ -46,7 +46,7 @@ namespace EquilibriumCore.Controllers
         }
 
         // GET: FeuillePersonnages/Details/5
-        public ActionResult Details(int? id ,bool? edit =false)
+        public ActionResult Details(int? id ,bool? edit =false )
         {
             if (id == null)
             {
@@ -71,6 +71,14 @@ namespace EquilibriumCore.Controllers
             feuillePersonnage.partie = db.Partie.Where(a => a.ID == feuillePersonnage.IDPartie).First().Name;
             feuillePersonnage.partiePossible = getParties();
             ViewBag.edit = edit;
+            ViewBag.ListWeapons = (db.Weapon.ToList().ToArray());
+            ViewBag.ListArmors = (db.Armors.ToList().ToArray());
+            ViewBag.Weapons =JsonConvert.SerializeObject( db.Weapon.ToList().ToArray());
+            ViewBag.Armors = JsonConvert.SerializeObject(db.Armors.ToList().ToArray());
+            var LWeapons = db.ObjetInventaire.Where((a) => a.CharacterID == id && a.TypeObjectIn == TypeObject.Arme).ToList();
+            ViewBag.InventoryWeapons = LWeapons.Select((idW)=>new Tuple<Weapon,ObjetInventaire>( db.Weapon.Find(idW.ItemSourceID), idW)).ToList();
+            var LArmor = db.ObjetInventaire.Where((a) => a.CharacterID == id && a.TypeObjectIn == TypeObject.Armure).ToList();
+            ViewBag.InventoryArmors = LArmor.Select((idW) => new Tuple<Armors, ObjetInventaire>(db.Armors.Find(idW.ItemSourceID), idW)).ToList();
             return View(feuillePersonnage);
         }
 
@@ -258,6 +266,7 @@ namespace EquilibriumCore.Controllers
                     .Where(s => s.IDCaster == feuillePersonnage.ID).ToList();
                 feuillePersonnage.showHidable = false;
                 ViewBag.edit = false;
+               
                 return View("Details", feuillePersonnage);
             }
             HttpContext.JsReportFeature().Enabled = false;
@@ -341,8 +350,30 @@ namespace EquilibriumCore.Controllers
             string res = JsonConvert.SerializeObject(db.Spell.Where(a => a.IDCaster == id).Select(a=>a.ID).ToArray());
             return View("SpellList",res);
         }
-       
 
+
+        ///------------------------------------------------------------------ Inventaire
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateInventoryObject([Bind("ID,ItemSourceID,CharacterID,TypeObjectIn,Detail")] ObjetInventaire objetInventaire)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Add(objetInventaire);
+                await db.SaveChangesAsync();
+                return RedirectToAction("Details", "FeuillePersonnages", new { id = objetInventaire.CharacterID, edit = true }, "Stuff");
+            }
+            return RedirectToAction("Details", "FeuillePersonnages", new { id = objetInventaire.CharacterID , edit=true }, "Stuff");
+        }
+        [HttpGet, ActionName("DeleteInventory")]       
+        public async Task<IActionResult> DeleteInventory(int id , int idUser)
+        {
+            var objetInventaire = db.ObjetInventaire.Where((a)=>a.ID == id).First();
+            db.ObjetInventaire.Remove(objetInventaire);
+            await db.SaveChangesAsync();
+            return RedirectToAction("Details", "FeuillePersonnages", new { id = idUser, edit = true } ,"Stuff");
+        }
 
     }
 }
