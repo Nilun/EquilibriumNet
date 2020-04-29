@@ -716,7 +716,7 @@
                         <h5 class="btn btn-info" onclick="SwitchToItem(1)">Weapons</h5>  <h5 class="btn btn-info" onclick="SwitchToItem(2)">Armor</h5>
                         <hr />
                         <div class="row">
-                            <div class="col-md-4">
+                            <div style="margin:5px">
                                 <form asp-action="CreateInventoryObject" method="post">
                                     <select id="ItemSourceID" name="ItemSourceID" type="text" onchange="GetItemData()" class="form-control">
                                     </select>
