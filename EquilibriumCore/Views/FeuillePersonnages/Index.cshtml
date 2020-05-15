@@ -6,7 +6,7 @@
 
 <h2>Index</h2>
 
-<p>
+<p >
     @Html.ActionLink("Create New", "Create")
 </p>
 Filter by game<select onchange="Filter()" id="filtering">
@@ -18,7 +18,8 @@ Filter by game<select onchange="Filter()" id="filtering">
     }
 
 </select>
-<table class="table">
+              <button value="Switch to Monsters" style="right:auto" class="btn alert-info"  onclick="ChangeView();" id="ChgBtn">Switch to Monsters</button>
+<table id="Character" class="table">
     <tr id="Header">
         <th>
             @Html.DisplayNameFor(model => model.Name)
@@ -53,7 +54,7 @@ Filter by game<select onchange="Filter()" id="filtering">
         <th></th>
     </tr>
 
-    @foreach (var item in Model)
+    @foreach (var item in Model.Where((a)=>a.Monster==false))
     {
         <tr class="Sheet" id="@item.partie">
             <td>
@@ -104,7 +105,94 @@ Filter by game<select onchange="Filter()" id="filtering">
     }
 
 </table>
-<script>
+<table id="Monster" style="display:none" class="table">
+    <tr id="Header">
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Race)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Level)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HPMax)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Memory)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Brutality)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Swiftness)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Spirit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Malice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Vitality)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Where((a) => a.Monster == true))
+    {
+        <tr class="Sheet" id="@item.partie">
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Race)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Level)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.HPMax)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Memory)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Brutality)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Swiftness)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Spirit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Malice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Vitality)
+            </td>
+            <td>
+
+                @if (User.Identity.Name == item.Creator)
+                {
+
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ID });
+                    @:|
+                }
+
+                @Html.ActionLink("Details", "Details", new { id = item.ID })
+
+            </td>
+        </tr>
+    }
+
+</table>
+<script>   
+    var filtre = false;
     function Filter() {
         // Declare variables
         var ul, li, i;
@@ -123,6 +211,27 @@ Filter by game<select onchange="Filter()" id="filtering">
             }
 
 
+        }
+    }
+    function ChangeView() {
+        if (filtre) {
+            filtre = false;
+            var ChgBtn = document.getElementById("ChgBtn");
+            ChgBtn.innerHTML = "Switch to Monsters";
+             var monster = document.getElementById("Monster");
+            var character = document.getElementById("Character");
+             character.style.display = "";
+            monster.style.display = "none";
+         
+        } else
+        {
+             var ChgBtn = document.getElementById("ChgBtn");
+            ChgBtn.innerHTML = "Switch to Characters";
+            var character = document.getElementById("Character");
+            var monster = document.getElementById("Monster");
+            character.style.display = "none";
+            monster.style.display = "";
+            filtre = true;
         }
     }
 </script>

@@ -17,7 +17,8 @@ namespace EquilibriumCore.Models
         public int levelMax { get; set; }
         public string Tags { get; set; }
         public string Ignore { get; set; }
-        [NotMapped]public string currentEffect { get => getEffect(); }
+        [NotMapped] public string currentEffect { get => getEffect(); }
+
         [NotMapped] int currentLevel;
         [NotMapped] public int CurrentLevel {get =>  currentLevel;set => setLevel(value);}
         public Skills()

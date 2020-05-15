@@ -80,7 +80,7 @@ namespace EquilibriumCore.Models
 
 
         public int IDPartie { get; set; }
-
+        public bool Monster { get; set; } 
         public DateTime LastUpdate { get; set; }
         int LinkedDocument { get; set; }
         [NotMapped] public string partie { get; set; }
