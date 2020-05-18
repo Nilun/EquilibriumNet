@@ -6,6 +6,19 @@
 }
 
 <h2>Select One ...</h2>
+
+<h4> Tag you have : </h4>
+@{int i = 0; }
+@foreach (string item in ViewBag.uTag)
+{ 
+    i++;
+    int g = 100 + (140 / ViewBag.uTag.Length) * i;   
+   
+    <button class="btn" style="background-color : rgb(@g,240 ,0) "  onclick="SetFilter('@item')"> @item </button>
+}
+<br />
+<h4>Or search: </h4>
+<br />
 <select id="filterSC" onchange="Filter()">
     <option value=""></option>
     @foreach (string item in ViewBag.SupCats)
@@ -121,5 +134,9 @@
 
 
         }
+    }
+    function SetFilter(val) {
+        document.getElementById("filterT").value = val;
+        Filter();
     }
 </script>
