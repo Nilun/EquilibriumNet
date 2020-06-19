@@ -50,11 +50,18 @@ namespace EquilibriumCore.Controllers
             ViewBag.FP = FP;
             List<string> Tags = new List<string>();
             var f = _context.Feuilles.Find(FP);
-            string[] uTag = f.skills.Split(";",StringSplitOptions.RemoveEmptyEntries);
-            var u = uTag.Select((a) => _context.Skills.Find(int.Parse(a)));
-            u = u.Distinct();
-            var tmp = u.SelectMany((a) => a.Tags.Split(' ', StringSplitOptions.RemoveEmptyEntries)).GroupBy(a=>a).OrderByDescending((a) => a.Count());
-            ViewBag.uTag = tmp.Select(a => a.Key).ToArray();
+            string[] uTag;
+            ViewBag.uTag = null;
+           if (f.skills != null)
+            {
+                uTag = f.skills.Split(";", StringSplitOptions.RemoveEmptyEntries);
+                var u = uTag.Select((a) => _context.Skills.Find(int.Parse(a)));
+                u = u.Distinct();
+                var tmp = u.SelectMany((a) => a.Tags.Split(' ', StringSplitOptions.RemoveEmptyEntries)).GroupBy(a => a).OrderByDescending((a) => a.Count());
+                ViewBag.uTag = tmp.Select(a => a.Key).ToArray();
+            }
+          
+          
                // Dictionary<string, int> CharacterTags;
                Tags = _context.Skills.Select((a) => a.Tags).Where((a) => a != null && a != "").ToList();
             Tags = String.Join(' ', Tags).Split(' ',StringSplitOptions.RemoveEmptyEntries).Distinct().ToList();  //.SelectMany(a => a.Split(" ",StringSplitOptions.RemoveEmptyEntries)).Distinct().ToList();
