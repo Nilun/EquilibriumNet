@@ -20,15 +20,9 @@ namespace EquilibriumCore.Models
         public bool IsForm { get; set; }
         public int Range { get; set; } = 0;
         public int Area { get; set; } = 0;
-
         public string text { get; set; }
-
-
         public string valuesString { get; set; }
-
-
-        public string upgradesString { get; set; }
-
+        public string upgradesString { get; set; }       
         public List<SpellLinkComponent> Links{get;set;}
         
 
