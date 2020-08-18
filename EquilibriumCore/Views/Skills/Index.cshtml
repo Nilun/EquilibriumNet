@@ -4,63 +4,76 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@{
+    List<string> sCats = Model.Select((a) => a.superCat).Distinct().ToList();
 
-<h2>Index</h2>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.superCat)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.cat)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Effect)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.levelMax)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Tags)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.superCat)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.cat)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Effect)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.levelMax)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Tags)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-            </td>
-        </tr>
 }
-    </tbody>
-</table>
+@foreach (var sCat in sCats)
+{
+
+    List<string> Cats = Model.Where((a) => a.superCat == sCat).Select((a) => a.cat).Distinct().ToList();
+    @:<h3> @Html.Raw( sCat.Count() > 0 ? sCat.Remove(0, 1) : sCat ) </h3>
+    @foreach (var Cat in Cats)
+    {
+        List<Skills> skills = Model.Where((a) => a.superCat == sCat && a.cat == Cat)
+            .Select((a) => {
+                if (a.Tags.Contains("ELITE"))
+                {
+                    try
+                    {
+                        int x = a.Tags.IndexOf("ELITE");
+                        a.Tags = String.Concat(a.Tags.Remove(x, (a.Tags.Count() - 5) == x ? 5 : 6), " ELITE");
+                        return a;
+                    }
+                    catch (Exception)
+                    {
+
+                        throw;
+                    }
+
+                } else
+                {
+                    return a;
+                }
+            })
+            .OrderBy((a) => a.Tags)
+            .ThenByDescending((a) => a.levelMax)
+            .ToList();
+        @:<h4> @Html.Raw(Cat.Count() > 0 ? Cat.Remove(0, 1) : Cat)  </h4>
+
+    @:    <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Effect)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.levelMax)
+                    </th>                   
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in skills)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Effect)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.levelMax)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+
+            }
+            }
+
+        </table>

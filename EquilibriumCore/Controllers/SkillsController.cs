@@ -221,7 +221,11 @@ namespace EquilibriumCore.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Admin()
+        {
+            return View("Index Admin",await _context.Skills.ToListAsync());
+        }
         private bool SkillsExists(int id)
         {
             return _context.Skills.Any(e => e.ID == id);
