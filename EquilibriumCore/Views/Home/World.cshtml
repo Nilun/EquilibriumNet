@@ -1,0 +1,57 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<table>
+    <tr>
+        <td>
+            <img style="width:1000px;height:1000px" src="~/images/Hera.png" usemap="#WorldMap" />
+            <map name="WorldMap">
+                <area shape="poly" coords="743,287,1000,282,1000,339,874,348,814,370,731,320" href="#" onclick="HideShow('Ebene')">
+                <area shape="poly" coords="321,0,321,139,589,152,625,177,690,184,688,307,1000,281,1000,1" href="#" onclick="HideShow('Nord')">
+                <area shape="poly" coords="706,305,736,305,737,331,816,369,1000,335,1000,632,753,680,743,704,646,704,636,305" href="#" onclick="HideShow('Etoile')">
+                <area shape="poly" coords="646,704,743,704,1000,716,1000,1000,573,1000,570,813" href="#" onclick="HideShow('Ast')">
+                <area shape="poly" coords="573,1000,570,813,377,820,364,1000" href="#" onclick="HideShow('Saint')">
+                <area shape="poly" coords="743,673,1000,634,1000,694,739,720" href="#" onclick="HideShow('Solaire')">
+            </map>
+            
+        </td>
+        <td>
+            <h2 name="Info" id="Nord" style="display:none"> Nord</h2>
+            <h2 name="Info" id="Ebene" style="display:none"> Ebene</h2>
+            <h2 name="Info" id="Etoile" style="display:none"> Etoile</h2>
+            <h2 name="Info" id="Solaire" style="display:none"> Solaire</h2>
+            <h2 name="Info" id="Ast" style="display:none"> Ast</h2>
+            <h2 name="Info" id="Saint" style="display:none"> Saint</h2>
+        </td>
+    </tr>
+</table>
+
+<script>
+    function HideShow(item)
+{
+    // Declare variables
+  //  console.log(element);
+  var box;
+    box = document.getElementsByName("Info");
+
+    box.forEach(element => element.style.display = "none");
+        console.log("test");
+        var b = document.getElementById(item);
+            b.style.display = "block";
+    // Loop through all list items, and hide those who don't match the search query
+
+}
+function invertVisible(item)
+{
+    if (item.style.display == "none")
+    {
+    item.style.display = "";
+    }
+    else
+    {
+    item.style.display = "none";
+    }
+}
+    </script>

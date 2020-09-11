@@ -10,7 +10,12 @@ namespace EquilibriumCore.Controllers
 {
 
     public class HomeController : Controller
-    {        
+    {
+        public IActionResult World()
+        {
+            return View();
+
+        }
         public IActionResult Index()
         {
             return RedirectToAction("Index", "Updates");
