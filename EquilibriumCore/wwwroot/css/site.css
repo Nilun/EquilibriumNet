@@ -71,3 +71,26 @@ body {
             visibility: visible;
         }
 
+.flexRow {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin: 8px 8px 8px 0px;
+}
+        .flexRow > * 
+        {
+            flex:1;
+            
+        }
+        .skillList
+        {
+
+        }
+        .skillList h5
+        {
+            padding : 0px;
+            font-weight : bold ;
+                margin : 0px;
+
+        }

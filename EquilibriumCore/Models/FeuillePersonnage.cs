@@ -18,7 +18,7 @@ namespace EquilibriumCore.Models
         public int Level { get; set; } = 1;
         public int HPPerLevel { get; set; } = 3;
         public int HPNow { get; set; } = 0;
-        [NotMapped] public int HPMax { get => 10 + Level * HPPerLevel + Body * 5; }
+        [NotMapped] public int HPMax { get => 10 + Level * HPPerLevel + Body * EffiBody; }
         public int MemoryBonus { get; set; }
         [NotMapped] public int Memory { get => (int)Math.Truncate((double)(3 + Level / 2)) + MemoryBonus; }
         
@@ -84,6 +84,8 @@ namespace EquilibriumCore.Models
         public DateTime LastUpdate { get; set; }
         int LinkedDocument { get; set; }
         [NotMapped] public string partie { get; set; }
+        [NotMapped] public int BaseMemo { get; set; } = 3;
+        [NotMapped] public int EffiBody { get; set; } = 5;
         [NotMapped] public int  Initiative { get => Malice + Swiftness;}
 
         [NotMapped] public bool openSpells { get; set; } = false;
@@ -195,5 +197,38 @@ namespace EquilibriumCore.Models
             }
             return res;
         }
+        public string GetWeaponBonusString(int invest)
+        {
+            var dmg = (invest + 1) / 2;
+            var tec = invest / 2;
+            if (invest == 5 )
+            {
+                dmg = 3;
+                tec = 3;
+            }
+            return "DMG+" + dmg + " TEC+" + tec;
+        }
+        public int GetTechMemory()
+        {
+            return BaseMemo + GetTecBonus(OneHand) + GetTecBonus(LOneHand) + GetTecBonus(TwoHand) + GetTecBonus(Throw) + GetTecBonus(Bow) + +GetTecBonus(MageWeap);
+        }
+        public int GetTecBonus(int invest)
+        {
+                       var tec = invest / 2;
+            if (invest == 5)
+            {               
+                tec = 3;
+            }
+            return tec;
+        }
+        public string GetStringHpBonus()
+        {
+            return "HP bonus : " + EffiBody * Body;
+        }
+        public string GetMagicBonus(int level)
+        {
+            return "Schools: " + level + " Nbr Effect per spell :" + (level +1);
+        }
+
     }
 }

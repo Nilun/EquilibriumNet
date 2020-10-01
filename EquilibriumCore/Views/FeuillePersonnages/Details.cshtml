@@ -1,6 +1,6 @@
 ﻿@model EquilibriumCore.Models.FeuillePersonnage
 @inject EquilibriumCore.Service.IToolTipService ToolTips
-
+@using System.Linq.Expressions;
 @{
     ViewBag.Title = "Details";
 }
@@ -87,11 +87,18 @@
                                     @Html.DisplayFor(model => model.ClassPoint)
                                 </dd>
                                 <dt>
-                                    Memory
+                                    Spell Memory
                                 </dt>
 
                                 <dd>
                                     @Html.DisplayFor(model => model.Memory) (with  @Html.DisplayFor(model => model.MemoryBonus) bonus included )
+                                </dd>
+                                <dt>
+                                    Technique Memory
+                                </dt>
+
+                                <dd>
+                                    @Model.GetTechMemory() (no bonus included )
                                 </dd>
                                 <dt>
                                     Initiative
@@ -176,6 +183,55 @@
                     }>
                     Skills @Model.getQteSkillPointUsed() / @Model.SkillPoint
                 </h4>
+                @{ 
+                    List<Tuple<string, string ,Expression<Func<FeuillePersonnage,int>>>> skillsWar = new List<Tuple<string, string,Expression<Func<FeuillePersonnage, int>>>>{
+                        new Tuple<string, string ,Expression<Func<FeuillePersonnage,int>>>("One Hand (Swiftness)", ":"+ Model.GetWeaponBonusString(Model.OneHand),(FeuillePersonnage model) => model.OneHand ),
+                         new Tuple<string, string ,Expression<Func<FeuillePersonnage,int>>>("Light One Hand (Malice)", ":"+ Model.GetWeaponBonusString(Model.LOneHand) ,(FeuillePersonnage model) => model.LOneHand ),
+                           new Tuple<string, string ,Expression<Func<FeuillePersonnage,int>>>("Two Hand (Brutality)", ":"+ Model.GetWeaponBonusString(Model.TwoHand) ,(FeuillePersonnage model) => model.TwoHand ),
+                           new Tuple<string, string ,Expression<Func<FeuillePersonnage,int>>>("Throwing (Malice)",  ":"+ Model.GetWeaponBonusString(Model.Throw) ,(FeuillePersonnage model) => model.Throw ),
+                            new Tuple<string, string ,Expression<Func<FeuillePersonnage,int>>>("Archery (Brutality)",  ":"+ Model.GetWeaponBonusString(Model.Bow) ,(FeuillePersonnage model) => model.Bow ),
+                             new Tuple<string, string ,Expression<Func<FeuillePersonnage,int>>>("Bodybuilding (Vitality)",":"+  @Model.GetStringHpBonus() ,(FeuillePersonnage model) => model.Body ),
+                             new Tuple<string, string ,Expression<Func<FeuillePersonnage,int>>>("Parry (Vitality)", "" ,(FeuillePersonnage model) => model.Parry )
+
+                    };
+
+                    List<Tuple<string, string ,Expression<Func<FeuillePersonnage,int>>>> skillsMagic = new List<Tuple<string, string,Expression<Func<FeuillePersonnage, int>>>>
+                    {
+                           new Tuple<string, string ,Expression<Func<FeuillePersonnage,int>>>("Elemental Domains (Spirit)", ":"+ Model.GetMagicBonus(Model.Elem) ,(FeuillePersonnage model) => model.Elem ),
+                            new Tuple<string, string ,Expression<Func<FeuillePersonnage,int>>>("Occult Domains (Malice)",  Model.GetMagicBonus(Model.Occult) ,(FeuillePersonnage model) => model.Occult ),
+                            new Tuple<string, string ,Expression<Func<FeuillePersonnage,int>>>("Primordial Domains (Brutality)", ":"+ Model.GetMagicBonus(Model.Primordial) ,(FeuillePersonnage model) => model.Primordial ),
+                            new Tuple<string, string ,Expression<Func<FeuillePersonnage,int>>>("Mage Weaponery (Swiftness)", ":"+ Model.GetWeaponBonusString(Model.MageWeap) ,(FeuillePersonnage model) => model.MageWeap ),
+                            new Tuple<string, string ,Expression<Func<FeuillePersonnage,int>>>("Infusion (Spirit)", "",(FeuillePersonnage model) => model.Infusion ),
+                            new Tuple<string, string ,Expression<Func<FeuillePersonnage,int>>>("Resistance (Vitality)","",(FeuillePersonnage model) => model.Resist ),
+                            new Tuple<string, string ,Expression<Func<FeuillePersonnage,int>>>("Magic Identification (Swiftness)","" ,(FeuillePersonnage model) => model.MagicIdentif ),
+                        };
+
+                    List<Tuple<string, string ,Expression<Func<FeuillePersonnage,int>>>> skillsAdvent = new List<Tuple<string, string,Expression<Func<FeuillePersonnage, int>>>>
+                    {                          
+                            new Tuple<string, string ,Expression<Func<FeuillePersonnage,int>>>("Stealth (Malice))","",(FeuillePersonnage model) => model.Stealth ),
+                            new Tuple<string, string ,Expression<Func<FeuillePersonnage,int>>>("Survival (Swiftness)","" ,(FeuillePersonnage model) => model.Survival ),
+                            new Tuple<string, string ,Expression<Func<FeuillePersonnage,int>>>("Perception (Spirit)","",(FeuillePersonnage model) => model.Perception ),
+                            new Tuple<string, string ,Expression<Func<FeuillePersonnage,int>>>("Speechcraft (Malice)","" ,(FeuillePersonnage model) => model.Speech ),
+                            new Tuple<string, string ,Expression<Func<FeuillePersonnage,int>>>("History (Spirit)","",(FeuillePersonnage model) => model.History ),
+                            new Tuple<string, string ,Expression<Func<FeuillePersonnage,int>>>("Medic (Spirit)","" ,(FeuillePersonnage model) => model.Medic ),
+                            new Tuple<string, string ,Expression<Func<FeuillePersonnage,int>>>("Empath (Swiftness)","",(FeuillePersonnage model) => model.Empath ),
+                            new Tuple<string, string ,Expression<Func<FeuillePersonnage,int>>>("Athletism (Brutality)","" ,(FeuillePersonnage model) => model.Athletism ),
+                            new Tuple<string, string ,Expression<Func<FeuillePersonnage,int>>>("Dodge (Vitality)","",(FeuillePersonnage model) => model.Acrobatics ),
+                            new Tuple<string, string ,Expression<Func<FeuillePersonnage,int>>>("Craft - Forge (Brutality)","" ,(FeuillePersonnage model) => model.CraftB ),
+                            new Tuple<string, string ,Expression<Func<FeuillePersonnage,int>>>("Craft - Tinker (Swiftness)","",(FeuillePersonnage model) => model.CraftSW ),
+                            new Tuple<string, string ,Expression<Func<FeuillePersonnage,int>>>("Craft - Medical (Spirit)","" ,(FeuillePersonnage model) => model.CraftS ),
+                            new Tuple<string, string ,Expression<Func<FeuillePersonnage,int>>>("Craft - Poison (Malice)","",(FeuillePersonnage model) => model.CraftM ),
+                            new Tuple<string, string ,Expression<Func<FeuillePersonnage,int>>>("Art (Swiftness)","" ,(FeuillePersonnage model) => model.Art ),
+                            new Tuple<string, string ,Expression<Func<FeuillePersonnage,int>>>("Shadowcraft (Malice)","",(FeuillePersonnage model) => model.ShadowCraft),
+                            new Tuple<string, string ,Expression<Func<FeuillePersonnage,int>>>("Disrupt (Brutality)","" ,(FeuillePersonnage model) => model.Disrupt ),
+                            new Tuple<string, string ,Expression<Func<FeuillePersonnage,int>>>("Teaching (Spirit)","",(FeuillePersonnage model) => model.Teaching ),
+                            new Tuple<string, string ,Expression<Func<FeuillePersonnage,int>>>("Animal Handling (Spirit)","" ,(FeuillePersonnage model) => model.AnimalH ),
+                        };
+
+                }
+            
+               
+
                 <table align="center" width="100%" style="page-break-before:always">
                     <tr>
                         <td>
@@ -183,273 +239,43 @@
 
                             <h4> War skills</h4>
 
-                            <dl class="dl-horizontal">
-                                <dt>
-                                    One Hand (Swiftness)
-                                </dt>
+                            <ul class="skillList">
+                                @foreach (var item in skillsWar)
+                                {
+                                    <li class="flexRow">
+                                        <h5> @item.Item1</h5>
+                                        <span id="NEdition" style="display:  block ">1+@Html.DisplayFor(item.Item3) @item.Item2</span>
+                                        <span id="Edition" style="display:  none ">@Html.EditorFor(item.Item3)</span>
+                                    </li>
+                                }
 
-                                <dd>
-                                    <div id="NEdition" style="display:  block "> 1 +  @Html.DisplayFor(model => model.OneHand)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.OneHand)</div></div>
-                                </dd>
-
-                                <dt>
-                                    Light One Hand <br /> (Malice)
-                                </dt>
-
-                                <dd>
-                                    <div id="NEdition" style="display:  block "> 1 +  @Html.DisplayFor(model => model.LOneHand)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.LOneHand)</div></div>
-                                </dd>
-
-                                <dt>
-                                    Two Hand (Brutality)
-                                </dt>
-
-                                <dd>
-                                    <div id="NEdition" style="display:  block "> 1 +   @Html.DisplayFor(model => model.TwoHand)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.TwoHand)</div></div>
-                                </dd>
-
-                                <dt>
-                                    Throwing (Malice)
-                                </dt>
-
-                                <dd>
-                                    <div id="NEdition" style="display:  block "> 1 +   @Html.DisplayFor(model => model.Throw)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.Throw)</div></div>
-                                </dd>
-
-                                <dt>
-                                    Archery (Brutality)
-                                </dt>
-
-                                <dd>
-                                    <div id="NEdition" style="display:  block "> 1 +   @Html.DisplayFor(model => model.Bow)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.Bow)</div></div>
-                                </dd>
-
-                                <dt>
-                                    Bodybuilding (Vitality)
-                                </dt>
-
-                                <dd>
-                                    <div id="NEdition" style="display:  block "> 1 +   @Html.DisplayFor(model => model.Body)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.Body)</div></div>
-                                </dd>
-
-                                <dt>
-                                    Parry (Vitality)
-                                </dt>
-
-                                <dd>
-                                    <div id="NEdition" style="display:  block "> 1 +  @Html.DisplayFor(model => model.Parry)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.Parry)</div></div>
-                                </dd>
-                            </dl>
+                            </ul>
 
                             <h4> Magic skills</h4>
-
-                            <dl class="dl-horizontal">
-                                <dt>
-                                    Elemental Magic (Spirit)
-                                </dt>
-
-                                <dd>
-                                    <div id="NEdition" style="display:  block "> 1 +   @Html.DisplayFor(model => model.Elem)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.Elem)</div></div>
-                                </dd>
-
-                                <dt>
-                                    Occult Magic (Malice)
-                                </dt>
-
-                                <dd>
-                                    <div id="NEdition" style="display:  block "> 1 + @Html.DisplayFor(model => model.Occult)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.Occult)</div></div>
-                                </dd>
-
-                                <dt>
-                                    Primordial Magic <br /> (Brutality)
-                                </dt>
-
-                                <dd>
-                                    <div id="NEdition" style="display:  block "> 1 +    @Html.DisplayFor(model => model.Primordial)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.Primordial)</div></div>
-                                </dd>
-
-                                <dt>
-                                    Mage Weaponery (Swiftness)
-                                </dt>
-
-                                <dd>
-                                    <div id="NEdition" style="display:  block "> 1 + @Html.DisplayFor(model => model.MageWeap)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.MageWeap)</div></div>
-                                </dd>
-
-                                <dt>
-                                    Infusion (Spirit)
-                                </dt>
-
-                                <dd>
-                                    <div id="NEdition" style="display:  block "> 1 +   @Html.DisplayFor(model => model.Infusion)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.Infusion)</div></div>
-                                </dd>
-
-                                <dt>
-                                    Resistance (Vitality)
-                                </dt>
-
-                                <dd>
-                                    <div id="NEdition" style="display:  block "> 1 + @Html.DisplayFor(model => model.Resist)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.Resist)</div></div>
-                                </dd>
-
-                                <dt>
-                                    Magic Identification <br> (Swiftness)
-                                </dt>
-
-                                <dd>
-                                    <div id="NEdition" style="display:  block "> 1 +  @Html.DisplayFor(model => model.MagicIdentif)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.MagicIdentif)</div></div>
-                                </dd>
-                            </dl>
+                            <ul class="skillList">
+                                @foreach (var item in skillsMagic)
+                                {
+                                    <li class="flexRow">
+                                        <h5> @item.Item1</h5>
+                                        <span id="NEdition" style="display:  block ">1+@Html.DisplayFor(item.Item3) @item.Item2</span>
+                                        <span id="Edition" style="display:  none ">@Html.EditorFor(item.Item3)</span>
+                                    </li>
+                                }
+</ul>
                         </td>
                         <td>
                             <h4> Adventuring  skills</h4>
-
-                            <dl class="dl-horizontal">
-                                <dt>
-                                    Stealth (Malice)
-                                </dt>
-
-                                <dd>
-                                    <div id="NEdition" style="display:  block "> 1 +  @Html.DisplayFor(model => model.Stealth)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.Stealth)</div></div>
-                                </dd>
-
-                                <dt>
-                                    Survival (Swiftness)
-                                </dt>
-
-                                <dd>
-                                    <div id="NEdition" style="display:  block "> 1 +  @Html.DisplayFor(model => model.Survival)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.Survival)</div></div>
-                                </dd>
-
-                                <dt>
-                                    Perception (Spirit)
-                                </dt>
-
-                                <dd>
-                                    <div id="NEdition" style="display:  block "> 1 +  @Html.DisplayFor(model => model.Perception)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.Perception)</div></div>
-                                </dd>
-
-                                <dt>
-                                    Speechcraft (Malice)
-                                </dt>
-
-                                <dd>
-                                    <div id="NEdition" style="display:  block "> 1 +  @Html.DisplayFor(model => model.Speech)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.Speech)</div></div>
-                                </dd>
-
-                                <dt>
-                                    History (Spirit)
-                                </dt>
-
-                                <dd>
-                                    <div id="NEdition" style="display:  block "> 1 +  @Html.DisplayFor(model => model.History)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.History)</div></div>
-                                </dd>
-
-                                <dt>
-                                    Medic (Spirit)
-                                </dt>
-
-                                <dd>
-                                    <div id="NEdition" style="display:  block "> 1 +  @Html.DisplayFor(model => model.Medic)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.Medic)</div></div>
-                                </dd>
-
-                                <dt>
-                                    Empath (Swiftness)
-                                </dt>
-
-                                <dd>
-                                    <div id="NEdition" style="display:  block "> 1 +  @Html.DisplayFor(model => model.Empath)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.Empath)</div></div>
-                                </dd>
-
-                                <dt>
-                                    Athletism (Brutality)
-                                </dt>
-
-                                <dd>
-                                    <div id="NEdition" style="display:  block "> 1 +  @Html.DisplayFor(model => model.Athletism)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.Athletism)</div></div>
-                                </dd>
-
-                                <dt>
-                                    Dodge (Vitality)
-                                </dt>
-
-                                <dd>
-                                    <div id="NEdition" style="display:  block "> 1 + @Html.DisplayFor(model => model.Acrobatics)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.Acrobatics)</div></div>
-                                </dd>
-
-                                <dt>
-                                    Craft - Forge (Brutality)
-                                </dt>
-
-                                <dd>
-                                    <div id="NEdition" style="display:  block "> 1 +  @Html.DisplayFor(model => model.CraftB)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.CraftB)</div></div>
-                                </dd>
-                                <dt>
-                                    Craft - Tinker  (Swiftness)
-                                </dt>
-
-                                <dd>
-                                    <div id="NEdition" style="display:  block "> 1 +   @Html.DisplayFor(model => model.CraftSW)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.CraftSW)</div></div>
-                                </dd>
-                                <dt>
-                                    Craft - Medical  (Spirit)
-                                </dt>
-
-                                <dd>
-                                    <div id="NEdition" style="display:  block "> 1 +  @Html.DisplayFor(model => model.CraftS)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.CraftS)</div></div>
-                                </dd>
-                                <dt>
-                                    Craft - Poison (Malice)
-                                </dt>
-
-                                <dd>
-                                    <div id="NEdition" style="display:  block "> 1 +   @Html.DisplayFor(model => model.CraftM)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.CraftM)</div></div>
-                                </dd>
-
-                                <dt>
-                                    Intimidation (Brutality)
-                                </dt>
-
-                                <dd>
-                                    <div id="NEdition" style="display:  block "> 1 +  @Html.DisplayFor(model => model.Intimidation)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.Intimidation)</div></div>
-                                </dd>
-                                <dt>
-                                    Art (Swiftness)
-                                </dt>
-
-                                <dd>
-                                    <div id="NEdition" style="display:  block "> 1 +  @Html.DisplayFor(model => model.Art)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.Art)</div></div>
-                                </dd>
-                                <dt>
-                                    Shadowcraft (Malice)
-                                </dt>
-
-                                <dd>
-                                    <div id="NEdition" style="display:  block "> 1 +  @Html.DisplayFor(model => model.ShadowCraft)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.ShadowCraft)</div></div>
-                                </dd>
-                                <dt>
-                                    Disrupt (Brutality)
-                                </dt>
-
-                                <dd>
-                                    <div id="NEdition" style="display:  block "> 1 +  @Html.DisplayFor(model => model.Disrupt)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.Disrupt)</div></div>
-                                </dd>
-                                <dt>
-                                    Teaching (Spirit)
-                                </dt>
-
-                                <dd>
-                                    <div id="NEdition" style="display:  block "> 1 +  @Html.DisplayFor(model => model.Teaching)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.Teaching)</div></div>
-                                </dd>
-                                <dt>
-                                    Animal Handling (Spirit)
-                                </dt>
-
-                                <dd>
-                                    <div id="NEdition" style="display:  block "> 1 +  @Html.DisplayFor(model => model.AnimalH)</div><div class="form-group"> <div id="Edition" style="display:  none ">@Html.EditorFor(model => model.AnimalH)</div></div>
-                                </dd>
-
-                            </dl>
+                            <ul class="skillList">
+                                @foreach (var item in skillsAdvent)
+                                {
+                                    <li class="flexRow">
+                                        <h5> @item.Item1</h5>
+                                        <span id="NEdition" style="display:  block ">1+@Html.DisplayFor(item.Item3) @item.Item2</span>
+                                        <span id="Edition" style="display:  none ">@Html.EditorFor(item.Item3)</span>
+                                    </li>
+                                }
+                            </ul>
+                           
                         </td>
                     </tr>
                 </table>
@@ -863,5 +689,6 @@ function invertVisible(item)
             document.getElementById("Property2").innerHTML = "Magical Armor : " + Armors[e.selectedIndex]["ArmorMagical"];
   document.getElementById("Property3").innerHTML = "Special : " + Armors[e.selectedIndex]["Special"];
         }
-     }
+    }
+   
 </script>
