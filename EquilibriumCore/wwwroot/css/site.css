@@ -94,3 +94,75 @@ body {
                 margin : 0px;
 
         }
+/* Style the tab */
+.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+    /* Style the buttons that are used to open the tab content */
+    .tab button {
+        background-color: inherit;
+        float: left;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 14px 16px;
+        transition: 0.3s;
+    }
+
+        /* Change background color of buttons on hover */
+        .tab button:hover {
+            background-color: #ddd;
+        }
+
+        /* Create an active/current tablink class */
+        .tab button.active {
+            background-color: #ccc;
+        }
+
+.wrapper {
+    display: flex;
+    width: 100%;
+}
+
+#sidebar {
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 999;
+    background: #7386D5;
+    color: #fff;
+    transition: all 0.3s;
+}
+
+    #sidebar
+    ul > li {
+        list-style-type: none;
+
+    }
+    #sidebar
+    a:link {
+        color: #FFF;
+        text-decoration: none;
+    }
+    #sidebar
+    a:visited {
+        color: #FFF;
+        text-decoration: none;
+    }
+    /* mouse over link */
+    #sidebar
+    a:hover {
+        color: #FFF;
+        text-decoration: none;
+    }
+    /* selected link */
+    #sidebar
+    a:active {
+        color: #FFF;
+        text-decoration: none;
+    }

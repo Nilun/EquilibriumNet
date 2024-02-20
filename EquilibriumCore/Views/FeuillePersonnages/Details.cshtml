@@ -10,7 +10,7 @@
             <input type="hidden" id="ID" name="ID" value="@Model.ID" />
             <div>
 
-                @if (User.Identity.Name == Model.Creator)
+                @if (User.Identity.Name == Model.Creator && ViewBag.hideButton == null)
                 {
                     <div id="NEdition" style="display:  block "> <a href="#" onclick="HideShowEdition('NEdition');HideShowEdition('Edition')" class="btn btn-info" style="float:right ; position:fixed ; right:50px ">Edit</a> </div>
 

@@ -22,9 +22,28 @@ namespace EquilibriumCore.Controllers
         }
 
         // GET: Skills
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string? sCat, string? cat )
         {
-            return View(await _context.Skills.ToListAsync());
+            Console.WriteLine(sCat);
+            List<Skills> filtered = await _context.Skills.ToListAsync();
+            Dictionary<string, List<string>> catDictio = new Dictionary<string, List<string>>();
+
+            catDictio = filtered.Select((s) => (s.superCat,s.cat)).Distinct().GroupBy(x=>x.superCat,x=>x.cat).ToDictionary((x)=>x.Key , (x)=>x.ToList());
+
+
+
+            if (sCat != null && sCat != "")
+            {
+                filtered = filtered.Where((s) => s.superCat.Contains(sCat)).ToList();
+                if (cat != null && cat != "")
+                {
+                    filtered = filtered.Where((s) => s.cat.Contains(cat)).ToList();
+                }
+            }
+            ViewBag.catDictio = catDictio;
+            ViewBag.filtered = filtered;
+
+            return View();
         }
 
         // GET: Skills/Details/5

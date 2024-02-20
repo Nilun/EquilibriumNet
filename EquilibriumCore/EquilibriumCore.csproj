@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="Markdown\core.md" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="CoreHtmlToImage" Version="1.0.5" />
     <PackageReference Include="jsreport.AspNetCore" Version="2.0.2" />
     <PackageReference Include="jsreport.Binary" Version="2.6.1" />
@@ -21,8 +25,9 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.9.10" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.2" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.1.1" />
+    <PackageReference Include="Westwind.Web.Markdown" Version="0.2.15" />
   </ItemGroup>
 
   <ItemGroup>

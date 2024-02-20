@@ -31,6 +31,7 @@ namespace EquilibriumCore.Data
         public DbSet<EquilibriumCore.Models.Weapon> Weapon { get; set; }
         public DbSet<EquilibriumCore.Models.ObjetInventaire> ObjetInventaire { get; set; }
         public DbSet<EquilibriumCore.Models.Armors> Armors { get; set; }
+       
 
     }
 }

@@ -8,7 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using EquilibriumCore.Data;
 using EquilibriumCore.Models;
 using Microsoft.AspNetCore.Authorization;
-
+using Markdig;
+using System.IO;
 namespace EquilibriumCore.Controllers
 {
    
@@ -22,12 +23,14 @@ namespace EquilibriumCore.Controllers
         }
 
         // GET: Rules
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Rules.ToListAsync());
         }
 
         // GET: Rules/Details/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -158,7 +161,17 @@ namespace EquilibriumCore.Controllers
 
         public async Task<IActionResult> MainRules(int? id)
         {
-            return View(Tuple.Create( _context.Rules.ToList(),id.HasValue?_context.Rules.FirstOrDefault(val=>val.ID==id.Value):null));
+            string ruleRequest = id.HasValue ? _context.Rules.FirstOrDefault(val => val.ID == id.Value).Text : "";
+            string rules = "";
+            if ( ruleRequest != "")
+            {
+                StreamReader sr = new StreamReader(Directory.GetCurrentDirectory() + "/Markdown/"+ ruleRequest+".md");
+                rules = sr.ReadToEnd();
+                sr.Close();
+                var pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
+                rules = Markdig.Markdown.ToHtml(rules, pipeline);
+            }
+            return View(Tuple.Create( _context.Rules.ToList(), rules));
         }
     }
 }

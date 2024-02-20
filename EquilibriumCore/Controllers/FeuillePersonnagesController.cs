@@ -266,7 +266,12 @@ namespace EquilibriumCore.Controllers
                     .Where(s => s.IDCaster == feuillePersonnage.ID).ToList();
                 feuillePersonnage.showHidable = false;
                 ViewBag.edit = false;
-               
+                var LWeapons = db.ObjetInventaire.Where((a) => a.CharacterID == id && a.TypeObjectIn == TypeObject.Arme).ToList();
+                ViewBag.InventoryWeapons = LWeapons.Select((idW) => new Tuple<Weapon, ObjetInventaire>(db.Weapon.Find(idW.ItemSourceID), idW)).ToList();
+                var LArmor = db.ObjetInventaire.Where((a) => a.CharacterID == id && a.TypeObjectIn == TypeObject.Armure).ToList();
+                ViewBag.InventoryArmors = LArmor.Select((idW) => new Tuple<Armors, ObjetInventaire>(db.Armors.Find(idW.ItemSourceID), idW)).ToList();
+                ViewBag.hideButton = true;
+
                 return View("Details", feuillePersonnage);
             }
             HttpContext.JsReportFeature().Enabled = false;

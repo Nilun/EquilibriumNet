@@ -1,71 +1,72 @@
-﻿@model IEnumerable<EquilibriumCore.Models.Skills>
+﻿@model EquilibriumCore.Models.Skills
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @{
-    List<string> sCats = Model.Select((a) => a.superCat).Distinct().ToList();
-
+    Dictionary<string, List<string>> category = ViewBag.catDictio;
+    List<EquilibriumCore.Models.Skills> skillsF = ViewBag.filtered;
 }
-@foreach (var sCat in sCats)
-{
+<link rel="stylesheet" href="~/css/site.css" />
+<div class="wrapper">
+    <nav id="sidebar">
+        <div class="sidebar-header">
+            <h3>Classes Skills</h3>
+        </div>
+        <ul>
+            <li><h3> <a asp-area="" asp-controller="Skills" asp-action="Index"> All  </a></h3></li>
 
-    List<string> Cats = Model.Where((a) => a.superCat == sCat).Select((a) => a.cat).Distinct().ToList();
-    @:<h3> @Html.Raw( sCat.Count() > 0 ? sCat.Remove(0, 1) : sCat ) </h3>
-    @foreach (var Cat in Cats)
-    {
-        List<Skills> skills = Model.Where((a) => a.superCat == sCat && a.cat == Cat)
-            .Select((a) => {
-                if (a.Tags.Contains("ELITE"))
-                {                    
-                        int x = a.Tags.IndexOf("ELITE");
-                        a.Tags = String.Concat(a.Tags.Remove(x, (a.Tags.Count() - 5) == x ? 5 : 6), " ELITE");
-                        return a;    
-                } else
+            @foreach (var sCat in category.Keys)
+            {
+                <li><h3> <a href="?sCat=@Html.Raw(sCat.Count() > 0 ? sCat.Remove(0, 1) : sCat)"> @Html.Raw(sCat.Count() > 0 ? sCat.Remove(0, 1) : sCat) </a></h3></li>
+
+                List<string> Cats = category[sCat];
+                @foreach (var Cat in Cats)
                 {
-                    return a;
+                    <li> <h4><a href="?sCat=@Html.Raw(sCat.Count() > 0 ? sCat.Remove(0, 1) : sCat)&cat=@Html.Raw(Cat.Count() > 0 ? Cat.Remove(0, 1) : Cat)"> &nbsp; @Html.Raw(Cat.Count() > 0 ? Cat.Remove(0, 1) : Cat)</a></h4> </li>
                 }
-            })
-            .OrderBy((a) => a.Tags)
-            .ThenByDescending((a) => a.levelMax)
-            .ToList();
-        @:<h4> @Html.Raw(Cat.Count() > 0 ? Cat.Remove(0, 1) : Cat)  </h4>
-
-    @:    <table class="table">
+            }
+        </ul>
+    </nav>
+    <div id="content">
+        <table class="table">
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.Name)
+                        Name
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Effect)
+                        Effect
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.levelMax)
-                    </th>                   
+                        Level Max
+                    </th>
+                    <th>
+                        Tags
+                    </th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in skills)
+                @foreach (Skills s in skillsF)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Effect)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.levelMax)
-                        </td>
-                    </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => s.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => s.Effect)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => s.levelMax)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => s.Tags)
+                    </td>
+                </tr>
+
                 }
             </tbody>
-
-
-            }
-
-            }
-
-        </table>
+            </table>
+        </div>
+</div>
